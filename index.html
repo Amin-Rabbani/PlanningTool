@@ -1,0 +1,4561 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>پلنینگ اسپرینت</title>
+    <style>
+      :root {
+        --shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
+        --focus: 0 0 0 3px rgba(59, 130, 246, 0.18);
+        --success: #16a34a;
+        --success-2: #15803d;
+        --warning: #d97706;
+        --warning-2: #b45309;
+        --danger: #dc2626;
+        --danger-2: #b91c1c;
+        --primary: #2563eb;
+        --primary-2: #1d4ed8;
+        --link: #2563eb;
+      }
+      html[data-theme="dark"] {
+        --bg1: #07111f;
+        --bg2: #0f172a;
+        --panel: rgba(15, 23, 42, 0.88);
+        --panel-2: rgba(17, 24, 39, 0.92);
+        --text: #e5e7eb;
+        --muted: #94a3b8;
+        --border: rgba(148, 163, 184, 0.16);
+        --input: #0b1220;
+        --input-border: #223046;
+        --tableHead: #0b1220;
+        --chip: #172033;
+        --checkbox-bg: #101827;
+        --checkbox-border: #334155;
+        --checkbox-active: #3b82f6;
+        --hero1: rgba(15, 23, 42, 0.92);
+        --hero2: rgba(17, 24, 39, 0.72);
+        --badge-bg: rgba(59, 130, 246, 0.12);
+        --badge-border: rgba(96, 165, 250, 0.22);
+        --badge-text: #dbeafe;
+        --hover-row: rgba(255, 255, 255, 0.02);
+        --summary-over: rgba(239, 68, 68, 0.12);
+        --summary-warn: rgba(245, 158, 11, 0.12);
+        --top-grad-1: rgba(59, 130, 246, 0.15);
+        --top-grad-2: rgba(34, 197, 94, 0.08);
+        --ghost-grad-1: #1e293b;
+        --ghost-grad-2: #0f172a;
+        --sticky-shadow: rgba(0, 0, 0, 0.25);
+        --inline-link-bg: rgba(59, 130, 246, 0.12);
+      }
+      html[data-theme="light"] {
+        --bg1: #f8fafc;
+        --bg2: #eef2ff;
+        --panel: rgba(255, 255, 255, 0.92);
+        --panel-2: rgba(255, 255, 255, 0.98);
+        --text: #0f172a;
+        --muted: #475569;
+        --border: rgba(15, 23, 42, 0.1);
+        --input: #fff;
+        --input-border: #cbd5e1;
+        --tableHead: #f1f5f9;
+        --chip: #f8fafc;
+        --checkbox-bg: #fff;
+        --checkbox-border: #94a3b8;
+        --checkbox-active: #2563eb;
+        --hero1: rgba(255, 255, 255, 0.96);
+        --hero2: rgba(248, 250, 252, 0.86);
+        --badge-bg: rgba(37, 99, 235, 0.08);
+        --badge-border: rgba(37, 99, 235, 0.14);
+        --badge-text: #1e3a8a;
+        --hover-row: rgba(15, 23, 42, 0.03);
+        --summary-over: rgba(239, 68, 68, 0.1);
+        --summary-warn: rgba(245, 158, 11, 0.1);
+        --top-grad-1: rgba(37, 99, 235, 0.08);
+        --top-grad-2: rgba(22, 163, 74, 0.05);
+        --ghost-grad-1: #fff;
+        --ghost-grad-2: #f8fafc;
+        --sticky-shadow: rgba(15, 23, 42, 0.08);
+        --inline-link-bg: rgba(37, 99, 235, 0.08);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        margin: 0;
+        font-family: Tahoma, Arial, sans-serif;
+        color: var(--text);
+        background:
+          radial-gradient(
+            circle at top right,
+            var(--top-grad-1),
+            transparent 25%
+          ),
+          radial-gradient(
+            circle at top left,
+            var(--top-grad-2),
+            transparent 22%
+          ),
+          linear-gradient(180deg, var(--bg1), var(--bg2));
+        transition:
+          background 0.2s ease,
+          color 0.2s ease;
+      }
+      .container {
+        max-width: 1650px;
+        margin: 24px auto 40px;
+        padding: 0 16px;
+      }
+      .hero {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 16px;
+        flex-wrap: wrap;
+        margin-bottom: 18px;
+        padding: 18px;
+        border: 1px solid var(--border);
+        border-radius: 24px;
+        background: linear-gradient(180deg, var(--hero1), var(--hero2));
+        box-shadow: var(--shadow);
+      }
+      .hero h1 {
+        margin: 0;
+        font-size: 26px;
+      }
+      .sub {
+        margin-top: 8px;
+        color: var(--muted);
+        font-size: 12px;
+      }
+      .toolbar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        align-items: center;
+        justify-content: flex-end;
+      }
+      .btn,
+      .theme-toggle {
+        border: none;
+        border-radius: 12px;
+        padding: 8px 12px;
+        font-size: 12px;
+        font-weight: 700;
+        cursor: pointer;
+        line-height: 1.2;
+      }
+      .btn {
+        color: #fff;
+        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
+      }
+      .btn:hover,
+      .theme-toggle:hover {
+        transform: translateY(-1px);
+      }
+      .btn:active,
+      .theme-toggle:active {
+        transform: translateY(0);
+      }
+      .btn-primary {
+        background: linear-gradient(180deg, var(--primary), var(--primary-2));
+      }
+      .btn-success {
+        background: linear-gradient(180deg, var(--success), var(--success-2));
+      }
+      .btn-warning {
+        background: linear-gradient(180deg, var(--warning), var(--warning-2));
+      }
+      .btn-danger {
+        background: linear-gradient(180deg, var(--danger), var(--danger-2));
+      }
+      .btn-ghost,
+      .theme-toggle {
+        background: linear-gradient(
+          180deg,
+          var(--ghost-grad-1),
+          var(--ghost-grad-2)
+        );
+        border: 1px solid var(--border);
+        color: var(--text);
+      }
+      .panel {
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        overflow: hidden;
+        margin-bottom: 16px;
+        background: var(--panel);
+        box-shadow: var(--shadow);
+      }
+      .panel-header {
+        padding: 14px 16px;
+        background: linear-gradient(180deg, var(--panel-2), var(--panel));
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 14px;
+        cursor: pointer;
+      }
+      .panel-title {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+      }
+      .panel-title h2 {
+        margin: 0;
+        font-size: 17px;
+      }
+      .muted {
+        color: var(--muted);
+        font-size: 12px;
+      }
+      .panel-right {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 6px 9px;
+        border-radius: 999px;
+        font-size: 11px;
+        color: var(--badge-text);
+        background: var(--badge-bg);
+        border: 1px solid var(--badge-border);
+      }
+      .chevron {
+        width: 32px;
+        height: 32px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--input);
+        border: 1px solid var(--border);
+        color: var(--text);
+        font-size: 16px;
+      }
+      .panel.collapsed .panel-body {
+        display: none;
+      }
+      .panel-body {
+        padding: 14px 14px 16px;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 12px;
+      }
+      .field {
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+      }
+      .field label {
+        font-size: 12px;
+        color: var(--muted);
+      }
+      input,
+      select,
+      textarea {
+        width: 100%;
+        background: var(--input);
+        color: var(--text);
+        border: 1px solid var(--input-border);
+        border-radius: 12px;
+        padding: 9px 10px;
+        font-size: 13px;
+        outline: none;
+      }
+      input:focus,
+      select:focus,
+      textarea:focus {
+        border-color: #3b82f6;
+        box-shadow: var(--focus);
+      }
+      textarea {
+        resize: vertical;
+      }
+      .form-row {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        align-items: flex-end;
+        margin-bottom: 14px;
+      }
+      .roles {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        min-width: 260px;
+      }
+      .check-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--chip);
+        border: 1px solid var(--border);
+        color: var(--text);
+        padding: 7px 11px;
+        border-radius: 999px;
+        font-size: 12px;
+        cursor: pointer;
+      }
+      .check-pill input {
+        display: none;
+      }
+      .check-pill .box {
+        width: 17px;
+        height: 17px;
+        border-radius: 6px;
+        border: 1px solid var(--checkbox-border);
+        background: var(--checkbox-bg);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .check-pill .box::after {
+        content: "✓";
+        font-size: 11px;
+        line-height: 1;
+        color: #fff;
+        opacity: 0;
+      }
+      .check-pill input:checked + .box {
+        background: var(--checkbox-active);
+        border-color: var(--checkbox-active);
+      }
+      .check-pill input:checked + .box::after {
+        opacity: 1;
+      }
+      .actions {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-top: 14px;
+      }
+      .table-wrap {
+        width: 100%;
+        overflow: auto;
+        border: 1px solid var(--border);
+        border-radius: 16px;
+      }
+      table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        min-width: 1660px;
+      }
+      th,
+      td {
+        padding: 10px 9px;
+        border-bottom: 1px solid var(--border);
+        text-align: right;
+        vertical-align: middle;
+        white-space: nowrap;
+        background: transparent;
+      }
+      th {
+        position: sticky;
+        top: 0;
+        z-index: 2;
+        background: var(--tableHead);
+        color: var(--text);
+        font-size: 12px;
+      }
+      td {
+        font-size: 12px;
+      }
+      tr:hover td {
+        background: var(--hover-row);
+      }
+      .summary-table tr.over td {
+        background: var(--summary-over);
+      }
+      .summary-table tr.warn td {
+        background: var(--summary-warn);
+      }
+      .ok {
+        color: #16a34a;
+        font-weight: 700;
+      }
+      .warning-text {
+        color: #d97706;
+        font-weight: 700;
+      }
+      .danger-text {
+        color: #dc2626;
+        font-weight: 700;
+      }
+      .task-main {
+        width: 360px;
+        min-width: 360px;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .task-input-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .task-inline-link {
+        flex-shrink: 0;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 78px;
+        padding: 7px 8px;
+        font-size: 11px;
+        border-radius: 10px;
+        background: var(--inline-link-bg);
+        border: 1px solid var(--border);
+        text-decoration: none;
+        color: var(--link);
+        font-weight: 700;
+      }
+      .task-inline-link:hover {
+        text-decoration: underline;
+      }
+      .jira-fetch-status {
+        font-size: 11px;
+        color: var(--muted);
+        white-space: normal;
+        max-width: 340px;
+        min-height: 16px;
+        line-height: 1.4;
+      }
+      .jira-fetch-status.success {
+        color: var(--success);
+      }
+      .jira-fetch-status.error {
+        color: var(--danger);
+      }
+      .jira-fetch-status.loading {
+        color: var(--warning);
+      }
+      .file-input {
+        display: none;
+      }
+      .footer-note {
+        margin-top: 6px;
+        font-size: 12px;
+        color: var(--muted);
+      }
+      .num-wrap {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        min-width: 120px;
+      }
+      .num-btn {
+        width: 30px;
+        height: 30px;
+        border: none;
+        border-radius: 9px;
+        background: linear-gradient(
+          180deg,
+          var(--ghost-grad-1),
+          var(--ghost-grad-2)
+        );
+        color: var(--text);
+        border: 1px solid var(--border);
+        cursor: pointer;
+        font-size: 16px;
+        line-height: 1;
+      }
+      .num-input {
+        min-width: 70px;
+        text-align: center;
+      }
+      .task-select {
+        min-width: 120px;
+        width: 120px;
+        max-width: 120px;
+      }
+      .task-hours {
+        width: 72px;
+        min-width: 72px;
+        text-align: center;
+      }
+      /* DOD select */
+      .dod-select {
+        min-width: 100px;
+        width: 100px;
+        max-width: 110px;
+        font-size: 11px;
+        padding: 6px 8px;
+        border-radius: 10px;
+        font-weight: 700;
+        text-align: center;
+      }
+      .dod-analyzed {
+        color: #7c3aed;
+        border-color: #7c3aed;
+        background: rgba(124, 58, 237, 0.08);
+      }
+      .dod-implemented {
+        color: var(--warning);
+        border-color: var(--warning);
+        background: rgba(217, 119, 6, 0.08);
+      }
+      .dod-merged {
+        color: var(--success);
+        border-color: var(--success);
+        background: rgba(22, 163, 74, 0.08);
+      }
+      .dod-empty {
+        color: var(--muted);
+      }
+      .sticky-task-col {
+        position: sticky;
+        right: 0;
+        z-index: 3;
+        background: var(--panel);
+        box-shadow: -8px 0 16px -10px var(--sticky-shadow);
+      }
+      th.sticky-task-col {
+        z-index: 4;
+        background: var(--tableHead);
+      }
+      .table-wrap table tr:hover .sticky-task-col {
+        background: var(--panel);
+      }
+      .general-task-row td {
+        background: rgba(148, 163, 184, 0.06);
+      }
+      .report-table {
+        min-width: 820px;
+      }
+      .report-jira-link {
+        display: inline-flex;
+        align-items: center;
+        padding: 3px 8px;
+        border-radius: 8px;
+        font-size: 11px;
+        font-weight: 700;
+        background: var(--inline-link-bg);
+        border: 1px solid var(--border);
+        text-decoration: none;
+        color: var(--link);
+      }
+      .report-jira-link:hover {
+        text-decoration: underline;
+      }
+      .jira-config-section {
+        border-top: 1px solid var(--border);
+        margin-top: 16px;
+        padding-top: 16px;
+      }
+      .jira-config-title {
+        margin: 0 0 12px;
+        font-size: 14px;
+        color: var(--muted);
+      }
+      .jira-status-bar {
+        margin-top: 10px;
+        padding: 8px 12px;
+        border-radius: 10px;
+        font-size: 12px;
+        border: 1px solid var(--border);
+        background: var(--input);
+        min-height: 36px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .release-badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 3px 8px;
+        border-radius: 6px;
+        font-size: 11px;
+        font-weight: 700;
+        background: var(--badge-bg);
+        border: 1px solid var(--badge-border);
+        color: var(--badge-text);
+      }
+      .token-note {
+        font-size: 11px;
+        color: var(--muted);
+        margin-top: 6px;
+        padding: 6px 10px;
+        border-radius: 8px;
+        background: var(--badge-bg);
+        border: 1px solid var(--badge-border);
+      }
+      /* AI analysis panel */
+      .ai-hint {
+        font-size: 11px;
+        color: var(--muted);
+        direction: ltr;
+        text-align: left;
+        word-break: break-all;
+      }
+      .ai-block {
+        margin-top: 12px;
+        padding: 12px 14px;
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        background: var(--chip);
+        font-size: 12px;
+        line-height: 1.9;
+      }
+      .ai-block h4 {
+        margin: 0 0 6px;
+        font-size: 13px;
+      }
+      .ai-block ul {
+        margin: 4px 0;
+        padding-inline-start: 18px;
+      }
+      .ai-metrics {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 12px;
+      }
+      .ai-metric {
+        flex: 1 1 130px;
+        padding: 8px 10px;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        background: var(--chip);
+      }
+      .ai-metric span {
+        display: block;
+        font-size: 11px;
+        color: var(--muted);
+      }
+      .ai-metric strong {
+        font-size: 15px;
+      }
+      .ai-table {
+        min-width: 1250px;
+      }
+      .ai-table td {
+        vertical-align: top;
+      }
+      .ai-reason {
+        font-size: 11px;
+        color: var(--muted);
+        max-width: 320px;
+        white-space: normal;
+        line-height: 1.7;
+      }
+      .ai-tag {
+        display: inline-flex;
+        align-items: center;
+        margin: 1px 2px 1px 0;
+        padding: 2px 7px;
+        border-radius: 999px;
+        font-size: 10px;
+        font-weight: 700;
+        background: var(--badge-bg);
+        border: 1px solid var(--badge-border);
+        color: var(--badge-text);
+      }
+      .ai-tag.include {
+        background: rgba(22, 163, 74, 0.14);
+        border-color: rgba(22, 163, 74, 0.3);
+        color: var(--success-2);
+      }
+      .ai-tag.defer {
+        background: rgba(148, 163, 184, 0.16);
+        border-color: rgba(148, 163, 184, 0.3);
+        color: var(--muted);
+      }
+      .ai-tag.needs-info {
+        background: rgba(217, 119, 6, 0.14);
+        border-color: rgba(217, 119, 6, 0.3);
+        color: var(--warning-2);
+      }
+      .ai-tag.risk {
+        background: rgba(220, 38, 38, 0.12);
+        border-color: rgba(220, 38, 38, 0.28);
+        color: var(--danger-2);
+      }
+      .ai-score {
+        font-weight: 700;
+      }
+      .ai-row-planned td {
+        background: rgba(148, 163, 184, 0.08);
+      }
+      /* DOD badge در گزارش */
+      .dod-badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 2px 8px;
+        border-radius: 6px;
+        font-size: 11px;
+        font-weight: 700;
+      }
+      .dod-badge.Analyzed {
+        color: #7c3aed;
+        background: rgba(124, 58, 237, 0.1);
+        border: 1px solid rgba(124, 58, 237, 0.25);
+      }
+      .dod-badge.Implemented {
+        color: var(--warning);
+        background: rgba(217, 119, 6, 0.1);
+        border: 1px solid rgba(217, 119, 6, 0.25);
+      }
+      .dod-badge.Merged {
+        color: var(--success);
+        background: rgba(22, 163, 74, 0.1);
+        border: 1px solid rgba(22, 163, 74, 0.25);
+      }
+      .subtask-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 2px 8px;
+        border-radius: 6px;
+        font-size: 11px;
+        font-weight: 700;
+        text-decoration: none;
+      }
+      .subtask-badge.created {
+        color: var(--success);
+        background: rgba(22, 163, 74, 0.1);
+        border: 1px solid rgba(22, 163, 74, 0.25);
+      }
+      .subtask-badge.created:hover {
+        text-decoration: underline;
+      }
+      .subtask-badge.pending {
+        color: var(--muted);
+        background: var(--badge-bg);
+        border: 1px solid var(--badge-border);
+      }
+      @media (max-width: 900px) {
+        .hero h1 {
+          font-size: 22px;
+        }
+        .btn,
+        .theme-toggle {
+          padding: 8px 10px;
+          font-size: 11px;
+        }
+        th,
+        td {
+          font-size: 11px;
+          padding: 8px 7px;
+        }
+        .task-main {
+          width: 300px;
+          min-width: 300px;
+        }
+        .task-select {
+          min-width: 110px;
+          width: 110px;
+          max-width: 110px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="hero">
+        <div>
+          <h1>پلنینگ اسپرینت</h1>
+          <div class="sub">
+            آفلاین • اتصال به جیرا • دریافت Estimate خودکار • DOD
+          </div>
+        </div>
+        <div class="toolbar">
+          <button class="theme-toggle" onclick="toggleTheme()">
+            🌙 / ☀️ تم
+          </button>
+          <button class="btn btn-ghost" onclick="seedDemo()">داده نمونه</button>
+          <button class="btn btn-primary" onclick="exportCSVBundle()">
+            خروجی CSV
+          </button>
+          <button
+            class="btn btn-primary"
+            onclick="document.getElementById('csvInput').click()"
+          >
+            ورود CSV
+          </button>
+          <input
+            class="file-input"
+            type="file"
+            id="csvInput"
+            accept=".csv"
+            multiple
+            onchange="importCSVFiles(event)"
+          />
+          <button class="btn btn-success" onclick="exportData()">
+            خروجی JSON
+          </button>
+          <button
+            class="btn btn-success"
+            onclick="document.getElementById('jsonInput').click()"
+          >
+            ورود JSON
+          </button>
+          <input
+            class="file-input"
+            type="file"
+            id="jsonInput"
+            accept=".json,application/json"
+            onchange="importData(event)"
+          />
+          <button class="btn btn-danger" onclick="resetAll()">
+            پاک کردن همه
+          </button>
+        </div>
+      </div>
+
+      <!-- PLAN -->
+      <div class="panel" id="panel-plan">
+        <div class="panel-header" onclick="togglePanel('panel-plan')">
+          <div class="panel-title">
+            <h2>تنظیمات پلن</h2>
+            <div class="muted">تاریخ اسپرینت، روز کاری، ساعت روزانه</div>
+          </div>
+          <div class="panel-right">
+            <span class="badge" id="planSummaryBadge">بدون تاریخ</span>
+            <div class="chevron" id="panel-plan-chevron">▾</div>
+          </div>
+        </div>
+        <div class="panel-body">
+          <div class="grid">
+            <div class="field">
+              <label for="sprintName">نام اسپرینت</label
+              ><input
+                id="sprintName"
+                placeholder="مثلاً Sprint 42"
+                onchange="updatePlanField('sprintName', this.value)"
+              />
+            </div>
+            <div class="field">
+              <label>تاریخ شروع (شمسی)</label
+              ><input
+                id="planStart"
+                placeholder="1403/12/01"
+                onchange="updatePlanField('startDate', this.value)"
+              />
+            </div>
+            <div class="field">
+              <label>تاریخ پایان (شمسی)</label
+              ><input
+                id="planEnd"
+                placeholder="1403/12/14"
+                onchange="updatePlanField('endDate', this.value)"
+              />
+            </div>
+            <div class="field">
+              <label>تعداد روز پلن</label>
+              <div class="num-wrap">
+                <button class="num-btn" onclick="stepPlan('planDays', -1)">
+                  −</button
+                ><input
+                  class="num-input"
+                  id="planDays"
+                  type="number"
+                  min="0"
+                  step="1"
+                  onchange="updatePlanField('planDays', this.value)"
+                /><button class="num-btn" onclick="stepPlan('planDays', 1)">
+                  +
+                </button>
+              </div>
+            </div>
+            <div class="field">
+              <label>تعداد روز کاری</label>
+              <div class="num-wrap">
+                <button class="num-btn" onclick="stepPlan('workingDays', -1)">
+                  −</button
+                ><input
+                  class="num-input"
+                  id="workingDays"
+                  type="number"
+                  min="0"
+                  step="1"
+                  onchange="updatePlanField('workingDays', this.value)"
+                /><button class="num-btn" onclick="stepPlan('workingDays', 1)">
+                  +
+                </button>
+              </div>
+            </div>
+            <div class="field">
+              <label>ساعت روزانه</label>
+              <div class="num-wrap">
+                <button class="num-btn" onclick="stepPlan('hoursPerDay', -0.5)">
+                  −</button
+                ><input
+                  class="num-input"
+                  id="hoursPerDay"
+                  type="number"
+                  min="0"
+                  step="0.5"
+                  onchange="updatePlanField('hoursPerDay', this.value)"
+                /><button
+                  class="num-btn"
+                  onclick="stepPlan('hoursPerDay', 0.5)"
+                >
+                  +
+                </button>
+              </div>
+            </div>
+            <div class="field">
+              <label>ظرفیت پیش‌فرض</label
+              ><input id="defaultCapacity" type="number" readonly />
+            </div>
+          </div>
+          <div class="actions">
+            <button class="btn btn-ghost" onclick="calculatePlanDays()">
+              محاسبه از تاریخ‌ها
+            </button>
+            <button
+              class="btn btn-warning"
+              onclick="applyDefaultCapacityToEmptyMembers()"
+            >
+              اعمال به اعضای بدون ظرفیت
+            </button>
+            <button
+              class="btn btn-primary"
+              onclick="applyDefaultCapacityToAllMembers()"
+            >
+              اعمال به همه اعضا
+            </button>
+          </div>
+          <div class="footer-note">پنجشنبه و جمعه تعطیل محاسبه می‌شوند.</div>
+          <div class="jira-config-section">
+            <div class="jira-config-title">
+              🔌 اتصال به جیرا — دریافت Estimate خودکار
+            </div>
+            <div class="grid">
+              <div class="field">
+                <label>آدرس جیرا</label
+                ><input
+                  id="jiraBaseUrl"
+                  placeholder="https://mars-jira.systemgroup.net"
+                  onchange="updateJiraConfig('baseUrl', this.value)"
+                />
+              </div>
+              <div class="field" style="min-width: 240px">
+                <label>Personal Access Token</label
+                ><input
+                  id="jiraToken"
+                  type="password"
+                  placeholder="توکن شخصی جیرا را وارد کنید"
+                  onchange="updateJiraConfig('token', this.value)"
+                />
+              </div>
+              <div class="field" style="max-width: 160px">
+                <label>ریلیز فعال</label
+                ><select
+                  id="jiraRelease"
+                  onchange="updateJiraConfig('release', this.value)"
+                >
+                  <option value="R6">R6</option>
+                  <option value="R7">R7</option>
+                  <option value="R5">R5</option>
+                  <option value="R4">R4</option>
+                </select>
+              </div>
+            </div>
+            <div class="token-note">
+              🔒 Access Token فقط در حافظه مرورگر نگه‌داری می‌شود و در خروجی
+              CSV/JSON ذخیره نمی‌شود.<br />
+              ⚠️ به‌خاطر CORS مرورگر، صفحه را با
+              <code>python3 jira_proxy.py</code> باز کنید (نه مستقیم با
+              file://).
+            </div>
+            <div class="actions">
+              <button class="btn btn-ghost" onclick="testJiraConnection()">
+                🔌 تست اتصال
+              </button>
+              <button class="btn btn-ghost" onclick="fetchAllTaskEstimates()">
+                ⬇️ دریافت Estimate همه تسک‌ها
+              </button>
+            </div>
+            <div class="jira-status-bar" id="jiraGlobalStatus">
+              <span style="color: var(--muted)">وضعیت اتصال نامشخص</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AI ANALYSIS -->
+      <div class="panel" id="panel-ai">
+        <div class="panel-header" onclick="togglePanel('panel-ai')">
+          <div class="panel-title">
+            <h2>🤖 تحلیل هوش مصنوعی</h2>
+            <div class="muted">
+              استخراج استوری‌های ریلیز از جیرا و پیشنهاد کاندیدهای پلنینگ
+            </div>
+          </div>
+          <div class="panel-right">
+            <span class="badge" id="aiSummaryBadge">تحلیلی انجام نشده</span>
+            <div class="chevron" id="panel-ai-chevron">▾</div>
+          </div>
+        </div>
+        <div class="panel-body">
+          <div class="grid">
+            <div class="field" style="min-width: 260px">
+              <label>OpenRouter Access Token</label
+              ><input
+                id="aiToken"
+                type="password"
+                dir="ltr"
+                placeholder="sk-or-v1-..."
+                onchange="updateAiConfig('token', this.value)"
+              />
+            </div>
+            <div class="field" style="min-width: 260px">
+              <label>آدرس سرویس هوش مصنوعی</label
+              ><input
+                id="aiBaseUrl"
+                dir="ltr"
+                placeholder="http://api.hooshyar.systemgroup.net/open-router-reverse/v1"
+                onchange="updateAiConfig('baseUrl', this.value)"
+              />
+            </div>
+            <div class="field" style="min-width: 220px">
+              <label>مدل هوش مصنوعی</label
+              ><input
+                id="aiModel"
+                list="aiModelList"
+                dir="ltr"
+                placeholder="openai/gpt-4o-mini"
+                onchange="updateAiConfig('model', this.value)"
+              />
+              <datalist id="aiModelList"></datalist>
+            </div>
+            <div class="field" style="max-width: 150px">
+              <label>حداکثر استوری</label>
+              <div class="num-wrap">
+                <button class="num-btn" onclick="stepAiMaxIssues(-10)">−</button
+                ><input
+                  class="num-input"
+                  id="aiMaxIssues"
+                  type="number"
+                  min="5"
+                  max="200"
+                  step="5"
+                  onchange="updateAiConfig('maxIssues', this.value)"
+                /><button class="num-btn" onclick="stepAiMaxIssues(10)">
+                  +
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="field" style="margin-top: 12px">
+            <label>آدرس صفحه استوری‌های ریلیز در جیرا</label
+            ><input
+              id="aiReleaseUrl"
+              dir="ltr"
+              placeholder="لینک Issues/Filter/Version/Board/eazyBI یا JQL خام مثل project = PRC AND fixVersion = R6"
+              onchange="updateAiConfig('releaseUrl', this.value)"
+            />
+            <div class="ai-hint" id="aiJqlPreview">JQL: —</div>
+          </div>
+          <div class="field" style="margin-top: 12px">
+            <label>یادداشت برای تحلیل (اختیاری)</label
+            ><input
+              id="aiNotes"
+              placeholder="مثلاً اولویت این اسپرینت روی بدهی فنی است"
+              onchange="updateAiConfig('notes', this.value)"
+            />
+          </div>
+          <div class="roles" style="margin-top: 12px">
+            <label class="check-pill"
+              ><input
+                type="checkbox"
+                id="aiOnlyStories"
+                onchange="updateAiConfig('onlyStories', this.checked)"
+              /><span class="box"></span>فقط issueType=Story</label
+            >
+            <label class="check-pill"
+              ><input
+                type="checkbox"
+                id="aiExcludeDone"
+                onchange="updateAiConfig('excludeDone', this.checked)"
+              /><span class="box"></span>حذف آیتم‌های Done</label
+            >
+          </div>
+          <div class="actions">
+            <button class="btn btn-ghost" onclick="loadOpenRouterModels()">
+              🧠 بارگذاری مدل‌ها
+            </button>
+            <button class="btn btn-primary" onclick="fetchReleaseStories()">
+              ⬇️ دریافت استوری‌های ریلیز
+            </button>
+            <button class="btn btn-success" onclick="runAiAnalysis()">
+              ✨ تحلیل کاندیدها
+            </button>
+            <button
+              class="btn btn-warning"
+              onclick="addSelectedCandidatesToTasks()"
+            >
+              ➕ افزودن انتخاب‌شده‌ها به تسک‌ها
+            </button>
+          </div>
+          <div class="token-note">
+            🔒 توکن OpenRouter و توکن جیرا فقط در حافظه مرورگر می‌مانند و در
+            خروجی CSV/JSON ذخیره نمی‌شوند.<br />
+            🔗 استوری‌ها با همان Personal Access Token بخش «تنظیمات پلن» از جیرا
+            خوانده می‌شوند؛ ابتدا آن را وارد کنید.<br />
+            🌐 اگر دسترسی مستقیم به openrouter.ai بسته است (خطای ۴۰۳)، از آدرس
+            سرویس داخلی سازمان استفاده کنید:
+            <code dir="ltr"
+              >http://api.hooshyar.systemgroup.net/open-router-reverse/v1</code
+            >
+          </div>
+          <div class="jira-status-bar" id="aiStatus">
+            <span style="color: var(--muted)">آماده برای دریافت استوری‌ها</span>
+          </div>
+          <div class="ai-metrics" id="aiMetrics"></div>
+          <div id="aiNarrative"></div>
+          <div
+            class="table-wrap"
+            id="aiTableWrap"
+            style="margin-top: 12px; display: none"
+          >
+            <table class="ai-table">
+              <thead>
+                <tr>
+                  <th style="width: 42px">
+                    <input
+                      type="checkbox"
+                      id="aiSelectAll"
+                      onchange="toggleAllCandidates(this.checked)"
+                    />
+                  </th>
+                  <th style="width: 46px">#</th>
+                  <th>استوری</th>
+                  <th>وضعیت</th>
+                  <th>اولویت</th>
+                  <th>تحلیل</th>
+                  <th>بک‌اند</th>
+                  <th>فرانت‌اند</th>
+                  <th>تست</th>
+                  <th>جمع</th>
+                  <th>زمان‌ها</th>
+                  <th>امتیاز</th>
+                  <th>تصمیم</th>
+                  <th>دلیل / ریسک</th>
+                </tr>
+              </thead>
+              <tbody id="aiCandidatesTbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- TEAM -->
+      <div class="panel" id="panel-team">
+        <div class="panel-header" onclick="togglePanel('panel-team')">
+          <div class="panel-title">
+            <h2>اعضای تیم</h2>
+            <div class="muted">نقش، یوزرنیم جیرا و مرخصی هر فرد</div>
+          </div>
+          <div class="panel-right">
+            <span class="badge">ذخیره خودکار</span>
+            <div class="chevron" id="panel-team-chevron">▾</div>
+          </div>
+        </div>
+        <div class="panel-body">
+          <div class="form-row">
+            <div class="field" style="min-width: 180px; flex: 1">
+              <label>نام فرد</label
+              ><input id="memberName" placeholder="مثلا محمد امین" />
+            </div>
+            <div class="field" style="min-width: 160px">
+              <label>یوزرنیم جیرا</label
+              ><input id="memberUsername" placeholder="مثلا m.amin" dir="ltr" />
+            </div>
+            <div class="field" style="min-width: 130px">
+              <label>مرخصی (روز)</label>
+              <div class="num-wrap">
+                <button
+                  class="num-btn"
+                  onclick="stepInput('memberLeaveDays', -1, 0)"
+                >
+                  −</button
+                ><input
+                  class="num-input"
+                  id="memberLeaveDays"
+                  type="number"
+                  min="0"
+                  step="1"
+                  placeholder="0"
+                /><button
+                  class="num-btn"
+                  onclick="stepInput('memberLeaveDays', 1, 0)"
+                >
+                  +
+                </button>
+              </div>
+            </div>
+            <div class="field" style="min-width: 180px">
+              <label>ظرفیت (ساعت)</label>
+              <div class="num-wrap">
+                <button
+                  class="num-btn"
+                  onclick="stepInput('memberCapacity', -0.5, 0)"
+                >
+                  −</button
+                ><input
+                  class="num-input"
+                  id="memberCapacity"
+                  type="number"
+                  min="0"
+                  step="0.5"
+                  placeholder="پیش‌فرض از پلن"
+                /><button
+                  class="num-btn"
+                  onclick="stepInput('memberCapacity', 0.5, 0)"
+                >
+                  +
+                </button>
+              </div>
+            </div>
+            <div class="field" style="min-width: 320px; flex: 2">
+              <label>نقش‌ها</label>
+              <div class="roles">
+                <label class="check-pill"
+                  ><input
+                    type="checkbox"
+                    name="newMemberRole"
+                    value="backend"
+                  /><span class="box"></span>بک‌اند</label
+                >
+                <label class="check-pill"
+                  ><input
+                    type="checkbox"
+                    name="newMemberRole"
+                    value="frontend"
+                  /><span class="box"></span>فرانت‌اند</label
+                >
+                <label class="check-pill"
+                  ><input
+                    type="checkbox"
+                    name="newMemberRole"
+                    value="tester"
+                  /><span class="box"></span>تستر</label
+                >
+                <label class="check-pill"
+                  ><input
+                    type="checkbox"
+                    name="newMemberRole"
+                    value="analyst"
+                  /><span class="box"></span>تحلیلگر</label
+                >
+              </div>
+            </div>
+            <button class="btn btn-primary" onclick="addMember()">
+              افزودن عضو
+            </button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>نام</th>
+                  <th>یوزرنیم جیرا</th>
+                  <th>نقش‌ها</th>
+                  <th>مرخصی (روز)</th>
+                  <th>ظرفیت</th>
+                  <th>حذف</th>
+                </tr>
+              </thead>
+              <tbody id="membersTbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- TASKS -->
+      <div class="panel" id="panel-tasks">
+        <div class="panel-header" onclick="togglePanel('panel-tasks')">
+          <div class="panel-title">
+            <h2>تسک‌ها</h2>
+            <div class="muted">
+              لینک جیرا را paste کنید تا Estimate خودکار پر شود
+            </div>
+          </div>
+          <div class="panel-right">
+            <button
+              class="btn btn-warning"
+              onclick="
+                event.stopPropagation();
+                addGeneralTask();
+              "
+            >
+              افزودن تسک عمومی
+            </button>
+            <button
+              class="btn btn-primary"
+              onclick="
+                event.stopPropagation();
+                addTask();
+              "
+            >
+              افزودن تسک معمولی
+            </button>
+            <div class="chevron" id="panel-tasks-chevron">▾</div>
+          </div>
+        </div>
+        <div class="panel-body">
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th class="sticky-task-col">عنوان / لینک جیرا</th>
+                  <th>نوع</th>
+                  <th>DOD</th>
+                  <th>بک‌اند</th>
+                  <th>زمان بک‌اند</th>
+                  <th>فرانت‌اند</th>
+                  <th>زمان فرانت‌اند</th>
+                  <th>تستر</th>
+                  <th>زمان تست</th>
+                  <th>تحلیلگر</th>
+                  <th>زمان تحلیل</th>
+                  <th>زمان عمومی</th>
+                  <th>جمع</th>
+                  <th>حذف</th>
+                </tr>
+              </thead>
+              <tbody id="tasksTbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUMMARY -->
+      <div class="panel" id="panel-summary">
+        <div class="panel-header" onclick="togglePanel('panel-summary')">
+          <div class="panel-title">
+            <h2>خلاصه ظرفیت</h2>
+            <div class="muted">تخصیص و باقی‌مانده هر فرد</div>
+          </div>
+          <div class="panel-right">
+            <div class="chevron" id="panel-summary-chevron">▾</div>
+          </div>
+        </div>
+        <div class="panel-body">
+          <div class="table-wrap">
+            <table class="summary-table">
+              <thead>
+                <tr>
+                  <th>نام</th>
+                  <th>نقش‌ها</th>
+                  <th>مرخصی</th>
+                  <th>ظرفیت</th>
+                  <th>تخصیص یافته</th>
+                  <th>باقی‌مانده</th>
+                  <th>وضعیت</th>
+                </tr>
+              </thead>
+              <tbody id="summaryTbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- REPORT -->
+      <div class="panel" id="panel-report">
+        <div class="panel-header" onclick="togglePanel('panel-report')">
+          <div class="panel-title">
+            <h2>گزارش‌گیری فردی</h2>
+            <div class="muted">لیست تسک‌ها و زمان‌های هر فرد</div>
+          </div>
+          <div class="panel-right">
+            <div class="chevron" id="panel-report-chevron">▾</div>
+          </div>
+        </div>
+        <div class="panel-body">
+          <div class="form-row">
+            <div class="field" style="min-width: 260px; max-width: 320px">
+              <label>انتخاب فرد</label
+              ><select id="reportMemberSelect" onchange="renderMemberReport()">
+                <option value="">— انتخاب فرد —</option>
+              </select>
+            </div>
+            <div
+              class="actions"
+              style="margin-inline-start: auto; align-items: flex-end"
+            >
+              <button
+                class="btn btn-primary"
+                onclick="createSubtasksForSelectedMember()"
+              >
+                ایجاد تسک ها
+              </button>
+              <button
+                class="btn btn-ghost"
+                onclick="resetSubtaskFlagsForSelectedMember()"
+                title="پاک کردن نشانه «ساخته شده» برای این فرد در اسپرینت جاری"
+              >
+                بازنشانی وضعیت ساخت
+              </button>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table class="report-table">
+              <thead>
+                <tr>
+                  <th>عنوان تسک</th>
+                  <th>لینک جیرا</th>
+                  <th>DOD</th>
+                  <th>نوع</th>
+                  <th>نقش</th>
+                  <th>زمان (h)</th>
+                  <th>ساب‌تسک</th>
+                </tr>
+              </thead>
+              <tbody id="reportTbody"></tbody>
+            </table>
+          </div>
+          <div class="footer-note" id="reportSummaryText">
+            هنوز فردی انتخاب نشده است.
+          </div>
+          <div class="jira-status-bar" id="reportSubtaskStatus">
+            <span style="color: var(--muted)"
+              >برای ساخت ساب‌تسک، فرد را انتخاب کنید.</span
+            >
+          </div>
+        </div>
+      </div>
+
+      <!-- BACKUP -->
+      <div class="panel collapsed" id="panel-backup">
+        <div class="panel-header" onclick="togglePanel('panel-backup')">
+          <div class="panel-title">
+            <h2>پشتیبان‌گیری</h2>
+            <div class="muted">JSON داده‌ها (بدون Token)</div>
+          </div>
+          <div class="panel-right">
+            <div class="chevron" id="panel-backup-chevron">▸</div>
+          </div>
+        </div>
+        <div class="panel-body">
+          <textarea id="jsonBox" rows="12"></textarea>
+        </div>
+      </div>
+    </div>
+    <script>
+      const STORAGE_KEY = "sprint_planning_v2";
+      const roleLabels = {
+        backend: "بک‌اند",
+        frontend: "فرانت‌اند",
+        tester: "تستر",
+        analyst: "تحلیلگر",
+      };
+      const DOD_OPTIONS = ["", "Analyzed", "Implemented", "Merged"];
+      const DOD_LABELS = {
+        "": "—",
+        Analyzed: "Analyzed",
+        Implemented: "Implemented",
+        Merged: "Merged",
+      };
+      const JIRA_FIELDS = {
+        R6: {
+          analyst: "customfield_11007",
+          backend: "customfield_11009",
+          frontend: "customfield_11011",
+          tester: "customfield_11012",
+          total: "customfield_11015",
+        },
+        R7: {
+          analyst: "customfield_11008",
+          backend: "customfield_11010",
+          frontend: "customfield_11014",
+          tester: "customfield_11013",
+          total: "customfield_11016",
+        },
+        R5: {
+          analyst: "customfield_10900",
+          backend: "customfield_10901",
+          frontend: "customfield_10903",
+          tester: "customfield_10904",
+          total: "customfield_10902",
+        },
+        R4: {
+          analyst: "customfield_10704",
+          backend: "customfield_10705",
+          frontend: "customfield_10707",
+          tester: "customfield_10708",
+          total: "customfield_10706",
+        },
+      };
+
+      const OPENROUTER_BASE = "https://openrouter.ai";
+      const DEFAULT_AI_BASE_URL =
+        "http://api.hooshyar.systemgroup.net/open-router-reverse/v1";
+      const DEFAULT_AI_MODEL = "openai/gpt-4o-mini";
+      const AI_MODEL_SUGGESTIONS = [
+        "openai/gpt-4o-mini",
+        "openai/gpt-4.1-mini",
+        "anthropic/claude-3.7-sonnet",
+        "google/gemini-2.0-flash-001",
+        "deepseek/deepseek-chat",
+        "meta-llama/llama-3.3-70b-instruct",
+      ];
+
+      let _jiraToken = "";
+      let _aiToken = "";
+      let _aiCandidates = [];
+      let _aiResult = null;
+      let state = loadState();
+
+      function defaultState() {
+        return {
+          theme: "light",
+          plan: {
+            sprintName: "",
+            startDate: "",
+            endDate: "",
+            planDays: 0,
+            workingDays: 0,
+            hoursPerDay: 8,
+          },
+          jiraConfig: {
+            baseUrl: "https://mars-jira.systemgroup.net",
+            release: "R6",
+          },
+          aiConfig: {
+            baseUrl: DEFAULT_AI_BASE_URL,
+            model: DEFAULT_AI_MODEL,
+            releaseUrl: "",
+            maxIssues: 60,
+            notes: "",
+            onlyStories: true,
+            excludeDone: true,
+          },
+          members: [],
+          tasks: [],
+          panels: {
+            "panel-ai": false,
+            "panel-plan": false,
+            "panel-team": false,
+            "panel-tasks": false,
+            "panel-summary": false,
+            "panel-report": false,
+            "panel-backup": true,
+          },
+        };
+      }
+      function memberDefaultCapacity(leaveDays) {
+        return Math.max(
+          0,
+          (Number(state.plan.workingDays || 0) - Number(leaveDays || 0)) *
+            Number(state.plan.hoursPerDay || 0),
+        );
+      }
+      function normalizeTaskRole(v) {
+        return {
+          memberId: v && v.memberId ? v.memberId : "",
+          hours: Number((v && v.hours) || 0),
+        };
+      }
+      function normalizeSubtaskRefs(v) {
+        const out = {};
+        if (!v || typeof v !== "object") return out;
+        Object.entries(v).forEach(([memberId, list]) => {
+          if (!memberId || !Array.isArray(list)) return;
+          const clean = list
+            .filter((r) => r && r.key)
+            .map((r) => ({
+              key: String(r.key),
+              summary: String(r.summary || ""),
+              sprintName: String(r.sprintName || "").trim(),
+              createdAt: String(r.createdAt || ""),
+            }));
+          if (clean.length) out[memberId] = clean;
+        });
+        return out;
+      }
+      function normalizeState(s) {
+        const d = defaultState(),
+          data = Object.assign({}, d, s || {});
+        data.theme = data.theme === "dark" ? "dark" : "light";
+        data.plan = Object.assign({}, d.plan, data.plan || {});
+        data.plan.sprintName = String(data.plan.sprintName || "").trim();
+        data.plan.planDays = Number(data.plan.planDays || 0);
+        data.plan.workingDays = Number(data.plan.workingDays || 0);
+        data.plan.hoursPerDay = Number(data.plan.hoursPerDay || 8);
+        data.jiraConfig = {
+          baseUrl:
+            s?.jiraConfig?.baseUrl || "https://mars-jira.systemgroup.net",
+          release: s?.jiraConfig?.release || "R6",
+        };
+        data.aiConfig = {
+          baseUrl: s?.aiConfig?.baseUrl || DEFAULT_AI_BASE_URL,
+          model: s?.aiConfig?.model || DEFAULT_AI_MODEL,
+          releaseUrl: String(s?.aiConfig?.releaseUrl || ""),
+          maxIssues: Math.min(
+            200,
+            Math.max(5, Number(s?.aiConfig?.maxIssues || 60)),
+          ),
+          notes: String(s?.aiConfig?.notes || ""),
+          onlyStories: s?.aiConfig?.onlyStories !== false,
+          excludeDone: s?.aiConfig?.excludeDone !== false,
+        };
+        data.members = Array.isArray(data.members)
+          ? data.members.map((m) => ({
+              id: m.id || uid(),
+              name: m.name || "",
+              username: String(m.username || "").trim(),
+              roles: Array.isArray(m.roles) ? m.roles : m.role ? [m.role] : [],
+              leaveDays: Number(m.leaveDays || 0),
+              capacity: Number(m.capacity || 0),
+            }))
+          : [];
+        data.tasks = Array.isArray(data.tasks)
+          ? data.tasks.map((t) => {
+              const p = parseTaskDisplay(
+                t.taskInput || combineTaskInput(t.title || "", t.jiraUrl || ""),
+              );
+              return {
+                id: t.id || uid(),
+                type: t.type === "general" ? "general" : "normal",
+                taskInput:
+                  t.taskInput ||
+                  combineTaskInput(t.title || "", t.jiraUrl || ""),
+                title: t.title || p.title,
+                jiraUrl: t.jiraUrl || p.url,
+                dod: (() => {
+                  const raw = t.dod === "Active" ? "Implemented" : t.dod;
+                  return DOD_OPTIONS.includes(raw) ? raw : "";
+                })(),
+                generalHours: Number(t.generalHours || 0),
+                backend: normalizeTaskRole(t.backend),
+                frontend: normalizeTaskRole(t.frontend),
+                tester: normalizeTaskRole(t.tester),
+                analyst: normalizeTaskRole(t.analyst),
+                subtaskRefs: normalizeSubtaskRefs(t.subtaskRefs),
+              };
+            })
+          : [];
+        data.panels = Object.assign({}, d.panels, data.panels || {});
+        return data;
+      }
+      function loadState() {
+        try {
+          const r = localStorage.getItem(STORAGE_KEY);
+          if (!r) return defaultState();
+          return normalizeState(JSON.parse(r));
+        } catch (e) {
+          return defaultState();
+        }
+      }
+      function saveState() {
+        const s = JSON.parse(JSON.stringify(state));
+        s.jiraConfig = {
+          baseUrl: state.jiraConfig?.baseUrl || "",
+          release: state.jiraConfig?.release || "R6",
+        };
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(s));
+      }
+      function uid() {
+        return Math.random().toString(36).slice(2, 10);
+      }
+      function round1(n) {
+        return Math.round((Number(n) || 0) * 10) / 10;
+      }
+      function fmt(n) {
+        return round1(n).toString();
+      }
+      function escapeHtml(s) {
+        return String(s || "")
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#039;");
+      }
+      function escapeAttr(s) {
+        return escapeHtml(s);
+      }
+      function applyTheme() {
+        document.documentElement.setAttribute(
+          "data-theme",
+          state.theme || "light",
+        );
+      }
+      function toggleTheme() {
+        state.theme = state.theme === "dark" ? "light" : "dark";
+        persistAndRender();
+      }
+      function togglePanel(id) {
+        state.panels[id] = !state.panels[id];
+        persistAndRender();
+      }
+      function renderPanels() {
+        Object.keys(state.panels || {}).forEach((id) => {
+          const p = document.getElementById(id),
+            c = document.getElementById(id + "-chevron");
+          if (!p || !c) return;
+          if (state.panels[id]) {
+            p.classList.add("collapsed");
+            c.textContent = "▸";
+          } else {
+            p.classList.remove("collapsed");
+            c.textContent = "▾";
+          }
+        });
+      }
+      function defaultCapacity() {
+        return (
+          Number(state.plan.workingDays || 0) *
+          Number(state.plan.hoursPerDay || 0)
+        );
+      }
+      function updatePlanField(field, value) {
+        if (["planDays", "workingDays", "hoursPerDay"].includes(field))
+          state.plan[field] = Number(value || 0);
+        else state.plan[field] = value;
+        persistAndRender();
+      }
+      function stepPlan(field, delta) {
+        state.plan[field] = Math.max(
+          0,
+          round1(Number(state.plan[field] || 0) + delta),
+        );
+        persistAndRender();
+      }
+      function stepInput(id, delta, min = 0) {
+        const el = document.getElementById(id);
+        el.value = Math.max(min, round1(Number(el.value || 0) + delta));
+      }
+      function parseJalali(input) {
+        const v = String(input || "").trim(),
+          m = v.match(/^(\d{4})\/(\d{1,2})\/(\d{1,2})$/);
+        if (!m) return null;
+        return jalaliToGregorian(Number(m[1]), Number(m[2]), Number(m[3]));
+      }
+      function div(a, b) {
+        return ~~(a / b);
+      }
+      function jalaliToGregorian(jy, jm, jd) {
+        jy += 1595;
+        let days =
+          -355668 +
+          365 * jy +
+          div(jy / 33, 1) * 8 +
+          div((jy % 33) + 3, 4) +
+          jd +
+          (jm < 7 ? (jm - 1) * 31 : (jm - 7) * 30 + 186);
+        let gy = 400 * div(days, 146097);
+        days %= 146097;
+        if (days > 36524) {
+          gy += 100 * div(--days, 36524);
+          days %= 36524;
+          if (days >= 365) days++;
+        }
+        gy += 4 * div(days, 1461);
+        days %= 1461;
+        if (days > 365) {
+          gy += div(days - 1, 365);
+          days = (days - 1) % 365;
+        }
+        let gd = days + 1;
+        const sal = [
+          0,
+          31,
+          (gy % 4 === 0 && gy % 100 !== 0) || gy % 400 === 0 ? 29 : 28,
+          31,
+          30,
+          31,
+          30,
+          31,
+          31,
+          30,
+          31,
+          30,
+          31,
+        ];
+        let gm = 0;
+        for (gm = 1; gm <= 12; gm++) {
+          const v = sal[gm];
+          if (gd <= v) break;
+          gd -= v;
+        }
+        return { gy, gm, gd };
+      }
+      function stripTime(d) {
+        return new Date(d.getFullYear(), d.getMonth(), d.getDate());
+      }
+      function diffInclusiveDays(s, e) {
+        return (
+          Math.floor((stripTime(e) - stripTime(s)) / (24 * 60 * 60 * 1000)) + 1
+        );
+      }
+      function countWorkingDays(s, e) {
+        let c = 0,
+          cur = stripTime(s),
+          end = stripTime(e);
+        while (cur <= end) {
+          const day = cur.getDay();
+          if (day !== 4 && day !== 5) c++;
+          cur.setDate(cur.getDate() + 1);
+        }
+        return c;
+      }
+      function calculatePlanDays() {
+        const s = parseJalali(state.plan.startDate),
+          e = parseJalali(state.plan.endDate);
+        if (!s || !e) return alert("تاریخ را درست وارد کن");
+        const sd = new Date(s.gy, s.gm - 1, s.gd),
+          ed = new Date(e.gy, e.gm - 1, e.gd);
+        if (ed < sd) return alert("تاریخ پایان باید بعد از شروع باشد");
+        state.plan.planDays = diffInclusiveDays(sd, ed);
+        state.plan.workingDays = countWorkingDays(sd, ed);
+        persistAndRender();
+      }
+      function applyDefaultCapacityToAllMembers() {
+        state.members.forEach(
+          (m) => (m.capacity = memberDefaultCapacity(m.leaveDays || 0)),
+        );
+        persistAndRender();
+      }
+      function applyDefaultCapacityToEmptyMembers() {
+        state.members.forEach((m) => {
+          if (!Number(m.capacity || 0))
+            m.capacity = memberDefaultCapacity(m.leaveDays || 0);
+        });
+        persistAndRender();
+      }
+      function getCheckedNewMemberRoles() {
+        return Array.from(
+          document.querySelectorAll('input[name="newMemberRole"]:checked'),
+        ).map((x) => x.value);
+      }
+      function addMember() {
+        const name = document.getElementById("memberName").value.trim();
+        const username = document.getElementById("memberUsername").value.trim();
+        let capacity = parseFloat(
+          document.getElementById("memberCapacity").value || "",
+        );
+        const leaveDays =
+          parseFloat(document.getElementById("memberLeaveDays").value || "0") ||
+          0;
+        const roles = getCheckedNewMemberRoles();
+        if (!name) return alert("نام فرد را وارد کن");
+        if (!roles.length) return alert("حداقل یک نقش انتخاب کن");
+        if (Number.isNaN(capacity)) capacity = memberDefaultCapacity(leaveDays);
+        state.members.push({
+          id: uid(),
+          name,
+          username,
+          roles,
+          leaveDays,
+          capacity: isNaN(capacity) ? 0 : capacity,
+        });
+        document.getElementById("memberName").value = "";
+        document.getElementById("memberUsername").value = "";
+        document.getElementById("memberCapacity").value = "";
+        document.getElementById("memberLeaveDays").value = "";
+        document
+          .querySelectorAll('input[name="newMemberRole"]')
+          .forEach((x) => (x.checked = false));
+        persistAndRender();
+      }
+      function removeMember(id) {
+        state.members = state.members.filter((m) => m.id !== id);
+        state.tasks = state.tasks.map((t) => {
+          ["backend", "frontend", "tester", "analyst"].forEach((r) => {
+            if (t[r] && t[r].memberId === id) t[r].memberId = "";
+          });
+          return t;
+        });
+        persistAndRender();
+      }
+      function updateMember(id, field, value) {
+        const m = state.members.find((x) => x.id === id);
+        if (!m) return;
+        if (field === "capacity") m.capacity = parseFloat(value || "0") || 0;
+        if (field === "name") m.name = value;
+        if (field === "username") m.username = String(value || "").trim();
+        if (field === "leaveDays") {
+          m.leaveDays = parseFloat(value || "0") || 0;
+          m.capacity = memberDefaultCapacity(m.leaveDays);
+        }
+        persistAndRender();
+      }
+      function updateMemberRoles(id, role, checked) {
+        const m = state.members.find((x) => x.id === id);
+        if (!m) return;
+        const set = new Set(m.roles || []);
+        if (checked) set.add(role);
+        else set.delete(role);
+        m.roles = Array.from(set);
+        persistAndRender();
+      }
+      function stepMemberCapacity(id, delta) {
+        const m = state.members.find((x) => x.id === id);
+        if (!m) return;
+        m.capacity = Math.max(0, round1(Number(m.capacity || 0) + delta));
+        persistAndRender();
+      }
+      function stepMemberLeave(id, delta) {
+        const m = state.members.find((x) => x.id === id);
+        if (!m) return;
+        m.leaveDays = Math.max(0, round1(Number(m.leaveDays || 0) + delta));
+        m.capacity = memberDefaultCapacity(m.leaveDays);
+        persistAndRender();
+      }
+      function combineTaskInput(title, url) {
+        title = String(title || "").trim();
+        url = String(url || "").trim();
+        if (title && url) return `${title} | ${url}`;
+        return title || url || "";
+      }
+      function parseTaskDisplay(value) {
+        const raw = String(value || "").trim();
+        if (!raw) return { title: "", url: "" };
+        const m = raw.match(/https?:\/\/\S+/i);
+        const url = m ? m[0].trim() : "";
+        let title = raw;
+        if (url) {
+          title = raw
+            .replace(url, "")
+            .replace(/\|\s*$/, "")
+            .replace(/^\s*\|\s*/, "")
+            .trim();
+          title = title.replace(/\s*\|\s*/g, " ").trim();
+        }
+        if (!title && url) title = url;
+        return { title, url };
+      }
+      function jiraLabelFromUrl(url) {
+        const v = String(url || "").trim();
+        if (!v) return "";
+        try {
+          const m = v.match(/selectedIssue=([A-Z]+-\d+)/i);
+          if (m) return m[1].toUpperCase();
+          const clean = v.split("?")[0].split("#")[0],
+            parts = clean.split("/").filter(Boolean);
+          return parts.length ? parts[parts.length - 1] : v;
+        } catch (e) {
+          return v;
+        }
+      }
+      function displayTaskInput(task) {
+        const raw =
+          task.taskInput || combineTaskInput(task.title, task.jiraUrl);
+        if (!task.jiraUrl) return raw;
+        return raw.replace(task.jiraUrl, jiraLabelFromUrl(task.jiraUrl));
+      }
+      function rebuildRawTaskInputFromDisplay(dv, prev) {
+        const v = String(dv || "").trim();
+        if (!prev || !prev.jiraUrl) return v;
+        const label = jiraLabelFromUrl(prev.jiraUrl);
+        if (v.includes(prev.jiraUrl)) return v;
+        const re = new RegExp(label.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
+        if (re.test(v)) return v.replace(re, prev.jiraUrl);
+        return v;
+      }
+      function addTask() {
+        state.tasks.push({
+          id: uid(),
+          type: "normal",
+          taskInput: "",
+          title: "",
+          jiraUrl: "",
+          dod: "",
+          generalHours: 0,
+          backend: { memberId: "", hours: 0 },
+          frontend: { memberId: "", hours: 0 },
+          tester: { memberId: "", hours: 0 },
+          analyst: { memberId: "", hours: 0 },
+          subtaskRefs: {},
+        });
+        persistAndRender();
+      }
+      function addGeneralTask() {
+        state.tasks.push({
+          id: uid(),
+          type: "general",
+          taskInput: "",
+          title: "",
+          jiraUrl: "",
+          dod: "",
+          generalHours: 0,
+          backend: { memberId: "", hours: 0 },
+          frontend: { memberId: "", hours: 0 },
+          tester: { memberId: "", hours: 0 },
+          analyst: { memberId: "", hours: 0 },
+          subtaskRefs: {},
+        });
+        persistAndRender();
+      }
+      function removeTask(id) {
+        state.tasks = state.tasks.filter((t) => t.id !== id);
+        persistAndRender();
+      }
+      function updateTaskDirect(id, field, subfield, value) {
+        const t = state.tasks.find((x) => x.id === id);
+        if (!t) return;
+        if (field === "taskInput") {
+          const raw = rebuildRawTaskInputFromDisplay(value, t);
+          t.taskInput = raw;
+          const p = parseTaskDisplay(raw);
+          t.title = p.title;
+          t.jiraUrl = p.url;
+        } else if (field === "generalHours") {
+          t.generalHours = parseFloat(value || "0") || 0;
+        } else if (field === "dod") {
+          t.dod = value;
+        } else {
+          if (subfield === "hours")
+            t[field][subfield] = parseFloat(value || "0") || 0;
+          else t[field][subfield] = value;
+        }
+        persistAndRender();
+      }
+
+      // ==========================================
+      // JIRA
+      // ==========================================
+      function updateJiraConfig(field, value) {
+        if (!state.jiraConfig) state.jiraConfig = {};
+        if (field === "token") {
+          _jiraToken = value;
+        } else {
+          state.jiraConfig[field] = value;
+          saveState();
+        }
+      }
+      function getJiraHeaders(extra = {}) {
+        return {
+          Authorization: `Bearer ${_jiraToken}`,
+          Accept: "application/json",
+          ...extra,
+        };
+      }
+      const SUBTASK_TYPE_BY_ROLE = {
+        analyst: { id: "12407", value: "تحلیل" },
+        backend: { id: "12408", value: "پیاده سازی" },
+        frontend: { id: "12408", value: "پیاده سازی" },
+        tester: { id: "12409", value: "تست" },
+        general: { id: "12405", value: "مدیریت پروژه" },
+      };
+      function configuredJiraBase() {
+        return (
+          state.jiraConfig?.baseUrl || "https://mars-jira.systemgroup.net"
+        ).replace(/\/$/, "");
+      }
+      /** Browser cannot call Jira directly (no CORS). Use local proxy when available. */
+      function getJiraApiBase() {
+        const host = location.hostname;
+        const viaProxy =
+          (location.protocol === "http:" || location.protocol === "https:") &&
+          (host === "localhost" || host === "127.0.0.1");
+        if (viaProxy) return `${location.origin}/jira-proxy`;
+        return configuredJiraBase();
+      }
+      function extractIssueKey(input) {
+        if (!input) return null;
+        const patterns = [
+          /selectedIssue=([A-Z]+-\d+)/i,
+          /\/browse\/([A-Z]+-\d+)/i,
+          /\b([A-Z]+-\d+)\b/,
+        ];
+        for (const re of patterns) {
+          const m = input.match(re);
+          if (m) return m[1].toUpperCase();
+        }
+        return null;
+      }
+      async function testJiraConnection() {
+        const el = document.getElementById("jiraGlobalStatus");
+        el.innerHTML =
+          '<span style="color:var(--warning)">⏳ در حال اتصال...</span>';
+        if (!_jiraToken) {
+          el.innerHTML =
+            '<span style="color:var(--danger)">❌ ابتدا Personal Access Token را وارد کنید</span>';
+          return;
+        }
+        if (location.protocol === "file:") {
+          el.innerHTML =
+            '<span style="color:var(--danger)">❌ صفحه را با <code>python3 jira_proxy.py</code> باز کنید — از file:// مستقیم به جیرا وصل نمی‌شود (CORS)</span>';
+          return;
+        }
+        try {
+          const base = getJiraApiBase();
+          const resp = await fetch(`${base}/rest/api/2/myself`, {
+            headers: getJiraHeaders(),
+          });
+          if (resp.ok) {
+            const d = await resp.json();
+            el.innerHTML = `<span style="color:var(--success)">✅ اتصال موفق! کاربر: <strong>${d.displayName || d.name}</strong> | ریلیز: <span class="release-badge">${state.jiraConfig?.release || "R6"}</span></span>`;
+          } else {
+            el.innerHTML = `<span style="color:var(--danger)">❌ خطا ${resp.status} — توکن را بررسی کنید</span>`;
+          }
+        } catch (e) {
+          el.innerHTML = `<span style="color:var(--danger)">❌ خطای شبکه: ${e.message}<br/>اگر CORS است، اپ را با <code>python3 jira_proxy.py</code> اجرا کنید.</span>`;
+        }
+      }
+      async function fetchEstimatesForIssue(issueKey) {
+        const release = state.jiraConfig?.release || "R6";
+        const fields = JIRA_FIELDS[release];
+        if (!fields) throw new Error("ریلیز نامعتبر");
+        const base = getJiraApiBase();
+        const url = `${base}/rest/api/2/issue/${issueKey}?fields=summary,${Object.values(fields).join(",")}`;
+        const resp = await fetch(url, { headers: getJiraHeaders() });
+        if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+        const data = await resp.json();
+        const f = data.fields;
+        return {
+          summary: f.summary || issueKey,
+          analyst: Number(f[fields.analyst] || 0),
+          backend: Number(f[fields.backend] || 0),
+          frontend: Number(f[fields.frontend] || 0),
+          tester: Number(f[fields.tester] || 0),
+          total: Number(f[fields.total] || 0),
+        };
+      }
+      function setTaskFetchStatus(taskId, msg, type = "") {
+        const el = document.getElementById(`jfs-${taskId}`);
+        if (!el) return;
+        el.textContent = msg;
+        el.className = "jira-fetch-status " + (type || "");
+      }
+      async function onTaskInputChange(taskId, displayValue) {
+        updateTaskDirect(taskId, "taskInput", null, displayValue);
+        const issueKey = extractIssueKey(displayValue);
+        if (!issueKey) return;
+        if (!_jiraToken) {
+          setTaskFetchStatus(
+            taskId,
+            "⚠️ ابتدا Personal Access Token را وارد کنید",
+            "error",
+          );
+          return;
+        }
+        setTaskFetchStatus(taskId, `⏳ دریافت ${issueKey}...`, "loading");
+        try {
+          const est = await fetchEstimatesForIssue(issueKey);
+          const task = state.tasks.find((t) => t.id === taskId);
+          if (!task) return;
+          task.backend.hours = est.backend;
+          task.frontend.hours = est.frontend;
+          task.tester.hours = est.tester;
+          task.analyst.hours = est.analyst;
+          persistAndRender();
+          setTaskFetchStatus(
+            taskId,
+            `✅ تحلیل:${est.analyst}h | بک‌اند:${est.backend}h | فرانت:${est.frontend}h | تست:${est.tester}h`,
+            "success",
+          );
+        } catch (e) {
+          setTaskFetchStatus(taskId, `❌ ${e.message}`, "error");
+        }
+      }
+      async function fetchAllTaskEstimates() {
+        const el = document.getElementById("jiraGlobalStatus");
+        if (!_jiraToken) {
+          el.innerHTML =
+            '<span style="color:var(--danger)">❌ ابتدا Personal Access Token را وارد کنید</span>';
+          return;
+        }
+        const tasks = state.tasks.filter(
+          (t) =>
+            t.type === "normal" &&
+            extractIssueKey(t.taskInput || t.jiraUrl || ""),
+        );
+        if (!tasks.length) {
+          el.innerHTML =
+            '<span style="color:var(--warning)">⚠️ هیچ تسکی با لینک جیرا پیدا نشد</span>';
+          return;
+        }
+        el.innerHTML = `<span style="color:var(--warning)">⏳ دریافت ${tasks.length} تسک...</span>`;
+        let ok = 0,
+          fail = 0;
+        for (const task of tasks) {
+          const key = extractIssueKey(task.taskInput || task.jiraUrl || "");
+          if (!key) continue;
+          try {
+            const est = await fetchEstimatesForIssue(key);
+            task.backend.hours = est.backend;
+            task.frontend.hours = est.frontend;
+            task.tester.hours = est.tester;
+            task.analyst.hours = est.analyst;
+            ok++;
+          } catch (e) {
+            fail++;
+          }
+        }
+        persistAndRender();
+        el.innerHTML = `<span style="color:var(--success)">✅ ${ok} موفق${fail ? ` | ❌ ${fail} خطا` : ""}`;
+      }
+
+      // ==========================================
+      // AI ANALYSIS (OpenRouter + Jira release stories)
+      // ==========================================
+      const AI_BASE_FIELDS = [
+        "summary",
+        "status",
+        "issuetype",
+        "priority",
+        "assignee",
+        "created",
+        "updated",
+        "duedate",
+        "fixVersions",
+        "labels",
+        "components",
+        "subtasks",
+        "parent",
+        "timeoriginalestimate",
+        "timeestimate",
+        "timespent",
+        "aggregatetimeoriginalestimate",
+        "aggregatetimespent",
+        "statuscategorychangedate",
+      ];
+      const PRIORITY_WEIGHT = {
+        blocker: 20,
+        highest: 20,
+        critical: 16,
+        high: 14,
+        major: 11,
+        medium: 8,
+        normal: 8,
+        minor: 4,
+        low: 4,
+        lowest: 2,
+        trivial: 1,
+      };
+      const AI_ROLES = ["analyst", "backend", "frontend", "tester"];
+      const AI_SYSTEM_PROMPT = [
+        "تو یک دستیار ارشد پلنینگ اجایل هستی. ورودی یک JSON شامل مشخصات اسپرینت، ظرفیت اعضای تیم به تفکیک نقش،",
+        "تسک‌های قبلاً پلن‌شده و لیست استوری‌های ریلیز از جیرا (با وضعیت، اولویت، تخمین ساعت هر نقش و زمان‌ها) است.",
+        "وظیفه: انتخاب و اولویت‌بندی استوری‌های کاندید برای اسپرینت بعد بر اساس وضعیت، تخمین‌ها، سن آیتم، ددلاین و ظرفیت واقعی تیم.",
+        "قواعد: ۱) مجموع ساعات پیشنهادی هر نقش نباید از ظرفیت باقی‌مانده آن نقش بیشتر شود.",
+        "۲) آیتم‌های در جریان (In Progress/Review) برای تکمیل، اولویت بالاتری از آیتم‌های جدید دارند.",
+        "۳) آیتم بدون تخمین را include نکن؛ decision آن را needs-info بگذار.",
+        "۴) آیتم راکد یا دارای ددلاین نزدیک/گذشته را در ریسک‌ها ذکر کن.",
+        "۵) عضوی که چند نقش دارد ظرفیتش در چند نقش تکرار شده؛ از تخصیص دوباره آن مراقب باش.",
+        "خروجی فقط و فقط یک JSON معتبر با این ساختار باشد (بدون متن اضافه و بدون code fence):",
+        '{"summary":"خلاصه تحلیل به فارسی","capacityAssessment":"ارزیابی ظرفیت در برابر ساعات پیشنهادی",',
+        '"recommended":[{"key":"PRC-123","rank":1,"decision":"include|defer|needs-info","confidence":0,',
+        '"reason":"دلیل کوتاه فارسی","risks":"ریسک کوتاه یا رشته خالی",',
+        '"suggestedOwners":{"analyst":"","backend":"","frontend":"","tester":""}}],',
+        '"risks":["..."],"questions":["..."]}',
+        "همه استوری‌های ورودی باید در recommended با یک decision حاضر باشند. rank از ۱ شروع می‌شود و ترتیب اهمیت است.",
+        "نام افراد در suggestedOwners فقط از لیست اعضای تیم ورودی انتخاب شود، در غیر این صورت رشته خالی بگذار.",
+      ].join("\n");
+
+      function setAiStatus(html) {
+        const el = document.getElementById("aiStatus");
+        if (el) el.innerHTML = html;
+      }
+      function updateAiConfig(field, value) {
+        if (!state.aiConfig) state.aiConfig = {};
+        if (field === "token") {
+          _aiToken = String(value || "").trim();
+          setAiStatus(
+            _aiToken
+              ? '<span style="color:var(--success)">✅ توکن OpenRouter ثبت شد (فقط در حافظه مرورگر)</span>'
+              : '<span style="color:var(--muted)">توکن OpenRouter وارد نشده است</span>',
+          );
+          return;
+        }
+        if (field === "maxIssues")
+          state.aiConfig.maxIssues = Math.min(
+            200,
+            Math.max(5, Number(value || 60)),
+          );
+        else if (field === "onlyStories" || field === "excludeDone")
+          state.aiConfig[field] = !!value;
+        else state.aiConfig[field] = String(value || "");
+        saveState();
+        renderAiJqlPreview();
+      }
+      function stepAiMaxIssues(delta) {
+        updateAiConfig(
+          "maxIssues",
+          Number(state.aiConfig?.maxIssues || 60) + delta,
+        );
+        const el = document.getElementById("aiMaxIssues");
+        if (el) el.value = state.aiConfig.maxIssues;
+      }
+      function quoteJqlValue(v) {
+        const s = String(v || "").trim();
+        return /^[A-Za-z0-9_.\-]+$/.test(s) ? s : `"${s.replace(/"/g, '\\"')}"`;
+      }
+      function looksLikeJql(v) {
+        const s = String(v || "").trim();
+        if (!s || /^https?:\/\//i.test(s)) return false;
+        return /(=|~|\bin\b|\border\s+by\b)/i.test(s);
+      }
+      /** Turn a Jira page URL (issue navigator / filter / board / version) into JQL. */
+      function parseReleaseQuery(input) {
+        const raw = String(input || "").trim();
+        if (!raw) return null;
+        if (looksLikeJql(raw)) return { jql: raw, source: "JQL دستی" };
+        let u = null;
+        try {
+          u = new URL(raw, configuredJiraBase());
+        } catch (e) {
+          return null;
+        }
+        const params = new URLSearchParams(u.search);
+        if (u.hash && u.hash.includes("=")) {
+          const hash = u.hash.replace(/^#\/?/, "");
+          const qIdx = hash.indexOf("?");
+          new URLSearchParams(qIdx >= 0 ? hash.slice(qIdx + 1) : hash).forEach(
+            (v, k) => {
+              if (!params.has(k)) params.set(k, v);
+            },
+          );
+        }
+        const jqlParam = params.get("jql");
+        if (jqlParam) return { jql: jqlParam, source: "پارامتر jql" };
+        const filterId = params.get("filter") || params.get("requestId");
+        if (filterId)
+          return {
+            jql: `filter = ${quoteJqlValue(filterId)}`,
+            source: `فیلتر ${filterId}`,
+          };
+        const rapidView = params.get("rapidView");
+        if (rapidView) {
+          const sprintId = params.get("sprint");
+          return {
+            boardId: rapidView,
+            jql: sprintId ? `sprint = ${sprintId}` : "",
+            source: `برد ${rapidView}`,
+          };
+        }
+        const versionParam = params.get("version") || params.get("fixfor");
+        if (versionParam)
+          return {
+            jql: `fixVersion = ${quoteJqlValue(versionParam)}`,
+            source: `نسخه ${versionParam}`,
+          };
+        const path = decodeURIComponent(u.pathname || "");
+        // eazyBI report URLs carry no JQL/filter; infer project + release from the report slug
+        if (/\/plugins\/servlet\/eazybi\//i.test(path)) {
+          const slug = (path.split("/").filter(Boolean).pop() || "").trim();
+          const tokens = slug
+            .replace(/^\d+-/, "")
+            .split(/[-_]/)
+            .filter(Boolean);
+          let project = "",
+            version = "";
+          tokens.forEach((tok) => {
+            if (!version && /^r\d+(?:\.\d+)?$/i.test(tok))
+              version = tok.toUpperCase();
+            else if (!project && /^[A-Za-z]{2,}$/.test(tok))
+              project = tok.toUpperCase();
+          });
+          const parts = [];
+          if (project) parts.push(`project = ${quoteJqlValue(project)}`);
+          if (version) parts.push(`fixVersion = ${quoteJqlValue(version)}`);
+          const detail = [
+            project ? `پروژه ${project}` : "",
+            version ? `ریلیز ${version}` : "",
+          ]
+            .filter(Boolean)
+            .join(" / ");
+          return {
+            jql: parts.join(" AND "),
+            source: `گزارش eazyBI${detail ? ` (${detail})` : ` (${slug})`}`,
+            needsManual: !parts.length,
+          };
+        }
+        let m = path.match(/\/projects\/([A-Za-z0-9_]+)\/versions\/(\d+)/);
+        if (m)
+          return {
+            jql: `project = ${m[1]} AND fixVersion = ${m[2]}`,
+            source: `نسخه ${m[2]} پروژه ${m[1]}`,
+          };
+        m = path.match(/\/browse\/([A-Za-z][A-Za-z0-9_]*-\d+)/);
+        if (m) {
+          const key = m[1].toUpperCase();
+          return {
+            jql: `(key = ${key} OR parent = ${key})`,
+            source: `آیتم ${key}`,
+          };
+        }
+        m =
+          path.match(/\/projects\/([A-Za-z][A-Za-z0-9_]*)/) ||
+          path.match(/\/browse\/([A-Za-z][A-Za-z0-9_]*)$/);
+        if (m) return { jql: `project = ${m[1]}`, source: `پروژه ${m[1]}` };
+        const selected = params.get("selectedIssue");
+        if (selected)
+          return {
+            jql: `(key = ${selected.toUpperCase()} OR parent = ${selected.toUpperCase()})`,
+            source: `آیتم ${selected.toUpperCase()}`,
+          };
+        return null;
+      }
+      function buildReleaseJql() {
+        const parsed = parseReleaseQuery(state.aiConfig?.releaseUrl || "");
+        if (!parsed) return null;
+        if (parsed.needsManual)
+          return { ...parsed, needsManual: true, jql: "" };
+        const cfg = state.aiConfig || {};
+        let jql = String(parsed.jql || "").trim();
+        let order = "";
+        const oi = jql.search(/\border\s+by\b/i);
+        if (oi >= 0) {
+          order = jql.slice(oi).trim();
+          jql = jql.slice(0, oi).trim();
+        }
+        const parts = [];
+        if (jql) parts.push(`(${jql})`);
+        if (cfg.onlyStories !== false) parts.push("issuetype = Story");
+        if (cfg.excludeDone !== false) parts.push("statusCategory != Done");
+        const where = parts.join(" AND ");
+        const orderBy = order || "ORDER BY priority DESC, updated DESC";
+        return { ...parsed, jql: `${where} ${orderBy}`.trim() };
+      }
+      function renderAiJqlPreview() {
+        const el = document.getElementById("aiJqlPreview");
+        if (!el) return;
+        const q = buildReleaseJql();
+        if (!q) {
+          el.textContent = (state.aiConfig?.releaseUrl || "").trim()
+            ? "JQL: قابل تشخیص نیست — لینک صفحه Issues / Filter / Version یا JQL خام را وارد کنید"
+            : "JQL: —";
+          return;
+        }
+        if (q.needsManual) {
+          el.textContent = `${q.source} — نام پروژه/ریلیز از آدرس قابل استخراج نیست؛ JQL خام مثل «project = PRC AND fixVersion = R6» را وارد کنید`;
+          return;
+        }
+        el.textContent = `JQL: ${q.jql}${q.boardId ? ` (board ${q.boardId})` : ""}`;
+      }
+      function daysSince(v) {
+        if (!v) return null;
+        const t = new Date(v).getTime();
+        if (!isFinite(t)) return null;
+        return Math.max(0, Math.round((Date.now() - t) / 86400000));
+      }
+      function daysUntil(v) {
+        if (!v) return null;
+        const t = new Date(v).getTime();
+        if (!isFinite(t)) return null;
+        return Math.round((t - Date.now()) / 86400000);
+      }
+      function secondsToHours(v) {
+        return v ? round1(Number(v) / 3600) : 0;
+      }
+      function isPlannedKey(key) {
+        return state.tasks.some(
+          (t) => extractIssueKey(t.taskInput || t.jiraUrl || "") === key,
+        );
+      }
+      function scoreCandidate(c) {
+        let score = 30;
+        const flags = [];
+        const cat = String(c.statusCategory || "").toLowerCase();
+        const st = String(c.status || "").toLowerCase();
+        if (cat === "done" || /(done|closed|resolved)/.test(st)) {
+          score -= 40;
+          flags.push({ t: "انجام‌شده", k: "defer" });
+        } else if (
+          cat.includes("indeterminate") ||
+          /(progress|review|test|جریان)/.test(st)
+        ) {
+          score += 22;
+          flags.push({ t: "در جریان — نیازمند تکمیل", k: "include" });
+        } else {
+          score += 12;
+          flags.push({ t: "آماده شروع", k: "" });
+        }
+        if (/(analy|تحلیل)/.test(st)) flags.push({ t: "مرحله تحلیل", k: "" });
+        if (c.estSum > 0) score += 24;
+        else {
+          score -= 12;
+          flags.push({ t: "بدون تخمین", k: "needs-info" });
+        }
+        score += PRIORITY_WEIGHT[String(c.priority || "").toLowerCase()] ?? 8;
+        if (c.updatedDays != null) {
+          if (c.updatedDays <= 7) score += 10;
+          else if (c.updatedDays <= 21) score += 5;
+          else if (c.updatedDays > 60) {
+            score -= 6;
+            flags.push({ t: `${c.updatedDays} روز بی‌تحرک`, k: "risk" });
+          }
+        }
+        if (c.dueInDays != null) {
+          if (c.dueInDays < 0) {
+            score += 15;
+            flags.push({
+              t: `${Math.abs(c.dueInDays)} روز تأخیر ددلاین`,
+              k: "risk",
+            });
+          } else if (c.dueInDays <= 14) {
+            score += 12;
+            flags.push({ t: `ددلاین تا ${c.dueInDays} روز`, k: "needs-info" });
+          }
+        }
+        if (c.subtasks > 0) score += 3;
+        if (c.spentH > 0 && c.estSum > 0 && c.spentH > c.estSum)
+          flags.push({ t: "زمان صرف‌شده بیش از تخمین", k: "risk" });
+        if (!c.assignee) flags.push({ t: "بدون Assignee", k: "" });
+        if (c.estSum > 40)
+          flags.push({ t: "حجم بزرگ — شکستن پیشنهاد می‌شود", k: "needs-info" });
+        if (c.alreadyPlanned) {
+          score -= 45;
+          flags.push({ t: "از قبل در پلن", k: "defer" });
+        }
+        return { score: Math.max(0, Math.min(100, Math.round(score))), flags };
+      }
+      function buildCandidate(issue, roleFields) {
+        const f = issue.fields || {};
+        const est = {
+          analyst: Number(f[roleFields.analyst] || 0),
+          backend: Number(f[roleFields.backend] || 0),
+          frontend: Number(f[roleFields.frontend] || 0),
+          tester: Number(f[roleFields.tester] || 0),
+        };
+        const c = {
+          key: issue.key,
+          url: `${configuredJiraBase()}/browse/${issue.key}`,
+          summary: f.summary || issue.key,
+          type: f.issuetype?.name || "",
+          status: f.status?.name || "",
+          statusCategory:
+            f.status?.statusCategory?.key ||
+            f.status?.statusCategory?.name ||
+            "",
+          priority: f.priority?.name || "",
+          assignee: f.assignee?.displayName || f.assignee?.name || "",
+          est,
+          estSum: round1(est.analyst + est.backend + est.frontend + est.tester),
+          declaredTotal: Number(f[roleFields.total] || 0),
+          spentH: secondsToHours(f.aggregatetimespent || f.timespent),
+          originalH: secondsToHours(
+            f.aggregatetimeoriginalestimate || f.timeoriginalestimate,
+          ),
+          remainingH: secondsToHours(f.timeestimate),
+          createdDays: daysSince(f.created),
+          updatedDays: daysSince(f.updated),
+          statusDays: daysSince(f.statuscategorychangedate || f.updated),
+          dueInDays: daysUntil(f.duedate),
+          subtasks: (f.subtasks || []).length,
+          labels: f.labels || [],
+          components: (f.components || []).map((x) => x.name),
+          fixVersions: (f.fixVersions || []).map((x) => x.name),
+        };
+        c.alreadyPlanned = isPlannedKey(c.key);
+        const scored = scoreCandidate(c);
+        c.score = scored.score;
+        c.flags = scored.flags;
+        return c;
+      }
+      function roleCapacitySnapshot() {
+        const alloc = calcAllocations();
+        const byRole = {};
+        AI_ROLES.forEach(
+          (r) =>
+            (byRole[r] = {
+              capacity: 0,
+              assigned: 0,
+              remaining: 0,
+              members: [],
+            }),
+        );
+        state.members.forEach((m) => {
+          const assigned = alloc[m.id] || 0;
+          const remaining = Math.max(0, Number(m.capacity || 0) - assigned);
+          (m.roles || []).forEach((r) => {
+            if (!byRole[r]) return;
+            byRole[r].capacity += Number(m.capacity || 0);
+            byRole[r].assigned += assigned;
+            byRole[r].remaining += remaining;
+            byRole[r].members.push({
+              name: m.name,
+              remaining: round1(remaining),
+            });
+          });
+        });
+        AI_ROLES.forEach((r) => {
+          byRole[r].capacity = round1(byRole[r].capacity);
+          byRole[r].assigned = round1(byRole[r].assigned);
+          byRole[r].remaining = round1(byRole[r].remaining);
+        });
+        return byRole;
+      }
+      /** Greedy fill by score to mark which candidates still fit remaining capacity. */
+      function applyCapacityFit(list) {
+        const cap = roleCapacitySnapshot();
+        const used = { analyst: 0, backend: 0, frontend: 0, tester: 0 };
+        [...list]
+          .sort((a, b) => b.score - a.score)
+          .forEach((c) => {
+            if (c.alreadyPlanned) {
+              c.fit = "planned";
+              return;
+            }
+            let over = false,
+              partial = false;
+            AI_ROLES.forEach((r) => {
+              const need = Number(c.est[r] || 0);
+              if (!need) return;
+              const free = (cap[r]?.remaining || 0) - used[r];
+              if (free <= 0) over = true;
+              else if (need > free) partial = true;
+              used[r] += need;
+            });
+            c.fit = over ? "over" : partial ? "partial" : "fit";
+          });
+        return cap;
+      }
+      async function fetchReleaseStories() {
+        if (location.protocol === "file:") {
+          setAiStatus(
+            '<span style="color:var(--danger)">❌ صفحه را با <code>python3 jira_proxy.py</code> باز کنید — از file:// به جیرا وصل نمی‌شود (CORS)</span>',
+          );
+          return;
+        }
+        if (!_jiraToken) {
+          setAiStatus(
+            '<span style="color:var(--danger)">❌ ابتدا Personal Access Token جیرا را در بخش «تنظیمات پلن» وارد کنید</span>',
+          );
+          return;
+        }
+        const q = buildReleaseJql();
+        if (!q) {
+          setAiStatus(
+            '<span style="color:var(--danger)">❌ آدرس صفحه استوری‌های ریلیز قابل تشخیص نیست</span>',
+          );
+          return;
+        }
+        if (q.needsManual) {
+          setAiStatus(
+            `<span style="color:var(--danger)">❌ ${escapeHtml(q.source)} — نام پروژه/ریلیز از آدرس قابل استخراج نیست. لطفاً JQL خام مثل <code>project = PRC AND fixVersion = R6</code> را وارد کنید</span>`,
+          );
+          return;
+        }
+        const release = state.jiraConfig?.release || "R6";
+        const roleFields = JIRA_FIELDS[release] || {};
+        const fields = [...AI_BASE_FIELDS, ...Object.values(roleFields)].join(
+          ",",
+        );
+        const max = Number(state.aiConfig?.maxIssues || 60);
+        setAiStatus(
+          `<span style="color:var(--warning)">⏳ دریافت استوری‌ها از جیرا (${escapeHtml(q.source)})...</span>`,
+        );
+        try {
+          const issues = [];
+          let startAt = 0,
+            total = null;
+          for (;;) {
+            const pageSize = Math.min(50, max - issues.length);
+            if (pageSize <= 0) break;
+            const params = new URLSearchParams({
+              jql: q.jql,
+              fields,
+              startAt: String(startAt),
+              maxResults: String(pageSize),
+            });
+            const path = q.boardId
+              ? `/rest/agile/1.0/board/${q.boardId}/issue?${params}`
+              : `/rest/api/2/search?${params}`;
+            const data = await jiraJson(path);
+            const page = data.issues || [];
+            issues.push(...page);
+            startAt += page.length;
+            total = Number(data.total || 0);
+            if (!page.length || startAt >= total) break;
+          }
+          _aiCandidates = issues.map((i) => buildCandidate(i, roleFields));
+          applyCapacityFit(_aiCandidates);
+          _aiCandidates.forEach(
+            (c) =>
+              (c.selected =
+                !c.alreadyPlanned && c.estSum > 0 && c.fit === "fit"),
+          );
+          _aiResult = null;
+          renderAiPanel();
+          const withEst = _aiCandidates.filter((c) => c.estSum > 0).length;
+          setAiStatus(
+            `<span style="color:var(--success)">✅ ${_aiCandidates.length} استوری دریافت شد${total != null && total > _aiCandidates.length ? ` (از ${total})` : ""} | ${withEst} مورد تخمین‌دار | ریلیز: <span class="release-badge">${release}</span></span>`,
+          );
+        } catch (e) {
+          setAiStatus(
+            `<span style="color:var(--danger)">❌ خطای دریافت از جیرا: ${escapeHtml(e.message)}</span>`,
+          );
+        }
+      }
+      function openRouterProxyBase() {
+        const host = location.hostname;
+        const local =
+          (location.protocol === "http:" || location.protocol === "https:") &&
+          (host === "localhost" || host === "127.0.0.1");
+        return local ? `${location.origin}/openrouter-proxy` : null;
+      }
+      function normalizeAiBase() {
+        return (
+          String(state.aiConfig?.baseUrl || DEFAULT_AI_BASE_URL)
+            .trim()
+            .replace(/\/+$/, "") || DEFAULT_AI_BASE_URL
+        );
+      }
+      /** Gateways already ending in /v1 take the path directly; openrouter.ai needs /api/v1. */
+      function aiApiPrefix(base) {
+        if (/\/v\d+$/i.test(base)) return "";
+        if (/\/api$/i.test(base)) return "/v1";
+        return "/api/v1";
+      }
+      function aiErrorMessage(status, raw, data) {
+        const body =
+          data?.error?.message ||
+          data?.message ||
+          data?.detail ||
+          String(raw || "")
+            .replace(/<[^>]*>/g, " ")
+            .replace(/\s+/g, " ")
+            .trim()
+            .slice(0, 220);
+        const hint = [401, 403, 407].includes(status)
+          ? " — توکن یا «آدرس سرویس هوش مصنوعی» را بررسی کنید"
+          : status === 404
+            ? " — آدرس سرویس اشتباه است"
+            : "";
+        return `HTTP ${status}${body ? `: ${body}` : ""}${hint}`;
+      }
+      /** Call the configured AI gateway; fall back to the local proxy when the browser blocks it. */
+      async function openRouterFetch(path, options = {}, auth = true) {
+        const base = normalizeAiBase();
+        const suffix = `${aiApiPrefix(base)}${path}`;
+        const headers = {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          "X-Title": "Sprint Planning",
+          ...(options.headers || {}),
+        };
+        if (auth) headers.Authorization = `Bearer ${_aiToken}`;
+        const attempts = [];
+        // Prefer the local proxy: gateways answering Allow-Headers "*" still reject
+        // Authorization in a browser preflight, so a direct call would fail CORS.
+        const proxy = openRouterProxyBase();
+        if (proxy)
+          attempts.push({
+            url: `${proxy}${suffix}`,
+            headers: { ...headers, "X-Upstream-Base": base },
+            viaProxy: true,
+          });
+        attempts.push({ url: `${base}${suffix}`, headers });
+        let lastErr = null,
+          staleProxyResp = null;
+        for (const attempt of attempts) {
+          try {
+            const resp = await fetch(attempt.url, {
+              ...options,
+              headers: attempt.headers,
+            });
+            // An outdated jira_proxy.py has no AI route; try the next attempt.
+            if (attempt.viaProxy && [404, 405, 501].includes(resp.status)) {
+              staleProxyResp = staleProxyResp || resp;
+              continue;
+            }
+            return resp;
+          } catch (e) {
+            lastErr = e;
+          }
+        }
+        if (staleProxyResp) return staleProxyResp;
+        throw new Error(
+          `اتصال به ${base} برقرار نشد: ${lastErr?.message || "خطای شبکه"} — صفحه را با python3 jira_proxy.py باز کنید`,
+        );
+      }
+      async function loadOpenRouterModels() {
+        setAiStatus(
+          '<span style="color:var(--warning)">⏳ بارگذاری لیست مدل‌ها...</span>',
+        );
+        try {
+          const resp = await openRouterFetch(
+            "/models",
+            { method: "GET" },
+            !!_aiToken,
+          );
+          const raw = await resp.text().catch(() => "");
+          let data = null;
+          try {
+            data = JSON.parse(raw);
+          } catch (e) {
+            /* non-JSON error body */
+          }
+          if (!resp.ok) throw new Error(aiErrorMessage(resp.status, raw, data));
+          const ids = ((data && data.data) || [])
+            .map((m) => m.id)
+            .filter(Boolean)
+            .sort();
+          const dl = document.getElementById("aiModelList");
+          if (dl && ids.length) {
+            dl.innerHTML = ids
+              .map((m) => `<option value="${escapeAttr(m)}"></option>`)
+              .join("");
+            dl.dataset.loaded = "1";
+          }
+          setAiStatus(
+            `<span style="color:var(--success)">✅ ${ids.length} مدل بارگذاری شد — از لیست فیلد «مدل» انتخاب کنید</span>`,
+          );
+        } catch (e) {
+          setAiStatus(
+            `<span style="color:var(--danger)">❌ بارگذاری مدل‌ها ناموفق: ${escapeHtml(e.message)}</span>`,
+          );
+        }
+      }
+      function buildAiPayload(cap) {
+        return {
+          sprint: {
+            name: state.plan.sprintName || "",
+            startDate: state.plan.startDate || "",
+            endDate: state.plan.endDate || "",
+            planDays: state.plan.planDays || 0,
+            workingDays: state.plan.workingDays || 0,
+            hoursPerDay: state.plan.hoursPerDay || 0,
+          },
+          release: state.jiraConfig?.release || "R6",
+          notes: state.aiConfig?.notes || "",
+          capacityByRole: Object.fromEntries(
+            AI_ROLES.map((r) => [
+              r,
+              {
+                capacity: cap[r].capacity,
+                assigned: cap[r].assigned,
+                remaining: cap[r].remaining,
+              },
+            ]),
+          ),
+          teamMembers: state.members.map((m) => ({
+            name: m.name,
+            roles: m.roles || [],
+            capacity: round1(m.capacity || 0),
+            remaining: round1(
+              Math.max(
+                0,
+                Number(m.capacity || 0) - (calcAllocations()[m.id] || 0),
+              ),
+            ),
+          })),
+          alreadyPlanned: state.tasks
+            .filter((t) => t.type === "normal")
+            .map((t) => ({
+              key: extractIssueKey(t.taskInput || t.jiraUrl || "") || "",
+              title: t.title || "",
+              hours: round1(
+                Number(t.backend.hours || 0) +
+                  Number(t.frontend.hours || 0) +
+                  Number(t.tester.hours || 0) +
+                  Number(t.analyst.hours || 0),
+              ),
+            })),
+          candidates: _aiCandidates.map((c) => ({
+            key: c.key,
+            summary: c.summary,
+            type: c.type,
+            status: c.status,
+            statusCategory: c.statusCategory,
+            daysInStatus: c.statusDays,
+            priority: c.priority,
+            assignee: c.assignee,
+            estimateHours: c.est,
+            estimateTotal: c.estSum,
+            spentHours: c.spentH,
+            remainingHours: c.remainingH,
+            ageDays: c.createdDays,
+            idleDays: c.updatedDays,
+            dueInDays: c.dueInDays,
+            subtasks: c.subtasks,
+            labels: c.labels,
+            components: c.components,
+            fixVersions: c.fixVersions,
+            localScore: c.score,
+            capacityFit: c.fit,
+            alreadyPlanned: c.alreadyPlanned,
+          })),
+        };
+      }
+      async function callOpenRouterChat(payload) {
+        const model = String(state.aiConfig?.model || DEFAULT_AI_MODEL).trim();
+        const body = {
+          model,
+          temperature: 0.2,
+          messages: [
+            { role: "system", content: AI_SYSTEM_PROMPT },
+            { role: "user", content: JSON.stringify(payload) },
+          ],
+          response_format: { type: "json_object" },
+        };
+        const send = () =>
+          openRouterFetch("/chat/completions", {
+            method: "POST",
+            body: JSON.stringify(body),
+          });
+        let resp = await send();
+        if ([400, 404, 415, 422].includes(resp.status)) {
+          delete body.response_format;
+          resp = await send();
+        }
+        const raw = await resp.text().catch(() => "");
+        let data = null;
+        try {
+          data = JSON.parse(raw);
+        } catch (e) {
+          /* non-JSON error body */
+        }
+        if (!resp.ok) throw new Error(aiErrorMessage(resp.status, raw, data));
+        const msg = data?.choices?.[0]?.message?.content;
+        const text = Array.isArray(msg)
+          ? msg.map((p) => p?.text || "").join("\n")
+          : String(msg || "");
+        if (!text.trim()) throw new Error("پاسخ مدل خالی بود");
+        return {
+          text,
+          usage: data?.usage || null,
+          model: data?.model || model,
+        };
+      }
+      function parseAiResult(text) {
+        const cleaned = String(text || "")
+          .replace(/```json/gi, "```")
+          .trim();
+        const fenced = cleaned.match(/```([\s\S]*?)```/);
+        const body = fenced ? fenced[1] : cleaned;
+        const start = body.indexOf("{"),
+          end = body.lastIndexOf("}");
+        if (start >= 0 && end > start) {
+          try {
+            const obj = JSON.parse(body.slice(start, end + 1));
+            obj._raw = text;
+            return obj;
+          } catch (e) {
+            /* fall through to plain text */
+          }
+        }
+        return {
+          summary: text,
+          recommended: [],
+          risks: [],
+          questions: [],
+          _raw: text,
+        };
+      }
+      async function runAiAnalysis() {
+        if (!_aiToken) {
+          setAiStatus(
+            '<span style="color:var(--danger)">❌ ابتدا OpenRouter Access Token را وارد کنید</span>',
+          );
+          return;
+        }
+        if (!_aiCandidates.length) {
+          await fetchReleaseStories();
+          if (!_aiCandidates.length) return;
+        }
+        const cap = applyCapacityFit(_aiCandidates);
+        const payload = buildAiPayload(cap);
+        setAiStatus(
+          `<span style="color:var(--warning)">⏳ تحلیل ${payload.candidates.length} استوری با مدل <strong dir="ltr">${escapeHtml(String(state.aiConfig?.model || DEFAULT_AI_MODEL))}</strong>...</span>`,
+        );
+        try {
+          const out = await callOpenRouterChat(payload);
+          _aiResult = parseAiResult(out.text);
+          applyAiDecisions();
+          renderAiPanel();
+          const inc = (_aiResult.recommended || []).filter(
+            (r) => String(r.decision || "").toLowerCase() === "include",
+          ).length;
+          const tokens = out.usage?.total_tokens
+            ? ` | توکن مصرفی: ${out.usage.total_tokens}`
+            : "";
+          setAiStatus(
+            `<span style="color:var(--success)">✅ تحلیل انجام شد — ${inc} کاندید پیشنهادی از ${_aiCandidates.length} استوری | مدل: <span class="release-badge" dir="ltr">${escapeHtml(out.model)}</span>${tokens}</span>`,
+          );
+        } catch (e) {
+          setAiStatus(
+            `<span style="color:var(--danger)">❌ خطای تحلیل: ${escapeHtml(e.message)}</span>`,
+          );
+        }
+      }
+      function aiRecFor(key) {
+        return (_aiResult?.recommended || []).find(
+          (r) => String(r.key || "").toUpperCase() === key,
+        );
+      }
+      function applyAiDecisions() {
+        _aiCandidates.forEach((c) => {
+          const rec = aiRecFor(c.key);
+          if (!rec) return;
+          c.aiRank = Number(rec.rank || 0) || null;
+          c.aiDecision = String(rec.decision || "").toLowerCase();
+          c.aiConfidence = Number(rec.confidence || 0) || null;
+          c.aiReason = rec.reason || "";
+          c.aiRisks = rec.risks || "";
+          c.selected = c.aiDecision === "include" && !c.alreadyPlanned;
+        });
+      }
+      function candidatesSorted() {
+        return [..._aiCandidates].sort((a, b) => {
+          const ra = a.aiRank || 9999,
+            rb = b.aiRank || 9999;
+          if (ra !== rb) return ra - rb;
+          return b.score - a.score;
+        });
+      }
+      function setCandidateSelected(key, checked) {
+        const c = _aiCandidates.find((x) => x.key === key);
+        if (c) c.selected = !!checked;
+        renderAiMetrics();
+        renderAiBadge();
+      }
+      function toggleAllCandidates(checked) {
+        _aiCandidates.forEach((c) => (c.selected = !!checked));
+        renderAiPanel();
+      }
+      function selectedCandidates() {
+        return _aiCandidates.filter((c) => c.selected);
+      }
+      function suggestMemberFor(role, cand) {
+        const wanted = String(
+          aiRecFor(cand.key)?.suggestedOwners?.[role] || "",
+        ).trim();
+        if (wanted) {
+          const hit = state.members.find((m) => {
+            if (!(m.roles || []).includes(role)) return false;
+            const name = String(m.name || "").trim();
+            const user = String(m.username || "").trim();
+            return (
+              (name &&
+                (name === wanted ||
+                  name.includes(wanted) ||
+                  wanted.includes(name))) ||
+              (user && (user === wanted || wanted.includes(user)))
+            );
+          });
+          if (hit) return hit.id;
+        }
+        const pool = getMembersByRole(role);
+        return pool.length === 1 ? pool[0].id : "";
+      }
+      function addSelectedCandidatesToTasks() {
+        const picked = selectedCandidates();
+        if (!picked.length) {
+          setAiStatus(
+            '<span style="color:var(--warning)">⚠️ هیچ استوری‌ای انتخاب نشده است</span>',
+          );
+          return;
+        }
+        let added = 0,
+          skipped = 0;
+        picked.forEach((c) => {
+          if (isPlannedKey(c.key)) {
+            skipped++;
+            return;
+          }
+          state.tasks.push({
+            id: uid(),
+            type: "normal",
+            taskInput: combineTaskInput(c.summary, c.url),
+            title: c.summary,
+            jiraUrl: c.url,
+            dod: "",
+            generalHours: 0,
+            backend: {
+              memberId: suggestMemberFor("backend", c),
+              hours: Number(c.est.backend || 0),
+            },
+            frontend: {
+              memberId: suggestMemberFor("frontend", c),
+              hours: Number(c.est.frontend || 0),
+            },
+            tester: {
+              memberId: suggestMemberFor("tester", c),
+              hours: Number(c.est.tester || 0),
+            },
+            analyst: {
+              memberId: suggestMemberFor("analyst", c),
+              hours: Number(c.est.analyst || 0),
+            },
+            subtaskRefs: {},
+          });
+          added++;
+        });
+        _aiCandidates.forEach((c) => {
+          c.alreadyPlanned = isPlannedKey(c.key);
+          if (c.alreadyPlanned) c.selected = false;
+        });
+        applyCapacityFit(_aiCandidates);
+        persistAndRender();
+        setAiStatus(
+          `<span style="color:var(--success)">✅ ${added} استوری به لیست تسک‌ها اضافه شد${skipped ? ` | ${skipped} مورد تکراری رد شد` : ""}</span>`,
+        );
+      }
+      function aiTextToHtml(v) {
+        const t = Array.isArray(v) ? v.join("\n") : String(v ?? "");
+        return escapeHtml(t)
+          .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+          .replace(/\n/g, "<br/>");
+      }
+      function renderAiBadge() {
+        const el = document.getElementById("aiSummaryBadge");
+        if (!el) return;
+        if (!_aiCandidates.length) {
+          el.textContent = "تحلیلی انجام نشده";
+          return;
+        }
+        const sel = selectedCandidates();
+        const hours = round1(sel.reduce((s, c) => s + c.estSum, 0));
+        el.textContent = `${_aiCandidates.length} استوری | ${sel.length} انتخاب‌شده | ${fmt(hours)} ساعت${_aiResult ? " | تحلیل AI ✓" : ""}`;
+      }
+      function renderAiMetrics() {
+        const host = document.getElementById("aiMetrics");
+        if (!host) return;
+        if (!_aiCandidates.length) {
+          host.innerHTML = "";
+          return;
+        }
+        const cap = roleCapacitySnapshot();
+        const sel = selectedCandidates();
+        const selByRole = {};
+        AI_ROLES.forEach(
+          (r) =>
+            (selByRole[r] = round1(
+              sel.reduce((s, c) => s + Number(c.est[r] || 0), 0),
+            )),
+        );
+        const cards = [
+          {
+            label: "استوری‌های دریافتی",
+            value: String(_aiCandidates.length),
+          },
+          {
+            label: "انتخاب‌شده",
+            value: `${sel.length} مورد / ${fmt(round1(sel.reduce((s, c) => s + c.estSum, 0)))} ساعت`,
+          },
+        ];
+        AI_ROLES.forEach((r) => {
+          const rem = cap[r].remaining;
+          const need = selByRole[r];
+          const over = need > rem;
+          cards.push({
+            label: `${roleLabels[r]} (انتخاب/ظرفیت آزاد)`,
+            value: `${fmt(need)} / ${fmt(rem)}`,
+            color: over ? "var(--danger)" : need ? "var(--success)" : "",
+          });
+        });
+        host.innerHTML = cards
+          .map(
+            (c) =>
+              `<div class="ai-metric"><span>${escapeHtml(c.label)}</span><strong${c.color ? ` style="color:${c.color}"` : ""}>${escapeHtml(c.value)}</strong></div>`,
+          )
+          .join("");
+      }
+      function renderAiNarrative() {
+        const host = document.getElementById("aiNarrative");
+        if (!host) return;
+        if (!_aiResult) {
+          host.innerHTML = "";
+          return;
+        }
+        const block = (title, icon, content) =>
+          content
+            ? `<div class="ai-block"><h4>${icon} ${title}</h4>${content}</div>`
+            : "";
+        const listBlock = (title, icon, arr) =>
+          Array.isArray(arr) && arr.length
+            ? block(
+                title,
+                icon,
+                `<ul>${arr
+                  .map(
+                    (x) =>
+                      `<li>${aiTextToHtml(typeof x === "string" ? x : JSON.stringify(x))}</li>`,
+                  )
+                  .join("")}</ul>`,
+              )
+            : "";
+        host.innerHTML = [
+          block("خلاصه تحلیل", "📋", aiTextToHtml(_aiResult.summary)),
+          block(
+            "ارزیابی ظرفیت",
+            "📊",
+            aiTextToHtml(_aiResult.capacityAssessment),
+          ),
+          listBlock("ریسک‌ها", "⚠️", _aiResult.risks),
+          listBlock("سؤالات باز", "❓", _aiResult.questions),
+        ]
+          .filter(Boolean)
+          .join("");
+      }
+      const AI_FIT_LABEL = {
+        fit: { t: "در ظرفیت", k: "include" },
+        partial: { t: "ظرفیت ناکافی", k: "needs-info" },
+        over: { t: "خارج از ظرفیت", k: "risk" },
+        planned: { t: "در پلن فعلی", k: "defer" },
+      };
+      const AI_DECISION_LABEL = {
+        include: "پیشنهاد ورود",
+        defer: "به اسپرینت بعد",
+        "needs-info": "نیاز به بررسی",
+      };
+      function renderAiCandidates() {
+        const wrap = document.getElementById("aiTableWrap");
+        const tb = document.getElementById("aiCandidatesTbody");
+        if (!wrap || !tb) return;
+        if (!_aiCandidates.length) {
+          wrap.style.display = "none";
+          tb.innerHTML = "";
+          return;
+        }
+        wrap.style.display = "";
+        tb.innerHTML = "";
+        candidatesSorted().forEach((c, idx) => {
+          const tr = document.createElement("tr");
+          if (c.alreadyPlanned) tr.className = "ai-row-planned";
+          const fit = AI_FIT_LABEL[c.fit];
+          const tags = [
+            c.aiDecision
+              ? `<span class="ai-tag ${escapeAttr(c.aiDecision)}">${escapeHtml(AI_DECISION_LABEL[c.aiDecision] || c.aiDecision)}</span>`
+              : "",
+            fit ? `<span class="ai-tag ${fit.k}">${fit.t}</span>` : "",
+          ].join("");
+          const flagTags = (c.flags || [])
+            .map(
+              (f) =>
+                `<span class="ai-tag ${escapeAttr(f.k || "")}">${escapeHtml(f.t)}</span>`,
+            )
+            .join("");
+          const reason = [
+            c.aiReason ? aiTextToHtml(c.aiReason) : "",
+            c.aiRisks ? `⚠️ ${aiTextToHtml(c.aiRisks)}` : "",
+            flagTags,
+          ]
+            .filter(Boolean)
+            .join("<br/>");
+          const times = [
+            c.updatedDays != null ? `آخرین تغییر: ${c.updatedDays} روز` : "",
+            c.createdDays != null ? `سن: ${c.createdDays} روز` : "",
+            c.spentH ? `صرف‌شده: ${fmt(c.spentH)}h` : "",
+            c.remainingH ? `باقی جیرا: ${fmt(c.remainingH)}h` : "",
+            c.dueInDays != null
+              ? c.dueInDays < 0
+                ? `ددلاین: ${Math.abs(c.dueInDays)} روز گذشته`
+                : `ددلاین: ${c.dueInDays} روز`
+              : "",
+          ]
+            .filter(Boolean)
+            .join("<br/>");
+          tr.innerHTML = `
+      <td><input class="ai-cand-check" type="checkbox" data-key="${escapeAttr(c.key)}"${c.selected ? " checked" : ""} onchange="setCandidateSelected('${escapeAttr(c.key)}', this.checked)"></td>
+      <td>${c.aiRank || idx + 1}</td>
+      <td><a class="task-inline-link" href="${escapeAttr(c.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(c.key)}</a><div class="ai-reason">${escapeHtml(c.summary)}${c.assignee ? `<br/>👤 ${escapeHtml(c.assignee)}` : ""}</div></td>
+      <td>${escapeHtml(c.status)}${c.statusDays != null ? `<div class="ai-reason">${c.statusDays} روز</div>` : ""}</td>
+      <td>${escapeHtml(c.priority || "—")}</td>
+      <td>${fmt(c.est.analyst)}</td>
+      <td>${fmt(c.est.backend)}</td>
+      <td>${fmt(c.est.frontend)}</td>
+      <td>${fmt(c.est.tester)}</td>
+      <td>${fmt(c.estSum)}${c.declaredTotal && round1(c.declaredTotal) !== c.estSum ? `<div class="ai-reason">جیرا: ${fmt(c.declaredTotal)}</div>` : ""}</td>
+      <td class="ai-reason">${times || "—"}</td>
+      <td><span class="ai-score">${c.score}</span>${c.aiConfidence ? `<div class="ai-reason">AI: ${c.aiConfidence}%</div>` : ""}</td>
+      <td>${tags || "—"}</td>
+      <td class="ai-reason">${reason || "—"}</td>`;
+          tb.appendChild(tr);
+        });
+        const all = document.getElementById("aiSelectAll");
+        if (all)
+          all.checked =
+            _aiCandidates.length > 0 && _aiCandidates.every((c) => c.selected);
+      }
+      function renderAiConfig() {
+        const cfg = state.aiConfig || {};
+        const el = (id) => document.getElementById(id);
+        if (el("aiBaseUrl"))
+          el("aiBaseUrl").value = cfg.baseUrl || DEFAULT_AI_BASE_URL;
+        if (el("aiModel")) el("aiModel").value = cfg.model || DEFAULT_AI_MODEL;
+        if (el("aiReleaseUrl")) el("aiReleaseUrl").value = cfg.releaseUrl || "";
+        if (el("aiMaxIssues")) el("aiMaxIssues").value = cfg.maxIssues || 60;
+        if (el("aiNotes")) el("aiNotes").value = cfg.notes || "";
+        if (el("aiOnlyStories"))
+          el("aiOnlyStories").checked = cfg.onlyStories !== false;
+        if (el("aiExcludeDone"))
+          el("aiExcludeDone").checked = cfg.excludeDone !== false;
+        if (el("aiToken")) el("aiToken").value = _aiToken;
+        const dl = el("aiModelList");
+        if (dl && !dl.dataset.loaded)
+          dl.innerHTML = AI_MODEL_SUGGESTIONS.map(
+            (m) => `<option value="${escapeAttr(m)}"></option>`,
+          ).join("");
+        renderAiJqlPreview();
+      }
+      function renderAiPanel() {
+        renderAiConfig();
+        renderAiBadge();
+        renderAiMetrics();
+        renderAiNarrative();
+        renderAiCandidates();
+      }
+
+      // ==========================================
+      // RENDER
+      // ==========================================
+      function getMembersByRole(role) {
+        return state.members.filter(
+          (m) => Array.isArray(m.roles) && m.roles.includes(role),
+        );
+      }
+      function calcAllocations() {
+        const a = {};
+        state.members.forEach((m) => (a[m.id] = 0));
+        state.tasks.forEach((t) => {
+          if (t.type === "general") {
+            state.members.forEach(
+              (m) => (a[m.id] += Number(t.generalHours || 0)),
+            );
+          } else {
+            ["backend", "frontend", "tester", "analyst"].forEach((role) => {
+              const item = t[role];
+              if (item.memberId && a[item.memberId] != null)
+                a[item.memberId] += Number(item.hours || 0);
+            });
+          }
+        });
+        return a;
+      }
+      function memberNameById(id) {
+        const m = state.members.find((x) => x.id === id);
+        return m ? m.name : "";
+      }
+      function memberSelectHtml(taskId, role, selectedId) {
+        const members = getMembersByRole(role);
+        return `<select class="task-select" onchange="updateTaskDirect('${taskId}','${role}','memberId',this.value)"><option value="">— انتخاب —</option>${members.map((m) => `<option value="${m.id}"${m.id === selectedId ? " selected" : ""}>${escapeHtml(m.name)}</option>`).join("")}</select>`;
+      }
+      function isValidUrl(v) {
+        try {
+          new URL(v);
+          return true;
+        } catch (e) {
+          return false;
+        }
+      }
+      function renderTaskInlineLink(task) {
+        if (task.jiraUrl && isValidUrl(task.jiraUrl)) {
+          const label = jiraLabelFromUrl(task.jiraUrl);
+          return `<a class="task-inline-link" href="${escapeAttr(task.jiraUrl)}" target="_blank" rel="noopener noreferrer">${escapeHtml(label)}</a>`;
+        }
+        return "";
+      }
+
+      // DOD select با رنگ‌بندی پویا
+      function dodSelectHtml(taskId, currentDod) {
+        const cls = currentDod
+          ? `dod-${currentDod.toLowerCase()}`
+          : "dod-empty";
+        return `<select class="dod-select ${cls}" onchange="updateTaskDirect('${taskId}','dod',null,this.value);this.className='dod-select '+(this.value?'dod-'+this.value.toLowerCase():'dod-empty')">${DOD_OPTIONS.map((o) => `<option value="${o}"${o === currentDod ? " selected" : ""}>${o || "— DOD —"}</option>`).join("")}</select>`;
+      }
+
+      // DOD badge برای گزارش
+      function dodBadgeHtml(dod) {
+        if (!dod) return `<span style="color:var(--muted)">—</span>`;
+        return `<span class="dod-badge ${dod}">${dod}</span>`;
+      }
+
+      function renderPlan() {
+        document.getElementById("sprintName").value =
+          state.plan.sprintName || "";
+        document.getElementById("planStart").value = state.plan.startDate || "";
+        document.getElementById("planEnd").value = state.plan.endDate || "";
+        document.getElementById("planDays").value = Number(
+          state.plan.planDays || 0,
+        );
+        document.getElementById("workingDays").value = Number(
+          state.plan.workingDays || 0,
+        );
+        document.getElementById("hoursPerDay").value = Number(
+          state.plan.hoursPerDay || 8,
+        );
+        document.getElementById("defaultCapacity").value =
+          fmt(defaultCapacity());
+        document.getElementById("planSummaryBadge").textContent =
+          state.plan.startDate && state.plan.endDate
+            ? `${state.plan.startDate} تا ${state.plan.endDate} | روز پلن: ${state.plan.planDays} | روز کاری: ${state.plan.workingDays}`
+            : "بدون تاریخ";
+      }
+      function renderJiraConfig() {
+        const cfg = state.jiraConfig || {};
+        const el = (id) => document.getElementById(id);
+        if (el("jiraBaseUrl"))
+          el("jiraBaseUrl").value =
+            cfg.baseUrl || "https://mars-jira.systemgroup.net";
+        if (el("jiraRelease")) el("jiraRelease").value = cfg.release || "R6";
+      }
+      function renderMembers() {
+        const tb = document.getElementById("membersTbody");
+        tb.innerHTML = "";
+        state.members.forEach((m) => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `<td><input value="${escapeAttr(m.name)}" onchange="updateMember('${m.id}','name',this.value)"></td><td><input value="${escapeAttr(m.username || "")}" placeholder="یوزرنیم جیرا" dir="ltr" onchange="updateMember('${m.id}','username',this.value)"></td><td><div class="roles">${Object.entries(
+            roleLabels,
+          )
+            .map(
+              ([k, v]) =>
+                `<label class="check-pill"><input type="checkbox"${m.roles.includes(k) ? " checked" : ""} onchange="updateMemberRoles('${m.id}','${k}',this.checked)"><span class="box"></span>${v}</label>`,
+            )
+            .join(
+              "",
+            )}</div></td><td><div class="num-wrap"><button class="num-btn" onclick="stepMemberLeave('${m.id}',-1)">−</button><input class="num-input" type="number" min="0" step="1" value="${m.leaveDays || 0}" onchange="updateMember('${m.id}','leaveDays',this.value)"><button class="num-btn" onclick="stepMemberLeave('${m.id}',1)">+</button></div></td><td><div class="num-wrap"><button class="num-btn" onclick="stepMemberCapacity('${m.id}',-0.5)">−</button><input class="num-input" type="number" min="0" step="0.5" value="${m.capacity}" onchange="updateMember('${m.id}','capacity',this.value)"><button class="num-btn" onclick="stepMemberCapacity('${m.id}',0.5)">+</button></div></td><td><button class="btn btn-danger" onclick="removeMember('${m.id}')">حذف</button></td>`;
+          tb.appendChild(tr);
+        });
+      }
+      function renderTasks() {
+        const tb = document.getElementById("tasksTbody");
+        tb.innerHTML = "";
+        state.tasks.forEach((t) => {
+          const total =
+            t.type === "general"
+              ? Number(t.generalHours || 0)
+              : Number(t.backend.hours || 0) +
+                Number(t.frontend.hours || 0) +
+                Number(t.tester.hours || 0) +
+                Number(t.analyst.hours || 0);
+          const tr = document.createElement("tr");
+          if (t.type === "general") tr.className = "general-task-row";
+          tr.innerHTML = `
+      <td class="sticky-task-col"><div class="task-main"><div class="task-input-row"><input value="${escapeAttr(displayTaskInput(t))}" placeholder="عنوان یا لینک جیرا" onchange="onTaskInputChange('${t.id}',this.value)">${renderTaskInlineLink(t)}</div><div class="jira-fetch-status" id="jfs-${t.id}"></div></div></td>
+      <td>${t.type === "general" ? "عمومی" : "معمولی"}</td>
+      <td>${dodSelectHtml(t.id, t.dod || "")}</td>
+      <td>${t.type === "general" ? "—" : memberSelectHtml(t.id, "backend", t.backend.memberId)}</td>
+      <td>${t.type === "general" ? "—" : `<input class="task-hours" type="number" min="0" step="0.5" value="${t.backend.hours}" onchange="updateTaskDirect('${t.id}','backend','hours',this.value)">`}</td>
+      <td>${t.type === "general" ? "—" : memberSelectHtml(t.id, "frontend", t.frontend.memberId)}</td>
+      <td>${t.type === "general" ? "—" : `<input class="task-hours" type="number" min="0" step="0.5" value="${t.frontend.hours}" onchange="updateTaskDirect('${t.id}','frontend','hours',this.value)">`}</td>
+      <td>${t.type === "general" ? "—" : memberSelectHtml(t.id, "tester", t.tester.memberId)}</td>
+      <td>${t.type === "general" ? "—" : `<input class="task-hours" type="number" min="0" step="0.5" value="${t.tester.hours}" onchange="updateTaskDirect('${t.id}','tester','hours',this.value)">`}</td>
+      <td>${t.type === "general" ? "—" : memberSelectHtml(t.id, "analyst", t.analyst.memberId)}</td>
+      <td>${t.type === "general" ? "—" : `<input class="task-hours" type="number" min="0" step="0.5" value="${t.analyst.hours}" onchange="updateTaskDirect('${t.id}','analyst','hours',this.value)">`}</td>
+      <td>${t.type === "general" ? `<input class="task-hours" type="number" min="0" step="0.5" value="${t.generalHours}" onchange="updateTaskDirect('${t.id}','generalHours',null,this.value)">` : "—"}</td>
+      <td>${fmt(total)}</td>
+      <td><button class="btn btn-danger" onclick="removeTask('${t.id}')">حذف</button></td>`;
+          tb.appendChild(tr);
+        });
+      }
+      function renderSummary() {
+        const a = calcAllocations(),
+          tb = document.getElementById("summaryTbody");
+        tb.innerHTML = "";
+        state.members.forEach((m) => {
+          const assigned = a[m.id] || 0,
+            remaining = Number(m.capacity || 0) - assigned;
+          let cls = "",
+            status = '<span class="ok">عادی</span>';
+          if (remaining < 0) {
+            cls = "over";
+            status = '<span class="danger-text">بیش از ظرفیت</span>';
+          } else if (remaining <= Math.max(2, m.capacity * 0.1)) {
+            cls = "warn";
+            status = '<span class="warning-text">نزدیک ظرفیت</span>';
+          }
+          const tr = document.createElement("tr");
+          tr.className = cls;
+          tr.innerHTML = `<td>${escapeHtml(m.name)}</td><td>${(m.roles || []).map((r) => roleLabels[r] || r).join("، ")}</td><td>${fmt(m.leaveDays || 0)}</td><td>${fmt(m.capacity)}</td><td>${fmt(assigned)}</td><td>${fmt(remaining)}</td><td>${status}</td>`;
+          tb.appendChild(tr);
+        });
+      }
+      function populateReportMembers() {
+        const s = document.getElementById("reportMemberSelect");
+        if (!s) return;
+        const cur = s.value;
+        s.innerHTML =
+          `<option value="">— انتخاب فرد —</option>` +
+          state.members
+            .map(
+              (m) => `<option value="${m.id}">${escapeHtml(m.name)}</option>`,
+            )
+            .join("");
+        if (state.members.some((m) => m.id === cur)) s.value = cur;
+      }
+      function getMemberTaskReport(memberId) {
+        const rows = [];
+        state.tasks.forEach((t) => {
+          if (t.type === "general") {
+            rows.push({
+              taskId: t.id,
+              title: t.title || jiraLabelFromUrl(t.jiraUrl) || "بدون عنوان",
+              jiraUrl: t.jiraUrl || "",
+              issueKey: extractIssueKey(t.taskInput || t.jiraUrl || ""),
+              dod: t.dod || "",
+              type: "عمومی",
+              role: "همه اعضا",
+              roleKey: "general",
+              hours: Number(t.generalHours || 0),
+            });
+          } else {
+            ["backend", "frontend", "tester", "analyst"].forEach((role) => {
+              const item = t[role];
+              if (item.memberId === memberId && Number(item.hours || 0) > 0) {
+                rows.push({
+                  taskId: t.id,
+                  title: t.title || jiraLabelFromUrl(t.jiraUrl) || "بدون عنوان",
+                  jiraUrl: t.jiraUrl || "",
+                  issueKey: extractIssueKey(t.taskInput || t.jiraUrl || ""),
+                  dod: t.dod || "",
+                  type: "معمولی",
+                  role: roleLabels[role] || role,
+                  roleKey: role,
+                  hours: Number(item.hours || 0),
+                });
+              }
+            });
+          }
+        });
+        return rows;
+      }
+      function setReportSubtaskStatus(html) {
+        const el = document.getElementById("reportSubtaskStatus");
+        if (el) el.innerHTML = html;
+      }
+      async function jiraFetch(path, options = {}) {
+        const base = getJiraApiBase();
+        const resp = await fetch(`${base}${path}`, {
+          ...options,
+          headers: getJiraHeaders(options.headers || {}),
+        });
+        return resp;
+      }
+      async function jiraJson(path, options = {}) {
+        const resp = await jiraFetch(path, options);
+        let data = null;
+        try {
+          data = await resp.json();
+        } catch (_) {
+          data = null;
+        }
+        if (!resp.ok) {
+          const msg =
+            (data &&
+              (data.errorMessages?.join("; ") ||
+                Object.entries(data.errors || {})
+                  .map(([k, v]) => `${k}: ${v}`)
+                  .join("; "))) ||
+            `HTTP ${resp.status}`;
+          throw new Error(msg);
+        }
+        return data;
+      }
+      function parseSprintBlob(sprints) {
+        if (!Array.isArray(sprints) || !sprints.length) return null;
+        const parsed = sprints.map((raw) => {
+          const text = String(raw);
+          const id = (text.match(/id=(\d+)/) || [])[1];
+          const state = (text.match(/state=([A-Z]+)/) || [])[1];
+          const name = (text.match(/name=([^,\]]+)/) || [])[1];
+          return { id: id ? Number(id) : null, state, name };
+        });
+        return (
+          parsed.find((s) => s.state === "ACTIVE") ||
+          parsed[parsed.length - 1] ||
+          null
+        );
+      }
+      let _sprintNameFieldMeta = undefined;
+      async function getSprintNameFieldMeta() {
+        if (_sprintNameFieldMeta !== undefined) return _sprintNameFieldMeta;
+        try {
+          const fields = await jiraJson("/rest/api/2/field");
+          const list = Array.isArray(fields) ? fields : [];
+          const f = list.find((x) => {
+            const name = String(x.name || "")
+              .trim()
+              .toLowerCase();
+            if (name === "sprint name") return true;
+            const clauses = (x.clauseNames || []).map((c) =>
+              String(c).trim().toLowerCase(),
+            );
+            return clauses.includes("sprint name");
+          });
+          _sprintNameFieldMeta = f
+            ? {
+                id: f.id,
+                type: f.schema?.type || "string",
+                items: f.schema?.items || null,
+                custom: f.schema?.custom || "",
+              }
+            : null;
+        } catch (_) {
+          _sprintNameFieldMeta = null;
+        }
+        return _sprintNameFieldMeta;
+      }
+      function buildSprintNameFieldValue(meta, sprintName, sprintId) {
+        if (!meta?.id || !sprintName) return null;
+        const custom = String(meta.custom || "");
+        if (
+          custom.includes("gh-sprint") ||
+          custom.includes("greenhopper-sprint")
+        ) {
+          return sprintId || null;
+        }
+        if (meta.type === "option") return { value: sprintName };
+        if (meta.type === "array" && meta.items === "option") {
+          return [{ value: sprintName }];
+        }
+        return sprintName;
+      }
+      async function findSprintIdByName(projectKey, sprintName) {
+        if (!projectKey || !sprintName) return null;
+        const boards = await jiraJson(
+          `/rest/agile/1.0/board?projectKeyOrId=${encodeURIComponent(projectKey)}`,
+        );
+        const boardId = boards.values?.[0]?.id;
+        if (!boardId) return null;
+        const want = String(sprintName).trim().toLowerCase();
+        for (const state of ["active", "future", "closed"]) {
+          let startAt = 0;
+          for (;;) {
+            const page = await jiraJson(
+              `/rest/agile/1.0/board/${boardId}/sprint?state=${state}&startAt=${startAt}&maxResults=50`,
+            );
+            const values = page.values || [];
+            const hit = values.find(
+              (s) =>
+                String(s.name || "")
+                  .trim()
+                  .toLowerCase() === want,
+            );
+            if (hit?.id) return hit.id;
+            if (page.isLast || !values.length) break;
+            startAt += values.length;
+          }
+        }
+        return null;
+      }
+      async function getActiveSprintForIssue(issueKey, preferredSprintName) {
+        const issue = await jiraJson(
+          `/rest/api/2/issue/${encodeURIComponent(issueKey)}?fields=summary,project,customfield_10100,subtasks`,
+        );
+        const projectKey = issue.fields?.project?.key;
+        const preferred = String(preferredSprintName || "").trim();
+        let sprintId = null;
+        let sprintName = preferred || null;
+
+        if (preferred && projectKey) {
+          sprintId = await findSprintIdByName(projectKey, preferred);
+        }
+        if (!sprintId) {
+          const fromParent = parseSprintBlob(issue.fields?.customfield_10100);
+          if (fromParent?.state === "ACTIVE" && fromParent.id) {
+            sprintId = fromParent.id;
+            if (!sprintName) sprintName = fromParent.name || null;
+          } else if (projectKey) {
+            try {
+              const boards = await jiraJson(
+                `/rest/agile/1.0/board?projectKeyOrId=${encodeURIComponent(projectKey)}`,
+              );
+              const boardId = boards.values?.[0]?.id;
+              if (boardId) {
+                const active = await jiraJson(
+                  `/rest/agile/1.0/board/${boardId}/sprint?state=active`,
+                );
+                const s = active.values?.[0];
+                if (s?.id) {
+                  sprintId = s.id;
+                  if (!sprintName) sprintName = s.name || null;
+                }
+              }
+            } catch (_) {
+              /* ignore */
+            }
+          }
+        }
+        return {
+          id: sprintId,
+          name: sprintName,
+          parentSummary: issue.fields?.summary || issueKey,
+          projectKey,
+          existingSubtasks: issue.fields?.subtasks || [],
+        };
+      }
+      function sprintRefKey(name) {
+        return String(name || "")
+          .trim()
+          .toLowerCase();
+      }
+      function findSubtaskRef(task, memberId, sprintName) {
+        const list = task?.subtaskRefs?.[memberId];
+        if (!Array.isArray(list)) return null;
+        const want = sprintRefKey(sprintName);
+        return list.find((r) => sprintRefKey(r.sprintName) === want) || null;
+      }
+      function saveSubtaskRef(taskIds, memberId, sprintName, ref) {
+        (taskIds || []).forEach((taskId) => {
+          const task = state.tasks.find((t) => t.id === taskId);
+          if (!task) return;
+          if (!task.subtaskRefs || typeof task.subtaskRefs !== "object") {
+            task.subtaskRefs = {};
+          }
+          const list = Array.isArray(task.subtaskRefs[memberId])
+            ? task.subtaskRefs[memberId]
+            : (task.subtaskRefs[memberId] = []);
+          const entry = {
+            key: String(ref.key || ""),
+            summary: String(ref.summary || ""),
+            sprintName: String(sprintName || "").trim(),
+            createdAt: ref.createdAt || new Date().toISOString(),
+          };
+          if (!entry.key) return;
+          const idx = list.findIndex(
+            (r) => sprintRefKey(r.sprintName) === sprintRefKey(sprintName),
+          );
+          if (idx >= 0) list[idx] = entry;
+          else list.push(entry);
+        });
+      }
+      function buildSubtaskCandidates(member) {
+        const sprintName = String(state.plan.sprintName || "").trim();
+        const rows = getMemberTaskReport(member.id).filter((r) => r.issueKey);
+        const byParent = new Map();
+        rows.forEach((r) => {
+          const prev = byParent.get(r.issueKey);
+          if (!prev) {
+            const task = state.tasks.find((t) => t.id === r.taskId);
+            byParent.set(r.issueKey, {
+              parentKey: r.issueKey,
+              localTitle: r.title,
+              roleKey: r.roleKey,
+              hours: r.hours,
+              taskIds: r.taskId ? [r.taskId] : [],
+              existingRef: task
+                ? findSubtaskRef(task, member.id, sprintName)
+                : null,
+            });
+          } else {
+            prev.hours += r.hours;
+            // keep first non-general role if present
+            if (prev.roleKey === "general" && r.roleKey !== "general") {
+              prev.roleKey = r.roleKey;
+            }
+            if (r.taskId && !prev.taskIds.includes(r.taskId)) {
+              prev.taskIds.push(r.taskId);
+              if (!prev.existingRef) {
+                const task = state.tasks.find((t) => t.id === r.taskId);
+                if (task) {
+                  prev.existingRef = findSubtaskRef(
+                    task,
+                    member.id,
+                    sprintName,
+                  );
+                }
+              }
+            }
+          }
+        });
+        return [...byParent.values()];
+      }
+      async function createOneJiraSubtask({
+        parentKey,
+        summary,
+        roleKey,
+        hours,
+        sprintId,
+        sprintName,
+        assigneeUsername,
+      }) {
+        const typeMeta =
+          SUBTASK_TYPE_BY_ROLE[roleKey] || SUBTASK_TYPE_BY_ROLE.general;
+        const projectKey = parentKey.split("-")[0];
+        const baseFields = {
+          project: { key: projectKey },
+          parent: { key: parentKey },
+          summary,
+          issuetype: { id: "10003" },
+          customfield_11900: { id: typeMeta.id },
+        };
+        if (assigneeUsername) {
+          baseFields.assignee = { name: assigneeUsername };
+        }
+        if (sprintName) {
+          const sprintNameField = await getSprintNameFieldMeta();
+          const fieldValue = buildSprintNameFieldValue(
+            sprintNameField,
+            sprintName,
+            sprintId,
+          );
+          if (sprintNameField?.id && fieldValue != null) {
+            baseFields[sprintNameField.id] = fieldValue;
+          } else if (sprintId) {
+            // fallback: standard Sprint field
+            baseFields.customfield_10100 = sprintId;
+          }
+        }
+        let created;
+        try {
+          const fields = { ...baseFields };
+          if (hours > 0) {
+            fields.timetracking = { originalEstimate: `${hours}h` };
+          }
+          created = await jiraJson("/rest/api/2/issue", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ fields }),
+          });
+        } catch (e) {
+          if (!(hours > 0)) throw e;
+          created = await jiraJson("/rest/api/2/issue", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ fields: baseFields }),
+          });
+        }
+        if (sprintId && created.key) {
+          try {
+            await jiraFetch(`/rest/agile/1.0/sprint/${sprintId}/issue`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ issues: [created.key] }),
+            });
+          } catch (_) {
+            /* sprint move is best-effort */
+          }
+        }
+        if (created.key && sprintName) {
+          try {
+            const sprintNameField = await getSprintNameFieldMeta();
+            const fieldValue = buildSprintNameFieldValue(
+              sprintNameField,
+              sprintName,
+              sprintId,
+            );
+            if (sprintNameField?.id && fieldValue != null) {
+              await jiraJson(
+                `/rest/api/2/issue/${encodeURIComponent(created.key)}`,
+                {
+                  method: "PUT",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({
+                    fields: { [sprintNameField.id]: fieldValue },
+                  }),
+                },
+              );
+            }
+          } catch (_) {
+            /* Sprint Name field update is best-effort after create */
+          }
+        }
+        return created;
+      }
+      async function createSubtasksForSelectedMember() {
+        const s = document.getElementById("reportMemberSelect");
+        const memberId = s?.value;
+        if (!memberId) {
+          setReportSubtaskStatus(
+            '<span style="color:var(--danger)">❌ ابتدا یک فرد را انتخاب کنید</span>',
+          );
+          return;
+        }
+        if (!_jiraToken) {
+          setReportSubtaskStatus(
+            '<span style="color:var(--danger)">❌ ابتدا Personal Access Token را در تنظیمات جیرا وارد کنید</span>',
+          );
+          return;
+        }
+        if (location.protocol === "file:") {
+          setReportSubtaskStatus(
+            '<span style="color:var(--danger)">❌ صفحه را با <code>python3 jira_proxy.py</code> باز کنید</span>',
+          );
+          return;
+        }
+        const sprintName = String(state.plan.sprintName || "").trim();
+        if (!sprintName) {
+          setReportSubtaskStatus(
+            '<span style="color:var(--danger)">❌ ابتدا نام اسپرینت را در هدر وارد کنید</span>',
+          );
+          return;
+        }
+        const member = state.members.find((m) => m.id === memberId);
+        if (!member) return;
+        const assigneeUsername = String(member.username || "").trim();
+        if (!assigneeUsername) {
+          setReportSubtaskStatus(
+            `<span style="color:var(--danger)">❌ برای «${escapeHtml(member.name)}» یوزرنیم جیرا در بخش اعضای تیم وارد نشده است</span>`,
+          );
+          return;
+        }
+        const candidates = buildSubtaskCandidates(member);
+        if (!candidates.length) {
+          setReportSubtaskStatus(
+            '<span style="color:var(--danger)">❌ برای این فرد تسکی با لینک/کلید جیرا پیدا نشد</span>',
+          );
+          return;
+        }
+        const alreadyCreated = candidates.filter((c) => c.existingRef?.key);
+        const fresh = candidates.filter((c) => !c.existingRef?.key);
+        if (!fresh.length) {
+          setReportSubtaskStatus(
+            `<span style="color:var(--warning)">⚠️ همه ${alreadyCreated.length} ساب‌تسک این فرد در اسپرینت «${escapeHtml(sprintName)}» قبلاً ساخته شده‌اند</span>`,
+          );
+          return;
+        }
+        const confirmed = confirm(
+          `آیا از ایجاد تسک‌ها برای «${member.name}» (${assigneeUsername}) در اسپرینت «${sprintName}» مطمئن هستید؟\n\nتعداد کاندید: ${fresh.length}` +
+            (alreadyCreated.length
+              ? `\n${alreadyCreated.length} مورد قبلاً ساخته شده و رد می‌شود.`
+              : ""),
+        );
+        if (!confirmed) {
+          setReportSubtaskStatus(
+            '<span style="color:var(--muted)">لغو شد.</span>',
+          );
+          return;
+        }
+        setReportSubtaskStatus(
+          '<span style="color:var(--warning)">⏳ آماده‌سازی لیست ساب‌تسک‌ها...</span>',
+        );
+        try {
+          const preview = [];
+          let refsChanged = false;
+          for (const c of candidates) {
+            if (c.existingRef?.key) {
+              preview.push({
+                ...c,
+                sprintName,
+                assigneeUsername,
+                summary: c.existingRef.summary,
+                skip: true,
+              });
+              continue;
+            }
+            const sprintInfo = await getActiveSprintForIssue(
+              c.parentKey,
+              sprintName,
+            );
+            const summary = `${sprintInfo.parentSummary} - ${member.name} - ${sprintName}`;
+            const remote = (sprintInfo.existingSubtasks || []).find(
+              (st) => (st.fields?.summary || "") === summary,
+            );
+            if (remote) {
+              // subtask exists in Jira but wasn't marked locally yet
+              saveSubtaskRef(c.taskIds, member.id, sprintName, {
+                key: remote.key,
+                summary,
+              });
+              refsChanged = true;
+            }
+            preview.push({
+              ...c,
+              storyName: sprintInfo.parentSummary,
+              sprintName,
+              sprintId: sprintInfo.id,
+              assigneeUsername,
+              summary,
+              skip: Boolean(remote),
+            });
+          }
+          if (refsChanged) {
+            saveState();
+            renderMemberReport();
+          }
+          const toCreate = preview.filter((p) => !p.skip);
+          const skipped = preview.filter((p) => p.skip);
+          if (!toCreate.length) {
+            setReportSubtaskStatus(
+              `<span style="color:var(--warning)">⚠️ همه ساب‌تسک‌ها (${skipped.length}) از قبل ساخته شده‌اند</span>`,
+            );
+            return;
+          }
+          const lines = toCreate
+            .map((p) => `• ${p.parentKey}: ${p.summary}`)
+            .join("\n");
+          const okCreate = confirm(
+            `قبل از ایجاد نهایی، لطفاً تأیید کنید.\n\nبرای «${member.name}» ${toCreate.length} تسک ساخته می‌شود` +
+              (skipped.length ? ` (${skipped.length} تکراری رد می‌شود)` : "") +
+              `:\n\n${lines}\n\nایجاد شود؟`,
+          );
+          if (!okCreate) {
+            setReportSubtaskStatus(
+              '<span style="color:var(--muted)">لغو شد.</span>',
+            );
+            return;
+          }
+          const createdKeys = [];
+          const errors = [];
+          for (let i = 0; i < toCreate.length; i++) {
+            const item = toCreate[i];
+            setReportSubtaskStatus(
+              `<span style="color:var(--warning)">⏳ ساخت ${i + 1}/${toCreate.length}: ${escapeHtml(item.summary)}</span>`,
+            );
+            try {
+              const created = await createOneJiraSubtask(item);
+              createdKeys.push(created.key);
+              saveSubtaskRef(item.taskIds, member.id, sprintName, {
+                key: created.key,
+                summary: item.summary,
+              });
+              saveState();
+            } catch (e) {
+              errors.push(`${item.parentKey}: ${e.message}`);
+            }
+          }
+          renderMemberReport();
+          let msg = "";
+          if (createdKeys.length) {
+            msg += `✅ ${createdKeys.length} ساب‌تسک ساخته شد: ${createdKeys.join(", ")}`;
+          }
+          if (skipped.length) {
+            msg += `${msg ? "<br/>" : ""}⏭️ ${skipped.length} مورد از قبل ساخته شده بود و رد شد`;
+          }
+          if (errors.length) {
+            msg += `${msg ? "<br/>" : ""}❌ خطا: ${escapeHtml(errors.join(" | "))}`;
+          }
+          setReportSubtaskStatus(
+            `<span style="color:${errors.length ? "var(--danger)" : "var(--success)"}">${msg}</span>`,
+          );
+        } catch (e) {
+          setReportSubtaskStatus(
+            `<span style="color:var(--danger)">❌ ${escapeHtml(e.message)}</span>`,
+          );
+        }
+      }
+      function resetSubtaskFlagsForSelectedMember() {
+        const memberId = document.getElementById("reportMemberSelect")?.value;
+        if (!memberId) {
+          setReportSubtaskStatus(
+            '<span style="color:var(--danger)">❌ ابتدا یک فرد را انتخاب کنید</span>',
+          );
+          return;
+        }
+        const sprintName = String(state.plan.sprintName || "").trim();
+        if (!sprintName) {
+          setReportSubtaskStatus(
+            '<span style="color:var(--danger)">❌ ابتدا نام اسپرینت را در هدر وارد کنید</span>',
+          );
+          return;
+        }
+        const member = state.members.find((m) => m.id === memberId);
+        const targets = state.tasks.filter((t) =>
+          findSubtaskRef(t, memberId, sprintName),
+        );
+        if (!targets.length) {
+          setReportSubtaskStatus(
+            '<span style="color:var(--muted)">موردی برای بازنشانی وجود ندارد.</span>',
+          );
+          return;
+        }
+        const ok = confirm(
+          `نشانه «ساخته شده» برای ${targets.length} تسک «${member?.name || ""}» در اسپرینت «${sprintName}» پاک شود؟\n\nساب‌تسک‌های ساخته‌شده در جیرا حذف نمی‌شوند.`,
+        );
+        if (!ok) return;
+        targets.forEach((t) => {
+          const list = t.subtaskRefs[memberId].filter(
+            (r) => sprintRefKey(r.sprintName) !== sprintRefKey(sprintName),
+          );
+          if (list.length) t.subtaskRefs[memberId] = list;
+          else delete t.subtaskRefs[memberId];
+        });
+        saveState();
+        renderMemberReport();
+        setReportSubtaskStatus(
+          `<span style="color:var(--success)">✅ وضعیت ${targets.length} تسک بازنشانی شد</span>`,
+        );
+      }
+      function subtaskStatusCellHtml(row, memberId, sprintName) {
+        if (!row.issueKey) {
+          return `<span style="color:var(--muted)">بدون کلید جیرا</span>`;
+        }
+        if (!sprintName) {
+          return `<span style="color:var(--muted)">نام اسپرینت خالی است</span>`;
+        }
+        const task = state.tasks.find((t) => t.id === row.taskId);
+        const ref = task ? findSubtaskRef(task, memberId, sprintName) : null;
+        if (!ref) {
+          return `<span class="subtask-badge pending">ساخته نشده</span>`;
+        }
+        const base = configuredJiraBase();
+        const href = `${base}/browse/${encodeURIComponent(ref.key)}`;
+        return `<a class="subtask-badge created" href="${escapeAttr(href)}" target="_blank" title="${escapeAttr(ref.summary)}">✅ ${escapeHtml(ref.key)}</a>`;
+      }
+      function renderMemberReport() {
+        const s = document.getElementById("reportMemberSelect"),
+          tb = document.getElementById("reportTbody"),
+          sum = document.getElementById("reportSummaryText");
+        if (!s || !tb || !sum) return;
+        const memberId = s.value;
+        tb.innerHTML = "";
+        if (!memberId) {
+          sum.textContent = "هنوز فردی انتخاب نشده است.";
+          setReportSubtaskStatus(
+            '<span style="color:var(--muted)">برای ساخت ساب‌تسک، فرد را انتخاب کنید.</span>',
+          );
+          return;
+        }
+        const member = state.members.find((m) => m.id === memberId);
+        if (!member) {
+          sum.textContent = "فرد پیدا نشد.";
+          return;
+        }
+        const rows = getMemberTaskReport(memberId);
+        if (!rows.length) {
+          sum.textContent = `برای ${member.name} هیچ تسکی ثبت نشده است.`;
+          return;
+        }
+        const sprintName = String(state.plan.sprintName || "").trim();
+        let total = 0;
+        const createdKeys = new Set();
+        const pendingKeys = new Set();
+        rows.forEach((r) => {
+          total += r.hours;
+          const tr = document.createElement("tr");
+          const linkCell =
+            r.jiraUrl && isValidUrl(r.jiraUrl)
+              ? `<a class="report-jira-link" href="${escapeAttr(r.jiraUrl)}" target="_blank">${escapeHtml(jiraLabelFromUrl(r.jiraUrl))}</a>`
+              : `<span style="color:var(--muted)">—</span>`;
+          if (r.issueKey && sprintName) {
+            const task = state.tasks.find((t) => t.id === r.taskId);
+            if (task && findSubtaskRef(task, memberId, sprintName))
+              createdKeys.add(r.issueKey);
+            else pendingKeys.add(r.issueKey);
+          }
+          tr.innerHTML = `<td>${escapeHtml(r.title)}</td><td>${linkCell}</td><td>${dodBadgeHtml(r.dod)}</td><td>${escapeHtml(r.type)}</td><td>${escapeHtml(r.role)}</td><td style="text-align:center;font-weight:700">${fmt(r.hours)}</td><td style="text-align:center">${subtaskStatusCellHtml(r, memberId, sprintName)}</td>`;
+          tb.appendChild(tr);
+        });
+        createdKeys.forEach((k) => pendingKeys.delete(k));
+        sum.textContent =
+          `جمع زمان‌های ${member.name}: ${fmt(total)} ساعت` +
+          (sprintName
+            ? ` — ساب‌تسک اسپرینت «${sprintName}»: ${createdKeys.size} ساخته شده، ${pendingKeys.size} باقی‌مانده`
+            : "");
+      }
+      function getStateForExport() {
+        const s = JSON.parse(JSON.stringify(state));
+        s.jiraConfig = {
+          baseUrl: state.jiraConfig?.baseUrl || "",
+          release: state.jiraConfig?.release || "R6",
+        };
+        return s;
+      }
+      function renderJsonBox() {
+        document.getElementById("jsonBox").value = JSON.stringify(
+          getStateForExport(),
+          null,
+          2,
+        );
+      }
+      function render() {
+        applyTheme();
+        renderPlan();
+        renderJiraConfig();
+        renderAiPanel();
+        renderMembers();
+        renderTasks();
+        renderSummary();
+        populateReportMembers();
+        renderMemberReport();
+        renderJsonBox();
+        renderPanels();
+      }
+      function persistAndRender() {
+        saveState();
+        render();
+      }
+      function downloadFile(f, c, m) {
+        const b = new Blob([c], { type: m });
+        const u = URL.createObjectURL(b);
+        const a = document.createElement("a");
+        a.href = u;
+        a.download = f;
+        a.click();
+        URL.revokeObjectURL(u);
+      }
+      function exportData() {
+        const d = JSON.stringify(getStateForExport(), null, 2);
+        document.getElementById("jsonBox").value = d;
+        downloadFile(
+          "sprint-planning-data.json",
+          d,
+          "application/json;charset=utf-8",
+        );
+      }
+      function importData(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+        const r = new FileReader();
+        r.onload = (e) => {
+          try {
+            state = normalizeState(JSON.parse(e.target.result));
+            persistAndRender();
+            alert("JSON با موفقیت وارد شد");
+          } catch (err) {
+            alert("فایل معتبر نیست");
+          } finally {
+            event.target.value = "";
+          }
+        };
+        r.readAsText(file, "utf-8");
+      }
+      function csvEscape(v) {
+        const s = String(v == null ? "" : v);
+        return s.includes('"') || s.includes(",") || s.includes("\n")
+          ? `"${s.replace(/"/g, '""')}"`
+          : s;
+      }
+      function toCSV(rows) {
+        if (!rows || !rows.length) return "";
+        const h = Object.keys(rows[0]),
+          lines = [h.join(",")];
+        rows.forEach((r) =>
+          lines.push(h.map((x) => csvEscape(r[x])).join(",")),
+        );
+        return "\uFEFF" + lines.join("\n");
+      }
+      function exportCSVBundle() {
+        const planCsv = toCSV([
+          {
+            sprintName: state.plan.sprintName || "",
+            startDate: state.plan.startDate,
+            endDate: state.plan.endDate,
+            planDays: state.plan.planDays,
+            workingDays: state.plan.workingDays,
+            hoursPerDay: state.plan.hoursPerDay,
+            defaultCapacity: defaultCapacity(),
+            theme: state.theme,
+            jiraBaseUrl: state.jiraConfig?.baseUrl || "",
+            jiraRelease: state.jiraConfig?.release || "R6",
+          },
+        ]);
+        const membersCsv = toCSV(
+          state.members.map((m) => ({
+            name: m.name,
+            username: m.username || "",
+            roles: (m.roles || []).join(","),
+            leave_days: m.leaveDays || 0,
+            capacity: m.capacity,
+          })),
+        );
+        const tasksCsv = toCSV(
+          state.tasks.map((t) => ({
+            type: t.type,
+            task_input: t.taskInput || combineTaskInput(t.title, t.jiraUrl),
+            title: t.title,
+            jira_url: t.jiraUrl || "",
+            dod: t.dod || "",
+            general_hours: t.generalHours || 0,
+            backend_member: memberNameById(t.backend.memberId),
+            backend_hours: t.backend.hours,
+            frontend_member: memberNameById(t.frontend.memberId),
+            frontend_hours: t.frontend.hours,
+            tester_member: memberNameById(t.tester.memberId),
+            tester_hours: t.tester.hours,
+            analyst_member: memberNameById(t.analyst.memberId),
+            analyst_hours: t.analyst.hours,
+          })),
+        );
+        downloadFile("plan.csv", planCsv, "text/csv;charset=utf-8");
+        setTimeout(
+          () =>
+            downloadFile("members.csv", membersCsv, "text/csv;charset=utf-8"),
+          150,
+        );
+        setTimeout(
+          () => downloadFile("tasks.csv", tasksCsv, "text/csv;charset=utf-8"),
+          300,
+        );
+      }
+      function parseCSV(text) {
+        const rows = [],
+          lines = [];
+        let current = "",
+          row = [],
+          inQuotes = false;
+        for (let i = 0; i < text.length; i++) {
+          const c = text[i],
+            n = text[i + 1];
+          if (c == '"' && inQuotes && n == '"') {
+            current += '"';
+            i++;
+            continue;
+          }
+          if (c == '"') {
+            inQuotes = !inQuotes;
+            continue;
+          }
+          if (c == "," && !inQuotes) {
+            row.push(current);
+            current = "";
+            continue;
+          }
+          if ((c == "\n" || c == "\r") && !inQuotes) {
+            if (c == "\r" && n == "\n") i++;
+            row.push(current);
+            current = "";
+            lines.push(row);
+            row = [];
+            continue;
+          }
+          current += c;
+        }
+        if (current.length || row.length) {
+          row.push(current);
+          lines.push(row);
+        }
+        if (!lines.length) return rows;
+        const headers = lines[0].map((h) =>
+          String(h || "")
+            .replace(/^\uFEFF/, "")
+            .trim(),
+        );
+        for (let i = 1; i < lines.length; i++) {
+          const obj = {};
+          headers.forEach((h, idx) => (obj[h] = lines[i][idx] ?? ""));
+          if (Object.values(obj).some((v) => String(v).trim() !== ""))
+            rows.push(obj);
+        }
+        return rows;
+      }
+      function readTextFile(file) {
+        return new Promise((resolve, reject) => {
+          const r = new FileReader();
+          r.onload = (e) => resolve(e.target.result);
+          r.onerror = reject;
+          r.readAsText(file, "utf-8");
+        });
+      }
+      function importCSVFiles(event) {
+        const files = Array.from(event.target.files || []);
+        if (!files.length) return;
+        const pf = files.find((f) => f.name.toLowerCase().includes("plan")),
+          mf = files.find((f) => f.name.toLowerCase().includes("member")),
+          tf = files.find((f) => f.name.toLowerCase().includes("task"));
+        if (!pf && !mf && !tf) {
+          alert("فایل CSV مناسب پیدا نشد");
+          event.target.value = "";
+          return;
+        }
+        const readers = [];
+        if (pf)
+          readers.push(
+            readTextFile(pf).then((t) => ({ type: "plan", text: t })),
+          );
+        if (mf)
+          readers.push(
+            readTextFile(mf).then((t) => ({ type: "members", text: t })),
+          );
+        if (tf)
+          readers.push(
+            readTextFile(tf).then((t) => ({ type: "tasks", text: t })),
+          );
+        Promise.all(readers)
+          .then((results) => {
+            let plan = state.plan,
+              members = state.members,
+              tasks = state.tasks,
+              theme = state.theme,
+              jiraConfig = state.jiraConfig;
+            results.forEach((item) => {
+              const rows = parseCSV(item.text);
+              if (item.type === "plan") {
+                const r = rows[0] || {};
+                plan = {
+                  sprintName: String(r.sprintName || "").trim(),
+                  startDate: String(r.startDate || ""),
+                  endDate: String(r.endDate || ""),
+                  planDays: Number(r.planDays || 0),
+                  workingDays: Number(r.workingDays || 0),
+                  hoursPerDay: Number(r.hoursPerDay || 8),
+                };
+                if (String(r.theme || "").trim())
+                  theme = String(r.theme).trim() === "dark" ? "dark" : "light";
+                if (r.jiraBaseUrl)
+                  jiraConfig = {
+                    ...jiraConfig,
+                    baseUrl: String(r.jiraBaseUrl),
+                  };
+                if (r.jiraRelease)
+                  jiraConfig = {
+                    ...jiraConfig,
+                    release: String(r.jiraRelease),
+                  };
+              }
+              if (item.type === "members") {
+                members = rows
+                  .map((r) => ({
+                    id: uid(),
+                    name: String(r.name || "").trim(),
+                    username: String(r.username || "").trim(),
+                    roles: String(r.roles || "")
+                      .split(",")
+                      .map((x) => x.trim())
+                      .filter(Boolean),
+                    leaveDays: Number(r.leave_days || 0),
+                    capacity: Number(r.capacity || 0),
+                  }))
+                  .filter((x) => x.name);
+              }
+              if (item.type === "tasks") {
+                const map = {};
+                members.forEach((m) => (map[m.name] = m.id));
+                tasks = rows.map((r) => {
+                  const ti = String(
+                      r.task_input ||
+                        combineTaskInput(
+                          String(r.title || ""),
+                          String(r.jira_url || ""),
+                        ),
+                    ),
+                    p = parseTaskDisplay(ti);
+                  const rawDod =
+                    String(r.dod || "") === "Active"
+                      ? "Implemented"
+                      : String(r.dod || "");
+                  const dod = DOD_OPTIONS.includes(rawDod) ? rawDod : "";
+                  return {
+                    id: uid(),
+                    type:
+                      String(r.type || "normal") === "general"
+                        ? "general"
+                        : "normal",
+                    taskInput: ti,
+                    title: p.title || String(r.title || ""),
+                    jiraUrl: p.url || String(r.jira_url || ""),
+                    dod,
+                    generalHours: Number(r.general_hours || 0),
+                    backend: {
+                      memberId:
+                        map[String(r.backend_member || "").trim()] || "",
+                      hours: Number(r.backend_hours || 0),
+                    },
+                    frontend: {
+                      memberId:
+                        map[String(r.frontend_member || "").trim()] || "",
+                      hours: Number(r.frontend_hours || 0),
+                    },
+                    tester: {
+                      memberId: map[String(r.tester_member || "").trim()] || "",
+                      hours: Number(r.tester_hours || 0),
+                    },
+                    analyst: {
+                      memberId:
+                        map[String(r.analyst_member || "").trim()] || "",
+                      hours: Number(r.analyst_hours || 0),
+                    },
+                  };
+                });
+              }
+            });
+            state = normalizeState({
+              theme,
+              plan,
+              members,
+              tasks,
+              panels: state.panels,
+              jiraConfig,
+              aiConfig: state.aiConfig,
+            });
+            persistAndRender();
+            alert("CSVها وارد شدند");
+          })
+          .catch(() => alert("خطا در خواندن CSV"))
+          .finally(() => (event.target.value = ""));
+      }
+      function resetAll() {
+        if (!confirm("همه داده‌ها پاک شوند؟")) return;
+        _jiraToken = "";
+        _aiToken = "";
+        _aiCandidates = [];
+        _aiResult = null;
+        state = defaultState();
+        persistAndRender();
+      }
+      function seedDemo() {
+        state = normalizeState({
+          theme: state.theme || "light",
+          plan: {
+            startDate: "1403/12/01",
+            endDate: "1403/12/14",
+            planDays: 14,
+            workingDays: 8,
+            hoursPerDay: 8,
+          },
+          members: [
+            {
+              id: "m1",
+              name: "محمد امین",
+              username: "m.amin",
+              roles: ["backend"],
+              leaveDays: 1,
+              capacity: 56,
+            },
+            {
+              id: "m2",
+              name: "سارا",
+              username: "s.sara",
+              roles: ["frontend"],
+              leaveDays: 0,
+              capacity: 64,
+            },
+            {
+              id: "m3",
+              name: "رضا",
+              username: "r.reza",
+              roles: ["tester"],
+              leaveDays: 2,
+              capacity: 48,
+            },
+            {
+              id: "m4",
+              name: "نگار",
+              username: "n.negar",
+              roles: ["analyst"],
+              leaveDays: 1,
+              capacity: 56,
+            },
+          ],
+          tasks: [
+            {
+              id: "t1",
+              type: "normal",
+              taskInput:
+                "وضعیت عملیاتی درخواست خرید | http://mars-jira.systemgroup.net/browse/PRC-1242",
+              title: "وضعیت عملیاتی درخواست خرید",
+              jiraUrl: "http://mars-jira.systemgroup.net/browse/PRC-1242",
+              dod: "Implemented",
+              generalHours: 0,
+              backend: { memberId: "m1", hours: 6 },
+              frontend: { memberId: "m2", hours: 6 },
+              tester: { memberId: "m3", hours: 4 },
+              analyst: { memberId: "m4", hours: 8 },
+            },
+            {
+              id: "t2",
+              type: "normal",
+              taskInput:
+                "پیاده‌سازی لاگین | http://mars-jira.systemgroup.net/browse/PRC-1100",
+              title: "پیاده‌سازی لاگین",
+              jiraUrl: "http://mars-jira.systemgroup.net/browse/PRC-1100",
+              dod: "Merged",
+              generalHours: 0,
+              backend: { memberId: "m1", hours: 4 },
+              frontend: { memberId: "m2", hours: 3 },
+              tester: { memberId: "m3", hours: 2 },
+              analyst: { memberId: "m4", hours: 1 },
+            },
+            {
+              id: "t3",
+              type: "general",
+              taskInput: "جلسه داخلی تیم",
+              title: "جلسه داخلی تیم",
+              jiraUrl: "",
+              dod: "",
+              generalHours: 2,
+              backend: { memberId: "", hours: 0 },
+              frontend: { memberId: "", hours: 0 },
+              tester: { memberId: "", hours: 0 },
+              analyst: { memberId: "", hours: 0 },
+            },
+          ],
+        });
+        persistAndRender();
+      }
+      render();
+    </script>
+  </body>
+</html>
