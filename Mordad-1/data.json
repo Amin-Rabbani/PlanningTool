@@ -1,0 +1,611 @@
+{
+  "theme": "light",
+  "plan": {
+    "sprintName": "PRC-05-05.1",
+    "startDate": "1405/05/01",
+    "endDate": "1405/05/14",
+    "planDays": 14,
+    "workingDays": 9,
+    "hoursPerDay": 8
+  },
+  "jiraConfig": {
+    "baseUrl": "https://mars-jira.systemgroup.net",
+    "release": "R6"
+  },
+  "members": [
+    {
+      "id": "njh9dwbe",
+      "name": "امین",
+      "username": "mohammadaminr",
+      "roles": [
+        "backend",
+        "frontend"
+      ],
+      "leaveDays": 0,
+      "capacity": 72
+    },
+    {
+      "id": "ws7v4002",
+      "name": "حسین",
+      "username": "hosseinbo",
+      "roles": [
+        "backend"
+      ],
+      "leaveDays": 0,
+      "capacity": 72
+    },
+    {
+      "id": "96ibr2u0",
+      "name": "رضا",
+      "username": "rezaya",
+      "roles": [
+        "backend",
+        "frontend"
+      ],
+      "leaveDays": 0,
+      "capacity": 72
+    },
+    {
+      "id": "m8dox9bt",
+      "name": "متین",
+      "username": "matinam",
+      "roles": [
+        "backend",
+        "frontend"
+      ],
+      "leaveDays": 1,
+      "capacity": 64
+    },
+    {
+      "id": "efvtyj41",
+      "name": "الهه",
+      "username": "elaheht",
+      "roles": [
+        "backend",
+        "frontend"
+      ],
+      "leaveDays": 1,
+      "capacity": 64
+    },
+    {
+      "id": "l4t0ghgd",
+      "name": "شیرین",
+      "username": "",
+      "roles": [
+        "analyst"
+      ],
+      "leaveDays": 1,
+      "capacity": 64
+    },
+    {
+      "id": "cg6nknt4",
+      "name": "پرنیا",
+      "username": "",
+      "roles": [
+        "tester"
+      ],
+      "leaveDays": 0,
+      "capacity": 72
+    },
+    {
+      "id": "k2e17elv",
+      "name": "فهیمه",
+      "username": "fahimen",
+      "roles": [
+        "tester"
+      ],
+      "leaveDays": 0,
+      "capacity": 72
+    }
+  ],
+  "tasks": [
+    {
+      "id": "mll0scyp",
+      "type": "general",
+      "taskInput": "جلسات اسکرام | http://mars-jira.systemgroup.net/browse/PRC-1707",
+      "title": "جلسات اسکرام",
+      "jiraUrl": "http://mars-jira.systemgroup.net/browse/PRC-1707",
+      "dod": "",
+      "generalHours": 4.5,
+      "backend": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontend": {
+        "memberId": "",
+        "hours": 0
+      },
+      "tester": {
+        "memberId": "",
+        "hours": 0
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 0
+      }
+    },
+    {
+      "id": "o1fr6pat",
+      "type": "normal",
+      "taskInput": "PRC-212 - فرایند مرجوعی | https://mars-jira.systemgroup.net/browse/PRC-212",
+      "title": "PRC-212 - فرایند مرجوعی",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-212",
+      "dod": "Merged",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "ws7v4002",
+        "hours": 7
+      },
+      "frontend": {
+        "memberId": "njh9dwbe",
+        "hours": 5
+      },
+      "tester": {
+        "memberId": "cg6nknt4",
+        "hours": 24
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 0
+      }
+    },
+    {
+      "id": "zcfw4y07",
+      "type": "normal",
+      "taskInput": "PRC-64 - چاپ درخواست | https://mars-jira.systemgroup.net/browse/PRC-64",
+      "title": "PRC-64 - چاپ درخواست",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-64",
+      "dod": "Merged",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontend": {
+        "memberId": "m8dox9bt",
+        "hours": 2
+      },
+      "tester": {
+        "memberId": "k2e17elv",
+        "hours": 4
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 0
+      }
+    },
+    {
+      "id": "hvelh4bf",
+      "type": "normal",
+      "taskInput": "PRC-663 - تحویل برگشتی | https://mars-jira.systemgroup.net/browse/PRC-663",
+      "title": "PRC-663 - تحویل برگشتی",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-663",
+      "dod": "Merged",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "ws7v4002",
+        "hours": 5
+      },
+      "frontend": {
+        "memberId": "njh9dwbe",
+        "hours": 2
+      },
+      "tester": {
+        "memberId": "cg6nknt4",
+        "hours": 8
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 0
+      }
+    },
+    {
+      "id": "niknofb3",
+      "type": "normal",
+      "taskInput": "PRC-2315 - ارتباط فاکتور خرید با سند انبار - انالیز اتوماتیک فاکتور و سند انبار | https://mars-jira.systemgroup.net/browse/PRC-2315",
+      "title": "PRC-2315 - ارتباط فاکتور خرید با سند انبار - انالیز اتوماتیک فاکتور و سند انبار",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-2315",
+      "dod": "Merged",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "njh9dwbe",
+        "hours": 10
+      },
+      "frontend": {
+        "memberId": "njh9dwbe",
+        "hours": 5
+      },
+      "tester": {
+        "memberId": "k2e17elv",
+        "hours": 15
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 0
+      }
+    },
+    {
+      "id": "vmb49ffh",
+      "type": "normal",
+      "taskInput": "PRC-1701 - سفارش در راه | https://mars-jira.systemgroup.net/browse/PRC-1701",
+      "title": "PRC-1701 - سفارش در راه",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-1701",
+      "dod": "Merged",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "ws7v4002",
+        "hours": 15
+      },
+      "frontend": {
+        "memberId": "",
+        "hours": 0
+      },
+      "tester": {
+        "memberId": "cg6nknt4",
+        "hours": 21.5
+      },
+      "analyst": {
+        "memberId": "l4t0ghgd",
+        "hours": 6
+      }
+    },
+    {
+      "id": "54edou45",
+      "type": "normal",
+      "taskInput": "PRC-2810 - AI Business Objects | https://mars-jira.systemgroup.net/browse/PRC-2810",
+      "title": "PRC-2810 - AI Business Objects",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-2810",
+      "dod": "Merged",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "96ibr2u0",
+        "hours": 30
+      },
+      "frontend": {
+        "memberId": "",
+        "hours": 0
+      },
+      "tester": {
+        "memberId": "",
+        "hours": 30
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 0
+      }
+    },
+    {
+      "id": "yoobrxh5",
+      "type": "normal",
+      "taskInput": "PRC-2285 - تلرانس تحویل - ( تلرانس تحویل نسبت به سفارش) | https://mars-jira.systemgroup.net/browse/PRC-2285",
+      "title": "PRC-2285 - تلرانس تحویل - ( تلرانس تحویل نسبت به سفارش)",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-2285",
+      "dod": "Merged",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "efvtyj41",
+        "hours": 40
+      },
+      "frontend": {
+        "memberId": "",
+        "hours": 0
+      },
+      "tester": {
+        "memberId": "k2e17elv",
+        "hours": 24
+      },
+      "analyst": {
+        "memberId": "l4t0ghgd",
+        "hours": 16
+      }
+    },
+    {
+      "id": "47kjq4na",
+      "type": "normal",
+      "taskInput": "PRC-2805 -  داشبورد جامع تدارکات برای نظارت و تحلیل خریدها | https://mars-jira.systemgroup.net/browse/PRC-2805",
+      "title": "PRC-2805 -  داشبورد جامع تدارکات برای نظارت و تحلیل خریدها",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-2805",
+      "dod": "Merged",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontend": {
+        "memberId": "m8dox9bt",
+        "hours": 10
+      },
+      "tester": {
+        "memberId": "cg6nknt4",
+        "hours": 16
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 0
+      }
+    },
+    {
+      "id": "epi1g75b",
+      "type": "normal",
+      "taskInput": "PRC-664 - سند حسابداری برگشتی | https://mars-jira.systemgroup.net/browse/PRC-664",
+      "title": "PRC-664 - سند حسابداری برگشتی",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-664",
+      "dod": "Merged",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "ws7v4002",
+        "hours": 16
+      },
+      "frontend": {
+        "memberId": "njh9dwbe",
+        "hours": 8
+      },
+      "tester": {
+        "memberId": "k2e17elv",
+        "hours": 22.5
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 0
+      }
+    },
+    {
+      "id": "0j28pkev",
+      "type": "normal",
+      "taskInput": "PRC-2811 - اعمال تغییرات دسترسی | https://mars-jira.systemgroup.net/browse/PRC-2811",
+      "title": "PRC-2811 - اعمال تغییرات دسترسی",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-2811",
+      "dod": "Merged",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "efvtyj41",
+        "hours": 2
+      },
+      "frontend": {
+        "memberId": "",
+        "hours": 0
+      },
+      "tester": {
+        "memberId": "cg6nknt4",
+        "hours": 8
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 0
+      }
+    },
+    {
+      "id": "av6atj4y",
+      "type": "normal",
+      "taskInput": "PRC-1604 - ارتباط با دریافت و پرداخت - تنخواه | https://mars-jira.systemgroup.net/browse/PRC-1604",
+      "title": "PRC-1604 - ارتباط با دریافت و پرداخت - تنخواه",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-1604",
+      "dod": "Merged",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontend": {
+        "memberId": "",
+        "hours": 0
+      },
+      "tester": {
+        "memberId": "k2e17elv",
+        "hours": 1
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 0
+      }
+    },
+    {
+      "id": "0qa2lpf6",
+      "type": "normal",
+      "taskInput": "PRC-3843 - تدارکات - یکپارچه سازی کالا خدمت با فروش و انبار | https://mars-jira.systemgroup.net/browse/PRC-3843",
+      "title": "PRC-3843 - تدارکات - یکپارچه سازی کالا خدمت با فروش و انبار",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-3843",
+      "dod": "Merged",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontend": {
+        "memberId": "",
+        "hours": 0
+      },
+      "tester": {
+        "memberId": "k2e17elv",
+        "hours": 1
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 0
+      }
+    },
+    {
+      "id": "uw8ipdkb",
+      "type": "normal",
+      "taskInput": "PRC-2464 - عدم نمایش شعبه در تک شعبه ای - تدارکات | https://mars-jira.systemgroup.net/browse/PRC-2464",
+      "title": "PRC-2464 - عدم نمایش شعبه در تک شعبه ای - تدارکات",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-2464",
+      "dod": "Merged",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "m8dox9bt",
+        "hours": 2
+      },
+      "frontend": {
+        "memberId": "",
+        "hours": 0
+      },
+      "tester": {
+        "memberId": "k2e17elv",
+        "hours": 3
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 0
+      }
+    },
+    {
+      "id": "nrsofpy7",
+      "type": "normal",
+      "taskInput": "PRC-1688 - تعداد ارقام فیلد های مقداری | https://mars-jira.systemgroup.net/browse/PRC-1688",
+      "title": "PRC-1688 - تعداد ارقام فیلد های مقداری",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-1688",
+      "dod": "Merged",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontend": {
+        "memberId": "",
+        "hours": 0
+      },
+      "tester": {
+        "memberId": "",
+        "hours": 0
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 0
+      }
+    },
+    {
+      "id": "8587mza1",
+      "type": "normal",
+      "taskInput": "PRC-3058 - پشتیبانی از تفصیلی کالا و خدمت | https://mars-jira.systemgroup.net/browse/PRC-3058",
+      "title": "PRC-3058 - پشتیبانی از تفصیلی کالا و خدمت",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-3058",
+      "dod": "Merged",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "ws7v4002",
+        "hours": 12
+      },
+      "frontend": {
+        "memberId": "",
+        "hours": 0
+      },
+      "tester": {
+        "memberId": "k2e17elv",
+        "hours": 8
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 0
+      }
+    },
+    {
+      "id": "sao8ylv5",
+      "type": "normal",
+      "taskInput": "PRC-2809 - استیکی (فریز) شدن تولبار گرید اقلام () هنگام اسکرول پایین | https://mars-jira.systemgroup.net/browse/PRC-2809",
+      "title": "PRC-2809 - استیکی (فریز) شدن تولبار گرید اقلام () هنگام اسکرول پایین ",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-2809",
+      "dod": "Merged",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontend": {
+        "memberId": "njh9dwbe",
+        "hours": 2
+      },
+      "tester": {
+        "memberId": "",
+        "hours": 6
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 0
+      }
+    },
+    {
+      "id": "izv3bv35",
+      "type": "normal",
+      "taskInput": "PRC-211 - فاکتور برگشتی | https://mars-jira.systemgroup.net/browse/PRC-211",
+      "title": "PRC-211 - فاکتور برگشتی",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-211",
+      "dod": "Analyzed",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontend": {
+        "memberId": "",
+        "hours": 0
+      },
+      "tester": {
+        "memberId": "",
+        "hours": 0
+      },
+      "analyst": {
+        "memberId": "l4t0ghgd",
+        "hours": 20
+      }
+    },
+    {
+      "id": "1zjpzqjj",
+      "type": "normal",
+      "taskInput": "PRC-2287 - ویژگی کالا در سند ( بچ یا عامل کنترل موجودی ) در ماژول تدارکات | https://mars-jira.systemgroup.net/browse/PRC-2287",
+      "title": "PRC-2287 - ویژگی کالا در سند ( بچ یا عامل کنترل موجودی ) در ماژول تدارکات ",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-2287",
+      "dod": "Analyzed",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontend": {
+        "memberId": "",
+        "hours": 0
+      },
+      "tester": {
+        "memberId": "",
+        "hours": 0
+      },
+      "analyst": {
+        "memberId": "l4t0ghgd",
+        "hours": 24
+      }
+    },
+    {
+      "id": "49ayxnr3",
+      "type": "normal",
+      "taskInput": "PRC-126 - چاپ فاکتور خرید | https://mars-jira.systemgroup.net/browse/PRC-126",
+      "title": "PRC-126 - چاپ فاکتور خرید",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-126",
+      "dod": "Merged",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "m8dox9bt",
+        "hours": 15
+      },
+      "frontend": {
+        "memberId": "m8dox9bt",
+        "hours": 0
+      },
+      "tester": {
+        "memberId": "",
+        "hours": 0
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 0
+      }
+    }
+  ],
+  "panels": {
+    "panel-plan": false,
+    "panel-team": false,
+    "panel-tasks": false,
+    "panel-summary": false,
+    "panel-report": false,
+    "panel-backup": true
+  }
+}

@@ -1,0 +1,111 @@
+{
+  "theme": "light",
+  "plan": {
+    "startDate": "",
+    "endDate": "",
+    "planDays": 0,
+    "workingDays": 0,
+    "hoursPerDay": 8
+  },
+  "jiraConfig": {
+    "baseUrl": "http://mars-jira.systemgroup.net",
+    "release": "R6"
+  },
+  "members": [
+    {
+      "id": "axav95wf",
+      "name": "امین",
+      "roles": [
+        "backend",
+        "frontend"
+      ],
+      "leaveDays": 0,
+      "capacity": 0
+    },
+    {
+      "id": "6yi5ul4r",
+      "name": "علی",
+      "roles": [
+        "backend",
+        "frontend"
+      ],
+      "leaveDays": 0,
+      "capacity": 0
+    },
+    {
+      "id": "ly7xuvr2",
+      "name": "متین",
+      "roles": [
+        "backend",
+        "frontend"
+      ],
+      "leaveDays": 0,
+      "capacity": 0
+    },
+    {
+      "id": "02g5hwmo",
+      "name": "رضا",
+      "roles": [
+        "backend",
+        "frontend"
+      ],
+      "leaveDays": 0,
+      "capacity": 0
+    },
+    {
+      "id": "ihs0eq6j",
+      "name": "الهه",
+      "roles": [
+        "backend",
+        "frontend"
+      ],
+      "leaveDays": 0,
+      "capacity": 0
+    },
+    {
+      "id": "zb81hbk5",
+      "name": "حسین",
+      "roles": [
+        "backend"
+      ],
+      "leaveDays": 0,
+      "capacity": 0
+    },
+    {
+      "id": "jlo1utdq",
+      "name": "فهیمه",
+      "roles": [
+        "tester"
+      ],
+      "leaveDays": 0,
+      "capacity": 0
+    },
+    {
+      "id": "5esolvz4",
+      "name": "پرنیا",
+      "roles": [
+        "tester"
+      ],
+      "leaveDays": 0,
+      "capacity": 0
+    },
+    {
+      "id": "emwz67e5",
+      "name": "شیرین",
+      "roles": [
+        "analyst"
+      ],
+      "leaveDays": 0,
+      "capacity": 0
+    }
+  ],
+  "tasks": [],
+  "panels": {
+    "panel-plan": false,
+    "panel-team": true,
+    "panel-tasks": false,
+    "panel-summary": true,
+    "panel-report": false,
+    "panel-backup": true
+  }
+}

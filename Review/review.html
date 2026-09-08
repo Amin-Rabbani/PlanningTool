@@ -1,0 +1,2449 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>گزارش‌ساز اسپرینت Jira</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: #f0f2f5;
+        color: #172b4d;
+        direction: rtl;
+      }
+
+      /* SETUP */
+      .setup-screen {
+        min-height: 100vh;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        padding: 30px 20px;
+        background: linear-gradient(135deg, #0052cc 0%, #0747a6 100%);
+      }
+      .setup-card {
+        background: white;
+        border-radius: 16px;
+        padding: 36px;
+        width: 100%;
+        max-width: 500px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+      }
+      .setup-card h1 {
+        font-size: 22px;
+        font-weight: 800;
+        color: #172b4d;
+        margin-bottom: 4px;
+      }
+      .subtitle {
+        font-size: 13px;
+        color: #5e6c84;
+        margin-bottom: 24px;
+        line-height: 1.6;
+      }
+
+      .mode-tabs {
+        display: flex;
+        border-radius: 10px;
+        overflow: hidden;
+        border: 2px solid #dfe1e6;
+        margin-bottom: 24px;
+      }
+      .mode-tab {
+        flex: 1;
+        padding: 11px 6px;
+        border: none;
+        background: #f4f5f7;
+        font-size: 12px;
+        font-weight: 700;
+        cursor: pointer;
+        font-family: inherit;
+        color: #5e6c84;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+      }
+      .mode-tab:not(:last-child) {
+        border-left: 1px solid #dfe1e6;
+      }
+      .mode-tab.active {
+        background: #0052cc;
+        color: white;
+      }
+      .mode-tab:hover:not(.active) {
+        background: #e8f0fe;
+        color: #0052cc;
+      }
+
+      .auth-toggle {
+        display: flex;
+        background: #f4f5f7;
+        border-radius: 8px;
+        padding: 4px;
+        margin-bottom: 16px;
+        gap: 4px;
+      }
+      .auth-btn {
+        flex: 1;
+        padding: 8px;
+        border: none;
+        border-radius: 6px;
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        font-family: inherit;
+        background: transparent;
+        color: #5e6c84;
+        transition: all 0.2s;
+      }
+      .auth-btn.active {
+        background: white;
+        color: #0052cc;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+      }
+
+      .form-group {
+        margin-bottom: 14px;
+      }
+      .form-group label {
+        display: block;
+        font-size: 11px;
+        font-weight: 700;
+        color: #5e6c84;
+        margin-bottom: 5px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+      .form-group input,
+      .form-group textarea {
+        width: 100%;
+        padding: 10px 14px;
+        border: 2px solid #dfe1e6;
+        border-radius: 8px;
+        font-size: 13px;
+        color: #172b4d;
+        transition: border-color 0.2s;
+        outline: none;
+        font-family: inherit;
+      }
+      .form-group input {
+        direction: ltr;
+        text-align: left;
+      }
+      .form-group textarea {
+        direction: ltr;
+        text-align: left;
+        resize: vertical;
+        min-height: 180px;
+        font-size: 12px;
+        line-height: 1.5;
+      }
+      .form-group input:focus,
+      .form-group textarea:focus {
+        border-color: #0052cc;
+      }
+      .form-group input::placeholder,
+      .form-group textarea::placeholder {
+        color: #b3bac5;
+      }
+      .form-group .hint {
+        font-size: 11px;
+        color: #97a0af;
+        margin-top: 4px;
+        line-height: 1.5;
+      }
+      .prefill-tag {
+        display: inline-block;
+        background: #e3fcef;
+        color: #006644;
+        font-size: 9px;
+        font-weight: 700;
+        padding: 1px 6px;
+        border-radius: 4px;
+        margin-right: 5px;
+        vertical-align: middle;
+      }
+      .form-group input.prefilled {
+        background: #f8f9ff;
+        border-color: #e8f0fe;
+        color: #5e6c84;
+      }
+
+      .sprint-list-wrap {
+        margin-top: 8px;
+        display: none;
+      }
+      .sprint-list-title {
+        font-size: 11px;
+        color: #5e6c84;
+        margin-bottom: 6px;
+        font-weight: 600;
+      }
+      .sprint-chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+      .sprint-chip {
+        padding: 5px 10px;
+        background: #f4f5f7;
+        border: 1.5px solid #dfe1e6;
+        border-radius: 8px;
+        font-size: 11px;
+        cursor: pointer;
+        transition: all 0.15s;
+        font-family: inherit;
+        color: #172b4d;
+        font-weight: 500;
+      }
+      .sprint-chip:hover {
+        background: #e8f0fe;
+        border-color: #0052cc;
+        color: #0052cc;
+      }
+      .sprint-chip.active-sprint {
+        background: #e3fcef;
+        border-color: #57d9a3;
+        color: #006644;
+      }
+      .sprint-chip.future-sprint {
+        background: #fff0b3;
+        border-color: #f6c90e;
+        color: #7a4f00;
+      }
+
+      .btn-load-sprints {
+        margin-top: 8px;
+        padding: 7px 12px;
+        background: #f4f5f7;
+        border: 1.5px solid #dfe1e6;
+        border-radius: 7px;
+        font-size: 11px;
+        font-weight: 700;
+        cursor: pointer;
+        font-family: inherit;
+        color: #172b4d;
+        transition: all 0.2s;
+      }
+      .btn-load-sprints:hover {
+        background: #e8f0fe;
+        border-color: #0052cc;
+        color: #0052cc;
+      }
+      .btn-load-sprints:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      .section-divider {
+        border: none;
+        border-top: 1px solid #f4f5f7;
+        margin: 16px 0;
+      }
+      .section-label {
+        font-size: 11px;
+        font-weight: 700;
+        color: #5e6c84;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 10px;
+      }
+
+      .btn-row {
+        display: flex;
+        gap: 10px;
+        margin-top: 14px;
+      }
+      .btn-primary {
+        flex: 1;
+        padding: 13px;
+        background: linear-gradient(135deg, #0052cc, #0747a6);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 700;
+        cursor: pointer;
+        transition:
+          opacity 0.2s,
+          transform 0.1s;
+        font-family: inherit;
+      }
+      .btn-primary:hover {
+        opacity: 0.9;
+      }
+      .btn-primary:active {
+        transform: scale(0.98);
+      }
+      .btn-primary:disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+      }
+      .btn-secondary {
+        padding: 13px 16px;
+        background: #f4f5f7;
+        color: #172b4d;
+        border: 2px solid #dfe1e6;
+        border-radius: 8px;
+        font-size: 13px;
+        font-weight: 700;
+        cursor: pointer;
+        font-family: inherit;
+        transition: all 0.2s;
+        white-space: nowrap;
+      }
+      .btn-secondary:hover {
+        background: #e8f0fe;
+        border-color: #0052cc;
+        color: #0052cc;
+      }
+
+      .cors-tip {
+        background: #e8f0fe;
+        border-radius: 8px;
+        padding: 10px 14px;
+        font-size: 11px;
+        color: #0052cc;
+        line-height: 1.7;
+        margin-top: 14px;
+      }
+      .cors-tip strong {
+        color: #0747a6;
+      }
+      .cors-tip code {
+        background: #c5d8ff;
+        padding: 1px 5px;
+        border-radius: 3px;
+        font-size: 10px;
+        direction: ltr;
+        display: inline-block;
+      }
+      .error-box {
+        background: #ffebe6;
+        border: 1px solid #ff5630;
+        border-radius: 8px;
+        padding: 12px 14px;
+        margin-top: 14px;
+        font-size: 12px;
+        color: #de350b;
+        display: none;
+        line-height: 1.7;
+      }
+      .json-tip {
+        background: #f8f9ff;
+        border: 1px solid #dfe1e6;
+        border-radius: 8px;
+        padding: 12px 14px;
+        font-size: 11px;
+        color: #5e6c84;
+        margin-bottom: 14px;
+        line-height: 1.8;
+      }
+      .json-tip strong {
+        color: #172b4d;
+      }
+      .json-tip code {
+        background: #e8f0fe;
+        color: #0052cc;
+        padding: 1px 5px;
+        border-radius: 3px;
+        font-size: 10px;
+        direction: ltr;
+        display: inline-block;
+      }
+
+      /* PROGRESS */
+      .progress-screen {
+        min-height: 100vh;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        background: linear-gradient(135deg, #0052cc 0%, #0747a6 100%);
+      }
+      .progress-card {
+        background: white;
+        border-radius: 16px;
+        padding: 40px;
+        text-align: center;
+        min-width: 320px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+      }
+      .spinner {
+        width: 48px;
+        height: 48px;
+        border: 4px solid #e8f0fe;
+        border-top: 4px solid #0052cc;
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+        margin: 0 auto 20px;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      .progress-title {
+        font-size: 16px;
+        font-weight: 700;
+        color: #172b4d;
+        margin-bottom: 8px;
+      }
+      .progress-step {
+        font-size: 13px;
+        color: #5e6c84;
+        min-height: 20px;
+      }
+      .progress-bar-wrap {
+        background: #f4f5f7;
+        border-radius: 4px;
+        height: 6px;
+        margin-top: 16px;
+        overflow: hidden;
+      }
+      .progress-bar {
+        height: 100%;
+        background: linear-gradient(90deg, #0052cc, #36b37e);
+        border-radius: 4px;
+        transition: width 0.4s ease;
+        width: 0%;
+      }
+
+      /* REPORT */
+      .report-screen {
+        display: none;
+        padding: 30px 20px;
+      }
+      .container {
+        max-width: 1500px;
+        margin: 0 auto;
+      }
+      .report-header {
+        background: linear-gradient(135deg, #0052cc 0%, #0747a6 100%);
+        color: white;
+        padding: 28px 32px;
+        border-radius: 12px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 20px rgba(0, 82, 204, 0.3);
+      }
+      .report-header h1 {
+        font-size: 22px;
+        font-weight: 700;
+        margin-bottom: 8px;
+      }
+      .report-meta {
+        display: flex;
+        gap: 14px;
+        flex-wrap: wrap;
+        margin-top: 12px;
+      }
+      .meta-item {
+        background: rgba(255, 255, 255, 0.15);
+        padding: 5px 12px;
+        border-radius: 16px;
+        font-size: 12px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .meta-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #57d9a3;
+        display: inline-block;
+      }
+      .header-actions {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 14px;
+        flex-wrap: wrap;
+      }
+      .btn-back,
+      .btn-export-json {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        color: white;
+        padding: 7px 14px;
+        border-radius: 8px;
+        font-size: 12px;
+        cursor: pointer;
+        font-family: inherit;
+        transition: background 0.2s;
+      }
+      .btn-back {
+        background: rgba(255, 255, 255, 0.15);
+      }
+      .btn-back:hover {
+        background: rgba(255, 255, 255, 0.25);
+      }
+      .btn-export-json {
+        background: rgba(54, 179, 126, 0.3);
+        border-color: rgba(54, 179, 126, 0.5);
+      }
+      .btn-export-json:hover {
+        background: rgba(54, 179, 126, 0.5);
+      }
+
+      .legend {
+        background: white;
+        border-radius: 10px;
+        padding: 13px 18px;
+        margin-bottom: 16px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        align-items: center;
+      }
+      .legend-title {
+        font-weight: 700;
+        font-size: 11px;
+        color: #5e6c84;
+        margin-left: 4px;
+      }
+      .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 11px;
+        color: #42526e;
+      }
+
+      /* ── FILTER BAR ── */
+      .filter-bar {
+        background: white;
+        border-radius: 10px;
+        padding: 14px 18px;
+        margin-bottom: 16px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        border: 2px solid #e8f0fe;
+      }
+      .filter-bar-inner {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .filter-label {
+        font-size: 12px;
+        font-weight: 700;
+        color: #5e6c84;
+        white-space: nowrap;
+      }
+      .filter-chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        flex: 1;
+      }
+      .filter-chip {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 5px 12px;
+        border-radius: 20px;
+        border: 1.5px solid #dfe1e6;
+        background: #f4f5f7;
+        font-size: 11px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.15s;
+        color: #172b4d;
+        font-family: inherit;
+      }
+      .filter-chip:hover {
+        border-color: #0052cc;
+        background: #e8f0fe;
+        color: #0052cc;
+      }
+      .filter-chip.selected {
+        background: #0052cc;
+        border-color: #0052cc;
+        color: white;
+      }
+      .filter-chip .chip-avatar {
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 8px;
+        font-weight: 800;
+        color: white;
+        flex-shrink: 0;
+      }
+      .filter-chip.selected .chip-avatar {
+        background: rgba(255, 255, 255, 0.3) !important;
+      }
+      .filter-chip .chip-count {
+        background: rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        padding: 1px 5px;
+        font-size: 10px;
+      }
+      .filter-chip.selected .chip-count {
+        background: rgba(255, 255, 255, 0.25);
+      }
+      .filter-clear {
+        padding: 6px 14px;
+        background: #ffebe6;
+        border: 1.5px solid #ff8f73;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: 700;
+        cursor: pointer;
+        color: #de350b;
+        font-family: inherit;
+        transition: all 0.15s;
+        white-space: nowrap;
+      }
+      .filter-clear:hover {
+        background: #ff8f73;
+        color: white;
+      }
+      .filter-info {
+        margin-top: 8px;
+        font-size: 11px;
+        color: #5e6c84;
+        min-height: 16px;
+        line-height: 1.6;
+      }
+
+      /* highlighted/dimmed subtasks */
+      .team-item.highlighted {
+        background: #e8f0fe !important;
+        border-color: #0052cc !important;
+      }
+      .team-item.dimmed {
+        opacity: 0.25;
+      }
+      tbody tr.story-hidden {
+        display: none;
+      }
+
+      /* TABLE */
+      .table-wrapper {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+        overflow: hidden;
+        margin-bottom: 20px;
+      }
+      .table-title {
+        padding: 14px 18px;
+        font-size: 15px;
+        font-weight: 700;
+        color: #172b4d;
+        border-bottom: 2px solid #f4f5f7;
+        background: #fafbfc;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .story-count {
+        background: #0052cc;
+        color: white;
+        border-radius: 12px;
+        padding: 2px 10px;
+        font-size: 11px;
+        font-weight: 700;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 12px;
+      }
+      thead th {
+        background: #f4f5f7;
+        color: #5e6c84;
+        font-weight: 700;
+        padding: 11px 12px;
+        text-align: right;
+        border-bottom: 2px solid #dfe1e6;
+        white-space: nowrap;
+      }
+      tbody tr {
+        border-bottom: 1px solid #f4f5f7;
+        transition: background 0.15s;
+      }
+      tbody tr:hover {
+        background: #f8f9ff;
+      }
+      tbody tr:last-child {
+        border-bottom: none;
+      }
+      td {
+        padding: 11px 12px;
+        vertical-align: top;
+      }
+      td.num {
+        font-weight: 700;
+        color: #97a0af;
+        font-size: 11px;
+        width: 32px;
+        text-align: center;
+      }
+
+      .issue-key {
+        display: inline-block;
+        color: #0052cc;
+        font-weight: 700;
+        font-size: 11px;
+        text-decoration: none;
+        background: #e8f0fe;
+        padding: 3px 7px;
+        border-radius: 4px;
+        white-space: nowrap;
+      }
+      .issue-key:hover {
+        background: #c5d8ff;
+      }
+      .story-title {
+        font-weight: 600;
+        font-size: 12px;
+        line-height: 1.5;
+      }
+
+      .badge {
+        display: inline-block;
+        padding: 3px 9px;
+        border-radius: 10px;
+        font-size: 10px;
+        font-weight: 700;
+        white-space: nowrap;
+      }
+      .b-merged {
+        background: #e3fcef;
+        color: #006644;
+      }
+      .b-readytomerge {
+        background: #c2f0e3;
+        color: #005a36;
+      }
+      .b-implemented {
+        background: #fff0b3;
+        color: #7a4f00;
+      }
+      .b-active {
+        background: #ffe9d0;
+        color: #b85c00;
+      }
+      .b-refined {
+        background: #f3e5f5;
+        color: #6a1b9a;
+      }
+      .b-analyzed {
+        background: #e8f5e9;
+        color: #2e7d32;
+      }
+      .b-default {
+        background: #f4f5f7;
+        color: #5e6c84;
+      }
+
+      .dod-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 3px 9px;
+        border-radius: 10px;
+        font-size: 10px;
+        font-weight: 700;
+        white-space: nowrap;
+      }
+      .dod-merged {
+        background: #e3fcef;
+        color: #006644;
+        border: 1.5px solid #57d9a3;
+      }
+      .dod-implemented {
+        background: #fff0b3;
+        color: #7a4f00;
+        border: 1.5px solid #f6c90e;
+      }
+      .dod-analyzed {
+        background: #e8f5e9;
+        color: #2e7d32;
+        border: 1.5px solid #79f2c0;
+      }
+      .dod-null {
+        background: #f4f5f7;
+        color: #97a0af;
+        border: 1.5px dashed #c1c7d0;
+      }
+
+      .team-list {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+      }
+      .team-item {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 6px;
+        align-items: start;
+        padding: 5px 8px;
+        border-radius: 6px;
+        background: #fafbfc;
+        border: 1px solid #f4f5f7;
+        transition: all 0.15s;
+      }
+      .team-item:hover {
+        background: #f0f4ff;
+        border-color: #d0e0ff;
+      }
+      .team-left {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+      .team-name {
+        font-weight: 600;
+        color: #172b4d;
+        font-size: 11px;
+      }
+      .team-role {
+        color: #7a869a;
+        font-size: 10px;
+        line-height: 1.4;
+      }
+      .team-status-row {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin-top: 2px;
+      }
+      .t-done {
+        color: #00875a;
+        font-size: 10px;
+        white-space: nowrap;
+      }
+      .t-active {
+        color: #ff8b00;
+        font-size: 10px;
+        white-space: nowrap;
+      }
+      .t-todo {
+        color: #97a0af;
+        font-size: 10px;
+        white-space: nowrap;
+      }
+
+      .time-box {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 3px;
+        min-width: 90px;
+      }
+      .time-row {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 10px;
+        white-space: nowrap;
+      }
+      .time-label {
+        color: #97a0af;
+        font-size: 9px;
+      }
+      .time-val {
+        font-weight: 700;
+        font-size: 11px;
+        padding: 1px 6px;
+        border-radius: 4px;
+      }
+      .time-original {
+        background: #e8f0fe;
+        color: #0052cc;
+      }
+      .time-spent {
+        background: #e3fcef;
+        color: #006644;
+      }
+      .time-spent.over {
+        background: #ffebe6;
+        color: #de350b;
+      }
+      .time-na {
+        background: #f4f5f7;
+        color: #97a0af;
+      }
+      .time-progress-wrap {
+        width: 88px;
+        height: 4px;
+        background: #f4f5f7;
+        border-radius: 2px;
+        overflow: hidden;
+        margin-top: 2px;
+      }
+      .time-progress-bar {
+        height: 100%;
+        border-radius: 2px;
+      }
+      .tp-ok {
+        background: #36b37e;
+      }
+      .tp-over {
+        background: #de350b;
+      }
+      .tp-empty {
+        background: #dfe1e6;
+      }
+
+      .story-time-total {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        padding: 4px 8px;
+        background: #f8f9ff;
+        border-radius: 6px;
+        border: 1px solid #e8f0fe;
+        margin-top: 4px;
+        flex-wrap: wrap;
+      }
+      .stt-item {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 10px;
+      }
+      .stt-label {
+        color: #7a869a;
+      }
+      .stt-val {
+        font-weight: 700;
+      }
+
+      .summary-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+        gap: 14px;
+        margin-bottom: 20px;
+      }
+      .s-card {
+        background: white;
+        border-radius: 10px;
+        padding: 18px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+        border-top: 4px solid;
+        text-align: center;
+      }
+      .s-card.c-merged {
+        border-color: #36b37e;
+      }
+      .s-card.c-implemented {
+        border-color: #f6c90e;
+      }
+      .s-card.c-analyzed {
+        border-color: #79f2c0;
+      }
+      .s-card.c-empty {
+        border-color: #c1c7d0;
+      }
+      .s-card .cnt {
+        font-size: 32px;
+        font-weight: 800;
+        line-height: 1;
+        margin-bottom: 5px;
+      }
+      .s-card.c-merged .cnt {
+        color: #006644;
+      }
+      .s-card.c-implemented .cnt {
+        color: #7a4f00;
+      }
+      .s-card.c-analyzed .cnt {
+        color: #2e7d32;
+      }
+      .s-card.c-empty .cnt {
+        color: #97a0af;
+      }
+      .s-card .lbl {
+        font-size: 12px;
+        color: #5e6c84;
+        font-weight: 600;
+      }
+      .s-card .iss {
+        font-size: 10px;
+        color: #97a0af;
+        margin-top: 5px;
+        line-height: 1.7;
+      }
+
+      .team-table-wrapper {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+        overflow: hidden;
+        margin-bottom: 20px;
+      }
+      .avatar {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        font-size: 10px;
+        font-weight: 700;
+        color: white;
+        flex-shrink: 0;
+      }
+      .person-cell {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .person-name {
+        font-weight: 600;
+        font-size: 12px;
+      }
+      .cnt-cell {
+        text-align: center;
+        font-weight: 700;
+        font-size: 14px;
+      }
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 3px;
+      }
+      .chip {
+        font-size: 10px;
+        padding: 2px 7px;
+        border-radius: 8px;
+        font-weight: 600;
+      }
+      .chip-done {
+        background: #e3fcef;
+        color: #006644;
+      }
+      .chip-active {
+        background: #ffe9d0;
+        color: #b85c00;
+      }
+      .chip-todo {
+        background: #f4f5f7;
+        color: #5e6c84;
+      }
+      .time-summary-cell {
+        font-size: 11px;
+      }
+      .ts-row {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin-bottom: 3px;
+      }
+      .ts-name {
+        color: #5e6c84;
+        min-width: 55px;
+        font-size: 10px;
+      }
+      .ts-bar-wrap {
+        flex: 1;
+        height: 6px;
+        background: #f4f5f7;
+        border-radius: 3px;
+        overflow: hidden;
+        min-width: 50px;
+        max-width: 100px;
+      }
+      .ts-bar {
+        height: 100%;
+        border-radius: 3px;
+      }
+      .ts-bar.ok {
+        background: #36b37e;
+      }
+      .ts-bar.over {
+        background: #de350b;
+      }
+      .ts-nums {
+        font-size: 10px;
+        white-space: nowrap;
+        font-weight: 700;
+      }
+      .ts-nums.over {
+        color: #de350b;
+      }
+      .ts-nums.ok {
+        color: #006644;
+      }
+
+      /* clickable team row */
+      .team-row-clickable {
+        cursor: pointer;
+      }
+      .team-row-clickable:hover td {
+        background: #f0f4ff;
+      }
+      .team-row-clickable.active-filter td {
+        background: #e8f0fe;
+      }
+      .filter-hint {
+        font-size: 10px;
+        color: #97a0af;
+        margin-top: 2px;
+      }
+
+      .footer-note {
+        background: #fffae6;
+        border: 1px solid #ffe380;
+        border-radius: 8px;
+        padding: 12px 16px;
+        font-size: 11px;
+        color: #7a4f00;
+        line-height: 1.7;
+      }
+
+      @media (max-width: 768px) {
+        table {
+          font-size: 11px;
+        }
+        td,
+        thead th {
+          padding: 8px;
+        }
+        .report-header {
+          padding: 20px;
+        }
+        .report-header h1 {
+          font-size: 17px;
+        }
+        .btn-row {
+          flex-direction: column;
+        }
+        .time-box {
+          min-width: 70px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ══════════ SETUP ══════════ -->
+    <div class="setup-screen" id="setupScreen">
+      <div class="setup-card">
+        <h1>🗂 گزارش‌ساز اسپرینت Jira</h1>
+        <p class="subtitle">
+          اطلاعات رو وارد کنید یا JSON قبلی رو بارگذاری کنید.
+        </p>
+
+        <div class="mode-tabs">
+          <button
+            class="mode-tab active"
+            id="tabJira"
+            onclick="setMode('jira')"
+          >
+            🔗 اتصال به Jira
+          </button>
+          <button class="mode-tab" id="tabJson" onclick="setMode('json')">
+            📂 بارگذاری JSON
+          </button>
+        </div>
+
+        <div id="modeJira">
+          <div class="section-label">احراز هویت</div>
+          <div class="auth-toggle">
+            <button
+              class="auth-btn active"
+              id="btnBearer"
+              onclick="setAuthType('bearer')"
+            >
+              🔑 Bearer Token
+            </button>
+            <button
+              class="auth-btn"
+              id="btnBasic"
+              onclick="setAuthType('basic')"
+            >
+              👤 Basic Auth
+            </button>
+          </div>
+          <div class="form-group">
+            <label><span class="prefill-tag">پیش‌فرض</span>Jira Base URL</label>
+            <input
+              type="text"
+              id="jiraUrl"
+              class="prefilled"
+              value="http://mars-jira.systemgroup.net"
+              onfocus="this.classList.remove('prefilled')"
+              onblur="
+                if (!this.value) {
+                  this.value = 'http://mars-jira.systemgroup.net';
+                  this.classList.add('prefilled');
+                }
+              "
+            />
+          </div>
+          <div id="bearerFields">
+            <div class="form-group">
+              <label>Access Token</label>
+              <input
+                type="password"
+                id="accessToken"
+                placeholder="your-personal-access-token"
+              />
+              <div class="hint">Jira → Profile → Personal Access Tokens</div>
+            </div>
+          </div>
+          <div id="basicFields" style="display: none">
+            <div class="form-group">
+              <label>ایمیل</label
+              ><input
+                type="email"
+                id="basicEmail"
+                placeholder="you@company.com"
+              />
+            </div>
+            <div class="form-group">
+              <label>API Token</label
+              ><input
+                type="password"
+                id="basicToken"
+                placeholder="your-api-token"
+              />
+            </div>
+          </div>
+          <hr class="section-divider" />
+          <div class="section-label">اطلاعات اسپرینت</div>
+          <div class="form-group">
+            <label><span class="prefill-tag">پیش‌فرض</span>Board ID</label>
+            <input
+              type="text"
+              id="boardId"
+              class="prefilled"
+              value="70"
+              onfocus="this.classList.remove('prefilled')"
+              onblur="
+                if (!this.value) {
+                  this.value = '70';
+                  this.classList.add('prefilled');
+                }
+              "
+              oninput="clearSprintList()"
+            />
+            <div class="hint">
+              بورد PRC = <strong>70</strong> | عدد موجود در URL:
+              rapidView=<strong>70</strong>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>نام اسپرینت</label>
+            <input type="text" id="sprintName" placeholder="PRC-05-03.1" />
+            <div class="hint">
+              نام دقیق اسپرینت — یا از لیست زیر انتخاب کنید
+            </div>
+          </div>
+          <button
+            class="btn-load-sprints"
+            id="btnLoadSprints"
+            onclick="loadSprintList()"
+          >
+            📋 نمایش لیست اسپرینت‌های بورد
+          </button>
+          <div class="sprint-list-wrap" id="sprintListWrap">
+            <div class="sprint-list-title">
+              اسپرینت‌های موجود — کلیک کنید تا انتخاب شود:
+            </div>
+            <div class="sprint-chips" id="sprintChips"></div>
+          </div>
+          <div class="btn-row" style="margin-top: 16px">
+            <button
+              class="btn-primary"
+              id="btnGenerate"
+              onclick="startFromJira()"
+            >
+              🚀 ساخت گزارش
+            </button>
+          </div>
+          <div class="cors-tip">
+            ⚡ <strong>نکته CORS:</strong> صفحه را با
+            <code>python3 jira_proxy.py</code> باز کنید (نه مستقیم با
+            file://).<br />
+            سپس بروید به
+            <code>http://127.0.0.1:8766/review.html</code>
+          </div>
+        </div>
+
+        <div id="modeJson" style="display: none">
+          <div class="json-tip">
+            📌 <strong>راهنما:</strong> گزارش را از Jira بسازید، دکمه
+            <strong>«خروجی JSON»</strong> را بزنید و JSON را اینجا وارد کنید.<br />
+            ساختار: <code>{ "sprintName":"...", "stories":[...] }</code>
+          </div>
+          <div class="form-group">
+            <label>JSON داده‌های اسپرینت</label>
+            <textarea
+              id="jsonInput"
+              placeholder='{"sprintName":"PRC-05-03.1","stories":[]}'
+            ></textarea>
+          </div>
+          <div class="btn-row">
+            <button class="btn-primary" onclick="startFromJson()">
+              📊 ساخت گزارش از JSON
+            </button>
+            <button class="btn-secondary" onclick="loadJsonFile()">
+              📁 بارگذاری فایل
+            </button>
+            <input
+              type="file"
+              id="fileInput"
+              accept=".json"
+              style="display: none"
+              onchange="onFileLoad(event)"
+            />
+          </div>
+        </div>
+        <div class="error-box" id="errorBox"></div>
+      </div>
+    </div>
+
+    <!-- ══════════ PROGRESS ══════════ -->
+    <div class="progress-screen" id="progressScreen">
+      <div class="progress-card">
+        <div class="spinner"></div>
+        <div class="progress-title">در حال ساخت گزارش...</div>
+        <div class="progress-step" id="progressStep">اتصال به Jira...</div>
+        <div class="progress-bar-wrap">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════ REPORT ══════════ -->
+    <div class="report-screen" id="reportScreen">
+      <div class="container">
+        <div class="report-header">
+          <div class="header-actions">
+            <button class="btn-back" onclick="backToSetup()">← بازگشت</button>
+            <button class="btn-export-json" onclick="exportJson()">
+              ⬇ خروجی JSON
+            </button>
+          </div>
+          <h1 id="reportTitle">📋 گزارش اسپرینت</h1>
+          <div class="report-meta" id="reportMeta"></div>
+        </div>
+
+        <div class="legend">
+          <span class="legend-title">راهنما:</span>
+          <span class="legend-item">✅ Closed</span>
+          <span class="legend-item">🔴 Active</span>
+          <span class="legend-item">⬜ Proposed</span>
+          <span
+            class="legend-item"
+            style="
+              margin-right: 6px;
+              padding-right: 6px;
+              border-right: 1px solid #ddd;
+            "
+          >
+            <span
+              style="
+                background: #e8f0fe;
+                color: #0052cc;
+                padding: 1px 6px;
+                border-radius: 3px;
+                font-size: 10px;
+                font-weight: 700;
+              "
+              >Est</span
+            >
+            تخمین
+          </span>
+          <span class="legend-item">
+            <span
+              style="
+                background: #e3fcef;
+                color: #006644;
+                padding: 1px 6px;
+                border-radius: 3px;
+                font-size: 10px;
+                font-weight: 700;
+              "
+              >Log</span
+            >
+            واقعی
+          </span>
+          <span class="legend-item">
+            <span
+              style="
+                background: #ffebe6;
+                color: #de350b;
+                padding: 1px 6px;
+                border-radius: 3px;
+                font-size: 10px;
+                font-weight: 700;
+              "
+              >Log!</span
+            >
+            از تخمین بیشتر
+          </span>
+          <span
+            class="legend-item"
+            style="
+              margin-right: 6px;
+              padding-right: 6px;
+              border-right: 1px solid #ddd;
+            "
+          >
+            <span class="dod-badge dod-merged">Merged</span>
+          </span>
+          <span class="legend-item"
+            ><span class="dod-badge dod-implemented">Implemented</span></span
+          >
+          <span class="legend-item"
+            ><span class="dod-badge dod-analyzed">Analyzed</span></span
+          >
+          <span class="legend-item"
+            ><span class="dod-badge dod-null">ثبت نشده</span></span
+          >
+        </div>
+
+        <!-- ── FILTER BAR ── -->
+        <div class="filter-bar" id="filterBar" style="display: none">
+          <div class="filter-bar-inner">
+            <span class="filter-label">👤 فیلتر بر اساس عضو تیم:</span>
+            <div class="filter-chips" id="filterChips"></div>
+            <button
+              class="filter-clear"
+              id="filterClearBtn"
+              onclick="clearFilter()"
+              style="display: none"
+            >
+              ✕ حذف فیلتر
+            </button>
+          </div>
+          <div class="filter-info" id="filterInfo"></div>
+        </div>
+
+        <div class="table-wrapper">
+          <div class="table-title">
+            🗂 جدول استوری‌ها
+            <span class="story-count" id="storyCount">۰ استوری</span>
+          </div>
+          <div style="overflow-x: auto">
+            <table>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>کلید</th>
+                  <th>عنوان استوری</th>
+                  <th>وضعیت</th>
+                  <th>Sprint DOD</th>
+                  <th>افراد تیم & زمان</th>
+                </tr>
+              </thead>
+              <tbody id="storiesBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="summary-grid" id="summaryGrid"></div>
+
+        <div class="team-table-wrapper">
+          <div class="table-title">
+            👥 خلاصه وضعیت افراد تیم
+            <span style="font-size: 11px; color: #97a0af; font-weight: 400"
+              >کلیک روی هر ردیف = فیلتر</span
+            >
+          </div>
+          <div style="overflow-x: auto">
+            <table>
+              <thead>
+                <tr>
+                  <th>نام</th>
+                  <th style="text-align: center">استوری‌ها</th>
+                  <th>زمان کل (تخمین vs واقعی)</th>
+                  <th>تسک‌های باز</th>
+                </tr>
+              </thead>
+              <tbody id="teamBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="footer-note" id="footerNote"></div>
+      </div>
+    </div>
+
+    <script>
+      // ── STATE ──
+      let cfg = {},
+        authType = "bearer",
+        mode = "jira",
+        reportData = null;
+      let activeFilter = null;
+
+      // ── MODE / AUTH ──
+      function setMode(m) {
+        mode = m;
+        ["Jira", "Json"].forEach((t) => {
+          document
+            .getElementById("tab" + t)
+            .classList.toggle("active", t.toLowerCase() === m);
+          document.getElementById("mode" + t).style.display =
+            t.toLowerCase() === m ? "" : "none";
+        });
+        document.getElementById("errorBox").style.display = "none";
+      }
+      function setAuthType(type) {
+        authType = type;
+        document
+          .getElementById("btnBearer")
+          .classList.toggle("active", type === "bearer");
+        document
+          .getElementById("btnBasic")
+          .classList.toggle("active", type === "basic");
+        document.getElementById("bearerFields").style.display =
+          type === "bearer" ? "" : "none";
+        document.getElementById("basicFields").style.display =
+          type === "basic" ? "" : "none";
+      }
+
+      // ── SPRINT LIST ──
+      function clearSprintList() {
+        document.getElementById("sprintListWrap").style.display = "none";
+        document.getElementById("sprintChips").innerHTML = "";
+      }
+      async function loadSprintList() {
+        if (location.protocol === "file:") {
+          showError(
+            "⚠️ صفحه را با python3 jira_proxy.py باز کنید — از file:// مستقیم به جیرا وصل نمی‌شود (CORS).",
+          );
+          return;
+        }
+        const btn = document.getElementById("btnLoadSprints");
+        const boardId = document.getElementById("boardId").value.trim();
+        const jiraUrl = document
+          .getElementById("jiraUrl")
+          .value.trim()
+          .replace(/\/+$/, "");
+        const token =
+          authType === "bearer"
+            ? document.getElementById("accessToken").value.trim()
+            : document.getElementById("basicToken").value.trim();
+        if (!boardId || !jiraUrl || !token) {
+          showError("⚠️ ابتدا Board ID و Token را وارد کنید.");
+          return;
+        }
+        cfg = {
+          jiraUrl,
+          token,
+          email: document.getElementById("basicEmail").value.trim(),
+          boardId,
+        };
+        btn.disabled = true;
+        btn.textContent = "⏳ در حال دریافت...";
+        try {
+          const all = [];
+          for (const state of ["active", "future", "closed"]) {
+            let startAt = 0;
+            while (true) {
+              const data = await jiraFetch(
+                `/rest/agile/1.0/board/${boardId}/sprint`,
+                { state, startAt, maxResults: 50 },
+              );
+              (data.values || []).forEach((s) => all.push({ ...s, state }));
+              if (
+                data.isLast ||
+                !(data.values || []).length ||
+                data.values.length < 50
+              )
+                break;
+              startAt += 50;
+            }
+          }
+          if (!all.length) {
+            showError("هیچ اسپرینتی پیدا نشد.");
+            btn.disabled = false;
+            btn.textContent = "📋 نمایش لیست اسپرینت‌های بورد";
+            return;
+          }
+          const order = { active: 0, future: 1, closed: 2 };
+          all.sort((a, b) =>
+            order[a.state] !== order[b.state]
+              ? order[a.state] - order[b.state]
+              : new Date(b.startDate || 0) - new Date(a.startDate || 0),
+          );
+          const closed = all.filter((s) => s.state === "closed").slice(0, 10);
+          const others = all.filter((s) => s.state !== "closed");
+          const toShow = [...others, ...closed];
+          const chips = document.getElementById("sprintChips");
+          chips.innerHTML = "";
+          toShow.forEach((s) => {
+            const chip = document.createElement("button");
+            chip.className =
+              "sprint-chip" +
+              (s.state === "active"
+                ? " active-sprint"
+                : s.state === "future"
+                  ? " future-sprint"
+                  : "");
+            chip.textContent =
+              s.name +
+              (s.state === "active"
+                ? " 🟢"
+                : s.state === "future"
+                  ? " 🔜"
+                  : "");
+            chip.onclick = () => {
+              document.getElementById("sprintName").value = s.name;
+              chips
+                .querySelectorAll(".sprint-chip")
+                .forEach((c) => (c.style.fontWeight = ""));
+              chip.style.fontWeight = "800";
+            };
+            chips.appendChild(chip);
+          });
+          document.getElementById("sprintListWrap").style.display = "";
+          document.getElementById("errorBox").style.display = "none";
+        } catch (e) {
+          showError("❌ خطا:\n" + e.message);
+        } finally {
+          btn.disabled = false;
+          btn.textContent = "📋 نمایش لیست اسپرینت‌های بورد";
+        }
+      }
+
+      // ── FILE / JSON ──
+      function loadJsonFile() {
+        document.getElementById("fileInput").click();
+      }
+      function onFileLoad(e) {
+        const f = e.target.files[0];
+        if (!f) return;
+        const r = new FileReader();
+        r.onload = (ev) => {
+          document.getElementById("jsonInput").value = ev.target.result;
+        };
+        r.readAsText(f);
+      }
+      function exportJson() {
+        if (!reportData) return;
+        const blob = new Blob([JSON.stringify(reportData, null, 2)], {
+          type: "application/json",
+        });
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = `sprint-${(reportData.sprintName || "report").replace(/\s/g, "-")}.json`;
+        a.click();
+        URL.revokeObjectURL(a.href);
+      }
+
+      // ── HELPERS ──
+      function setProgress(s, p) {
+        document.getElementById("progressStep").textContent = s;
+        document.getElementById("progressBar").style.width = p + "%";
+      }
+      function showError(m) {
+        const b = document.getElementById("errorBox");
+        b.innerHTML = escHtml(m).replace(/\n/g, "<br>");
+        b.style.display = "block";
+      }
+      function escHtml(s) {
+        return (s || "")
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;");
+      }
+      function sleep(ms) {
+        return new Promise((r) => setTimeout(r, ms));
+      }
+      function toPersian(n) {
+        return String(n).replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d]);
+      }
+      function buildHeaders() {
+        const h = { Accept: "application/json" };
+        if (authType === "bearer") h["Authorization"] = "Bearer " + cfg.token;
+        else
+          h["Authorization"] =
+            "Basic " +
+            btoa(unescape(encodeURIComponent(cfg.email + ":" + cfg.token)));
+        return h;
+      }
+      /** Browser cannot call Jira directly (no CORS). Use local proxy when available. */
+      function getJiraApiBase() {
+        const host = location.hostname;
+        const viaProxy =
+          (location.protocol === "http:" || location.protocol === "https:") &&
+          (host === "localhost" || host === "127.0.0.1");
+        if (viaProxy) return `${location.origin}/jira-proxy`;
+        return (cfg.jiraUrl || "").replace(/\/+$/, "");
+      }
+      async function jiraFetch(path, params = {}) {
+        const base = getJiraApiBase();
+        if (!base) throw new Error("Jira base URL مشخص نیست.");
+        const url = new URL(base + path);
+        Object.entries(params).forEach(([k, v]) => url.searchParams.set(k, v));
+        const res = await fetch(url.toString(), { headers: buildHeaders() });
+        if (!res.ok) {
+          const b = await res.text().catch(() => "");
+          throw new Error(
+            `${res.status} ${res.statusText} — ${path}\n${b.substring(0, 300)}`,
+          );
+        }
+        return res.json();
+      }
+
+      // ── TIME ──
+      function parseHours(str) {
+        if (!str) return null;
+        str = str.toLowerCase().trim();
+        let h = 0;
+        const d = str.match(/(\d+(\.\d+)?)\s*d/),
+          hm = str.match(/(\d+(\.\d+)?)\s*h/),
+          mm = str.match(/(\d+(\.\d+)?)\s*m(?!s)/);
+        if (d) h += parseFloat(d[1]) * 8;
+        if (hm) h += parseFloat(hm[1]);
+        if (mm) h += parseFloat(mm[1]) / 60;
+        return h > 0 ? h : null;
+      }
+      function fmtHours(h) {
+        if (h === null || h === undefined) return null;
+        if (h === 0) return "0h";
+        const hrs = Math.floor(h),
+          mins = Math.round((h - hrs) * 60);
+        if (hrs === 0) return `${mins}m`;
+        if (mins === 0) return `${hrs}h`;
+        return `${hrs}h ${mins}m`;
+      }
+      function timeBoxHTML(orig, spent) {
+        const oH = parseHours(orig),
+          sH = parseHours(spent);
+        const oStr = oH !== null ? fmtHours(oH) : null,
+          sStr = sH !== null ? fmtHours(sH) : null;
+        const over = oH !== null && sH !== null && sH > oH;
+        const pct = oH && sH ? Math.min(Math.round((sH / oH) * 100), 100) : 0;
+        const barCls = !oH ? "tp-empty" : over ? "tp-over" : "tp-ok";
+        return `<div class="time-box"><div class="time-row"><span class="time-label">Est:</span><span class="time-val time-original">${oStr || "—"}</span></div><div class="time-row"><span class="time-label">Log:</span><span class="time-val ${sStr ? (over ? "time-spent over" : "time-spent") : "time-na"}">${sStr || "—"}</span></div>${oH ? `<div class="time-progress-wrap"><div class="time-progress-bar ${barCls}" style="width:${pct}%"></div></div>` : ""}</div>`;
+      }
+
+      // ── BADGES ──
+      function statusBadge(n) {
+        const m = {
+          merged: "b-merged",
+          readytomerge: "b-readytomerge",
+          implemented: "b-implemented",
+          active: "b-active",
+          refined: "b-refined",
+          analyzed: "b-analyzed",
+        };
+        const k = (n || "").toLowerCase().replace(/\s/g, "");
+        return `<span class="badge ${m[k] || "b-default"}">${escHtml(n)}</span>`;
+      }
+      function dodBadge(v) {
+        if (!v) return `<span class="dod-badge dod-null">⬜ ثبت نشده</span>`;
+        const n = v.toLowerCase().replace(/\s/g, "");
+        if (n === "merged")
+          return `<span class="dod-badge dod-merged">✅ Merged</span>`;
+        if (n === "implemented")
+          return `<span class="dod-badge dod-implemented">🟡 Implemented</span>`;
+        if (n === "analyzed")
+          return `<span class="dod-badge dod-analyzed">🔵 Analyzed</span>`;
+        return `<span class="dod-badge dod-null">${escHtml(v)}</span>`;
+      }
+      function taskIcon(s) {
+        const n = (s || "").toLowerCase();
+        if (n === "closed" || n === "done")
+          return `<span class="t-done">✅</span>`;
+        if (n === "active" || n === "in progress" || n === "inprogress")
+          return `<span class="t-active">🔴 Active</span>`;
+        return `<span class="t-todo">⬜ Proposed</span>`;
+      }
+
+      // ── AVATAR ──
+      const AVC = [
+        "#0052cc",
+        "#00875a",
+        "#ff8b00",
+        "#6554c0",
+        "#de350b",
+        "#008da6",
+        "#e34880",
+        "#403294",
+        "#b8860b",
+        "#1e6091",
+        "#6d3a3a",
+      ];
+      const pcm = {};
+      let ci = 0;
+      function avatarColor(n) {
+        if (!pcm[n]) pcm[n] = AVC[ci++ % AVC.length];
+        return pcm[n];
+      }
+      function avatarInitials(n) {
+        const p = (n || "").trim().split(/\s+/);
+        return p.length >= 2
+          ? (p[0][0] + p[1][0]).toUpperCase()
+          : (n || "??").substring(0, 2).toUpperCase();
+      }
+
+      // ── FILTER ──────────────────────────────────────
+      function buildFilterBar(stories) {
+        const personMap = {};
+        stories.forEach((s) => {
+          s.subtasks.forEach((sub) => {
+            const name = sub.assignee;
+            if (!name || name === "Unassigned") return;
+            if (!personMap[name])
+              personMap[name] = { count: 0, color: avatarColor(name) };
+            personMap[name].count++;
+          });
+        });
+        const people = Object.entries(personMap).sort(
+          (a, b) => b[1].count - a[1].count,
+        );
+        if (!people.length) return;
+
+        const chips = document.getElementById("filterChips");
+        chips.innerHTML = "";
+        people.forEach(([name, data]) => {
+          const chip = document.createElement("button");
+          chip.className = "filter-chip";
+          chip.dataset.name = name;
+          chip.innerHTML = `
+      <span class="chip-avatar" style="background:${data.color}">${escHtml(avatarInitials(name))}</span>
+      ${escHtml(name)}
+      <span class="chip-count">${data.count}</span>`;
+          chip.onclick = () => toggleFilter(name);
+          chips.appendChild(chip);
+        });
+        document.getElementById("filterBar").style.display = "";
+      }
+
+      function toggleFilter(name) {
+        if (activeFilter === name) clearFilter();
+        else {
+          activeFilter = name;
+          applyFilter();
+        }
+      }
+
+      function applyFilter() {
+        if (!activeFilter) {
+          clearFilter();
+          return;
+        }
+
+        // chip state
+        document
+          .querySelectorAll(".filter-chip")
+          .forEach((c) =>
+            c.classList.toggle("selected", c.dataset.name === activeFilter),
+          );
+        document
+          .querySelectorAll(".team-row-clickable")
+          .forEach((r) =>
+            r.classList.toggle(
+              "active-filter",
+              r.dataset.personName === activeFilter,
+            ),
+          );
+        document.getElementById("filterClearBtn").style.display = "";
+
+        // جدول استوری‌ها
+        const rows = document.querySelectorAll("#storiesBody tr");
+        let visible = 0;
+        rows.forEach((row) => {
+          const story = reportData.stories.find(
+            (s) => s.key === row.dataset.storyKey,
+          );
+          if (!story) return;
+          const has = story.subtasks.some(
+            (sub) => sub.assignee === activeFilter,
+          );
+          row.classList.toggle("story-hidden", !has);
+          if (has) {
+            visible++;
+            // highlight / dim subtaskها
+            row.querySelectorAll(".team-item").forEach((item) => {
+              const nm = item.querySelector(".team-name")?.textContent?.trim();
+              item.classList.toggle("highlighted", nm === activeFilter);
+              item.classList.toggle("dimmed", nm !== activeFilter);
+            });
+          }
+        });
+
+        // زمان فیلترشده
+        let tO = 0,
+          tS = 0;
+        reportData.stories.forEach((s) => {
+          s.subtasks
+            .filter((sub) => sub.assignee === activeFilter)
+            .forEach((sub) => {
+              const o = parseHours(sub.originalEstimate),
+                sp = parseHours(sub.timeSpent);
+              if (o !== null) tO += o;
+              if (sp !== null) tS += sp;
+            });
+        });
+        const timeStr =
+          tO > 0 || tS > 0
+            ? ` &nbsp;|&nbsp; Est: <strong>${fmtHours(tO) || "—"}</strong> &nbsp; Log: <strong style="color:${tS > tO ? "#de350b" : "#006644"}">${fmtHours(tS) || "—"}</strong>${tS > tO ? " ⚠️" : ""}`
+            : "";
+
+        document.getElementById("filterInfo").innerHTML =
+          `<strong>${toPersian(visible)}</strong> استوری از <strong>${toPersian(reportData.stories.length)}</strong> که <strong style="color:#0052cc">${escHtml(activeFilter)}</strong> در آن‌ها تسک دارد${timeStr}`;
+
+        document.getElementById("storyCount").textContent =
+          toPersian(visible) +
+          " از " +
+          toPersian(reportData.stories.length) +
+          " استوری";
+      }
+
+      function clearFilter() {
+        activeFilter = null;
+        document
+          .querySelectorAll(".filter-chip")
+          .forEach((c) => c.classList.remove("selected"));
+        document
+          .querySelectorAll(".team-row-clickable")
+          .forEach((r) => r.classList.remove("active-filter"));
+        document.getElementById("filterClearBtn").style.display = "none";
+        document.getElementById("filterInfo").innerHTML = "";
+        document
+          .querySelectorAll("#storiesBody tr")
+          .forEach((r) => r.classList.remove("story-hidden"));
+        document.querySelectorAll(".team-item").forEach((i) => {
+          i.classList.remove("highlighted", "dimmed");
+        });
+        document.getElementById("storyCount").textContent =
+          toPersian(reportData.stories.length) + " استوری";
+      }
+      // ────────────────────────────────────────────────
+
+      // ── START FROM JIRA ──
+      async function startFromJira() {
+        document.getElementById("errorBox").style.display = "none";
+        if (location.protocol === "file:") {
+          showError(
+            "⚠️ صفحه را با python3 jira_proxy.py باز کنید — از file:// مستقیم به جیرا وصل نمی‌شود (CORS).",
+          );
+          return;
+        }
+        const jiraUrl = document
+          .getElementById("jiraUrl")
+          .value.trim()
+          .replace(/\/+$/, "");
+        const boardId = document.getElementById("boardId").value.trim();
+        const sprintName = document.getElementById("sprintName").value.trim();
+        let token = "",
+          email = "";
+        if (authType === "bearer")
+          token = document.getElementById("accessToken").value.trim();
+        else {
+          email = document.getElementById("basicEmail").value.trim();
+          token = document.getElementById("basicToken").value.trim();
+        }
+        if (!jiraUrl || !token) {
+          showError("⚠️ Jira URL و Token را وارد کنید.");
+          return;
+        }
+        if (!boardId) {
+          showError("⚠️ Board ID را وارد کنید.");
+          return;
+        }
+        if (!sprintName) {
+          showError("⚠️ نام اسپرینت را وارد کنید.");
+          return;
+        }
+        cfg = { jiraUrl, token, email, boardId, sprintName };
+        document.getElementById("btnGenerate").disabled = true;
+        document.getElementById("setupScreen").style.display = "none";
+        document.getElementById("progressScreen").style.display = "flex";
+        try {
+          await generateFromJira();
+        } catch (e) {
+          document.getElementById("progressScreen").style.display = "none";
+          document.getElementById("setupScreen").style.display = "flex";
+          document.getElementById("btnGenerate").disabled = false;
+          showError("❌ خطا:\n" + e.message);
+          console.error(e);
+        }
+      }
+
+      // ── START FROM JSON ──
+      function startFromJson() {
+        document.getElementById("errorBox").style.display = "none";
+        const raw = document.getElementById("jsonInput").value.trim();
+        if (!raw) {
+          showError("⚠️ JSON را وارد کنید.");
+          return;
+        }
+        let data;
+        try {
+          data = JSON.parse(raw);
+        } catch (e) {
+          showError("❌ JSON نامعتبر:\n" + e.message);
+          return;
+        }
+        if (!data.stories || !Array.isArray(data.stories)) {
+          showError('❌ فیلد "stories" پیدا نشد.');
+          return;
+        }
+        cfg.jiraUrl = data.jiraUrl || "";
+        skippedSubtasks = 0;
+        document.getElementById("setupScreen").style.display = "none";
+        document.getElementById("progressScreen").style.display = "flex";
+        setProgress("📂 پردازش JSON...", 60);
+        setTimeout(() => {
+          try {
+            renderReport(data.stories, {
+              id: data.sprintId || "—",
+              name: data.sprintName || "—",
+              startDate: data.startDate,
+              endDate: data.endDate,
+            });
+            setProgress("✅ گزارش آماده!", 100);
+            setTimeout(() => {
+              document.getElementById("progressScreen").style.display = "none";
+              document.getElementById("reportScreen").style.display = "block";
+              window.scrollTo(0, 0);
+            }, 350);
+          } catch (e) {
+            document.getElementById("progressScreen").style.display = "none";
+            document.getElementById("setupScreen").style.display = "flex";
+            showError("❌ خطا:\n" + e.message);
+          }
+        }, 300);
+      }
+
+      // ── GENERATE ──
+      async function generateFromJira() {
+        setProgress("🔍 جستجوی اسپرینت...", 8);
+        const sprint = await findSprint();
+        if (!sprint) throw new Error(`اسپرینت "${cfg.sprintName}" پیدا نشد.`);
+        cfg.sprintId = sprint.id;
+        cfg.sprintNameResolved = sprint.name || cfg.sprintName;
+        skippedSubtasks = 0;
+        sprintFieldSamples = [];
+        setProgress("🧭 شناسایی فیلد نام اسپرینت...", 14);
+        cfg.sprintFieldIds = await getSprintNameFieldIds();
+        if (!cfg.sprintFieldIds.length)
+          throw new Error(
+            'فیلد "Sprint name" در جیرا پیدا نشد؛ بدون آن نمی‌توان ساب‌تسک‌ها را بر اساس اسپرینت فیلتر کرد.',
+          );
+        setProgress("📥 دریافت استوری‌ها...", 20);
+        const stories = await getStories(sprint.id);
+        if (!stories.length) throw new Error("هیچ استوری‌ای پیدا نشد.");
+        const detailed = [];
+        for (let i = 0; i < stories.length; i++) {
+          setProgress(
+            `⚙️ ${i + 1}/${stories.length}: ${stories[i].key}`,
+            20 + Math.round((i / stories.length) * 65),
+          );
+          detailed.push(await enrichStory(stories[i]));
+        }
+        console.info("نمونه مقدار فیلد اسپرینت ساب‌تسک‌ها:", sprintFieldSamples);
+        const kept = detailed.reduce((n, s) => n + s.subtasks.length, 0);
+        if (!kept && skippedSubtasks) {
+          const sample = sprintFieldSamples
+            .slice(0, 5)
+            .map((x) => `${x.key} → ${x.values}`)
+            .join("\n");
+          throw new Error(
+            `هیچ ساب‌تسکی با اسپرینت "${cfg.sprintName}" مطابقت نداشت.\n` +
+              `فیلد بررسی‌شده: ${cfg.sprintFieldIds.join(", ")}\nمقادیر دیده‌شده:\n${sample}`,
+          );
+        }
+        setProgress("🎨 رندر...", 92);
+        await sleep(200);
+        renderReport(detailed, sprint);
+        setProgress("✅ گزارش آماده!", 100);
+        await sleep(350);
+        document.getElementById("progressScreen").style.display = "none";
+        document.getElementById("reportScreen").style.display = "block";
+        window.scrollTo(0, 0);
+      }
+
+      async function findSprint() {
+        for (const state of ["active", "future", "closed"]) {
+          let startAt = 0;
+          while (true) {
+            const data = await jiraFetch(
+              `/rest/agile/1.0/board/${cfg.boardId}/sprint`,
+              { state, startAt, maxResults: 50 },
+            );
+            const found = (data.values || []).find(
+              (s) => s.name === cfg.sprintName,
+            );
+            if (found) return found;
+            if (
+              data.isLast ||
+              !(data.values || []).length ||
+              data.values.length < 50
+            )
+              break;
+            startAt += 50;
+          }
+        }
+        return null;
+      }
+
+      async function getStories(sprintId) {
+        const all = [];
+        let startAt = 0;
+        while (true) {
+          const data = await jiraFetch(
+            `/rest/agile/1.0/board/${cfg.boardId}/issue`,
+            {
+              jql: `sprint=${sprintId} AND issuetype=Story`,
+              fields: "summary,status,assignee,subtasks,customfield_10523",
+              startAt,
+              maxResults: 50,
+            },
+          );
+          (data.issues || []).forEach((i) => all.push(i));
+          if (
+            all.length >= (data.total || 0) ||
+            !(data.issues || []).length ||
+            data.issues.length < 50
+          )
+            break;
+          startAt += 50;
+        }
+        return all;
+      }
+
+      // ── SUBTASK SPRINT FILTER ──
+      // The Greenhopper "Sprint" field is inherited from the parent story, so every
+      // subtask of a sprint story looks like it belongs to the sprint. Only the
+      // separate "Sprint name" field distinguishes them.
+      let _sprintNameFieldIds = null;
+      let skippedSubtasks = 0;
+      let sprintFieldSamples = [];
+      async function getSprintNameFieldIds() {
+        if (_sprintNameFieldIds) return _sprintNameFieldIds;
+        const exact = [];
+        const loose = [];
+        try {
+          const fields = await jiraFetch("/rest/api/2/field");
+          (Array.isArray(fields) ? fields : []).forEach((f) => {
+            if (!f.id || !f.custom) return;
+            const name = String(f.name || "")
+              .trim()
+              .toLowerCase();
+            const custom = String(f.schema?.custom || "");
+            if (
+              custom.includes("gh-sprint") ||
+              custom.includes("greenhopper-sprint")
+            )
+              return;
+            const compact = name.replace(/[\s_-]/g, "");
+            if (compact === "sprintname" || compact === "نااسپرینت") {
+              exact.push(f.id);
+            } else if (name.includes("sprint") || name.includes("اسپرینت")) {
+              loose.push(f.id);
+            }
+          });
+        } catch (e) {
+          console.warn("خواندن لیست فیلدها ناموفق بود:", e);
+        }
+        _sprintNameFieldIds = exact.length ? exact : loose;
+        console.info("فیلدهای نام اسپرینت:", _sprintNameFieldIds);
+        return _sprintNameFieldIds;
+      }
+      function sprintNameValuesOf(raw, out) {
+        if (raw == null) return out;
+        if (Array.isArray(raw)) {
+          raw.forEach((v) => sprintNameValuesOf(v, out));
+          return out;
+        }
+        if (typeof raw === "object") {
+          [raw.value, raw.name, raw.displayName].forEach((v) => {
+            if (v) out.push(String(v));
+          });
+          return out;
+        }
+        const s = String(raw);
+        // Jira Server may serialize as "...Sprint@1a2b[id=123,...,name=PRC-05-03.1,...]"
+        const nm = /\[.*\]\s*$/.test(s) ? s.match(/name=([^,\]]*)/) : null;
+        out.push(nm ? nm[1] : s);
+        return out;
+      }
+      function normalizeSprint(v) {
+        return String(v || "")
+          .replace(/[\u200c\u200f\u200e]/g, "")
+          .trim()
+          .toLowerCase();
+      }
+      function subtaskInSprint(key, fields) {
+        const ids = cfg.sprintFieldIds || [];
+        if (!ids.length) return true;
+        const values = [];
+        ids.forEach((id) => sprintNameValuesOf(fields?.[id], values));
+        if (sprintFieldSamples.length < 20)
+          sprintFieldSamples.push({ key, values: values.join(" | ") || "—" });
+        const want = normalizeSprint(cfg.sprintName);
+        const alt = normalizeSprint(cfg.sprintNameResolved);
+        return values.some((v) => {
+          const n = normalizeSprint(v);
+          return n && (n === want || (alt && n === alt));
+        });
+      }
+
+      async function enrichStory(s) {
+        const dod = s.fields?.customfield_10523?.value || null;
+        const subFields = [
+          "summary",
+          "status",
+          "assignee",
+          "timetracking",
+          ...(cfg.sprintFieldIds || []),
+        ].join(",");
+        const subtasks = [];
+        for (const sub of s.fields?.subtasks || []) {
+          try {
+            const d = await jiraFetch(`/rest/api/2/issue/${sub.key}`, {
+              fields: subFields,
+            });
+            if (!subtaskInSprint(sub.key, d.fields)) {
+              skippedSubtasks++;
+              continue;
+            }
+            const tt = d.fields?.timetracking || {};
+            subtasks.push({
+              key: sub.key,
+              summary: d.fields?.summary || "",
+              status: d.fields?.status?.name || "",
+              assignee: d.fields?.assignee?.displayName || "Unassigned",
+              originalEstimate:
+                tt.originalEstimate || tt.original_estimate || null,
+              timeSpent: tt.timeSpent || tt.time_spent || null,
+            });
+          } catch (e) {}
+        }
+        return {
+          key: s.key,
+          summary: s.fields?.summary || "",
+          status: s.fields?.status?.name || "",
+          dod,
+          subtasks,
+        };
+      }
+
+      // ── RENDER ──
+      function renderReport(stories, sprint) {
+        const sprintName = sprint.name || cfg.sprintName || "—";
+        reportData = {
+          sprintName,
+          sprintId: sprint.id,
+          startDate: sprint.startDate || null,
+          endDate: sprint.endDate || null,
+          jiraUrl: cfg.jiraUrl || "",
+          generatedAt: new Date().toISOString(),
+          stories,
+        };
+        activeFilter = null;
+
+        document.getElementById("reportTitle").textContent =
+          `📋 گزارش اسپرینت ${sprintName}`;
+        document.getElementById("reportMeta").innerHTML = `
+    <span class="meta-item"><span class="meta-dot"></span>${escHtml(sprintName)}</span>
+    <span class="meta-item">🎯 Sprint ID: ${sprint.id}</span>
+    <span class="meta-item">📌 ${toPersian(stories.length)} استوری</span>
+    ${sprint.startDate ? `<span class="meta-item">📅 ${sprint.startDate.substring(0, 10)} ← ${sprint.endDate?.substring(0, 10) || "؟"}</span>` : ""}
+    ${skippedSubtasks ? `<span class="meta-item">🧹 ${toPersian(skippedSubtasks)} ساب‌تسک خارج از این اسپرینت حذف شد</span>` : ""}`;
+        document.getElementById("storyCount").textContent =
+          toPersian(stories.length) + " استوری";
+
+        // ── Stories Table
+        const tbody = document.getElementById("storiesBody");
+        tbody.innerHTML = "";
+        stories.forEach((s, idx) => {
+          const keyLink = cfg.jiraUrl
+            ? `<a class="issue-key" href="${escHtml(cfg.jiraUrl)}/browse/${s.key}" target="_blank">${s.key}</a>`
+            : `<span class="issue-key">${s.key}</span>`;
+          let tO = 0,
+            tS = 0,
+            hasT = false;
+          s.subtasks.forEach((sub) => {
+            const o = parseHours(sub.originalEstimate),
+              sp = parseHours(sub.timeSpent);
+            if (o !== null) {
+              tO += o;
+              hasT = true;
+            }
+            if (sp !== null) {
+              tS += sp;
+              hasT = true;
+            }
+          });
+          const over = tO > 0 && tS > tO,
+            pct = tO > 0 ? Math.min(Math.round((tS / tO) * 100), 100) : 0;
+          const total = hasT
+            ? `<div class="story-time-total">
+      <span class="stt-item"><span class="stt-label">جمع Est:</span><span class="stt-val" style="color:#0052cc">${fmtHours(tO) || "—"}</span></span>
+      <span class="stt-item"><span class="stt-label">جمع Log:</span><span class="stt-val" style="color:${over ? "#de350b" : "#006644"}">${fmtHours(tS) || "—"}</span></span>
+      ${tO > 0 ? `<span class="stt-item"><span class="stt-val" style="color:${over ? "#de350b" : "#5e6c84"};font-size:10px;">${over ? "⚠️ " : ""}${pct}%</span></span>` : ""}
+    </div>`
+            : "";
+
+          const tr = document.createElement("tr");
+          tr.dataset.storyKey = s.key;
+          tr.innerHTML = `
+      <td class="num">${toPersian(idx + 1)}</td>
+      <td>${keyLink}</td>
+      <td><div class="story-title">${escHtml(s.summary)}</div>${total}</td>
+      <td>${statusBadge(s.status)}</td>
+      <td>${dodBadge(s.dod)}</td>
+      <td><div class="team-list">${buildSubtaskHTML(s.subtasks)}</div></td>`;
+          tbody.appendChild(tr);
+        });
+
+        // ── Summary Cards
+        const bins = { merged: [], implemented: [], analyzed: [], empty: [] };
+        stories.forEach((s) => {
+          const v = (s.dod || "").toLowerCase().trim();
+          if (v === "merged") bins.merged.push(s.key);
+          else if (v === "implemented") bins.implemented.push(s.key);
+          else if (v === "analyzed") bins.analyzed.push(s.key);
+          else bins.empty.push(s.key);
+        });
+        document.getElementById("summaryGrid").innerHTML = [
+          ["c-merged", "✅ Merged", bins.merged],
+          ["c-implemented", "🟡 Implemented", bins.implemented],
+          ["c-analyzed", "🔵 Analyzed", bins.analyzed],
+          ["c-empty", "⬜ ثبت نشده", bins.empty],
+        ]
+          .map(
+            ([cls, lbl, keys]) =>
+              `<div class="s-card ${cls}"><div class="cnt">${toPersian(keys.length)}</div><div class="lbl">Sprint DOD: ${lbl}</div><div class="iss">${keys.join(" · ") || "—"}</div></div>`,
+          )
+          .join("");
+
+        // ── Team Table (با قابلیت کلیک برای فیلتر)
+        const tm = buildTeamMap(stories);
+        const tb = document.getElementById("teamBody");
+        tb.innerHTML = "";
+        Object.entries(tm)
+          .sort((a, b) => b[1].stories.size - a[1].stories.size)
+          .forEach(([name, data]) => {
+            const color = avatarColor(name),
+              init = avatarInitials(name);
+            const tO = data.totalOrigH,
+              tS = data.totalSpentH,
+              pO = tO > 0 && tS > tO,
+              pp = tO > 0 ? Math.min(Math.round((tS / tO) * 100), 100) : 0;
+            const timeHtml =
+              tO > 0 || tS > 0
+                ? `
+      <div class="ts-row"><span class="ts-name">تخمین:</span><span class="ts-nums">${fmtHours(tO) || "—"}</span></div>
+      <div class="ts-row"><span class="ts-name">واقعی:</span><div class="ts-bar-wrap"><div class="ts-bar ${pO ? "over" : "ok"}" style="width:${pp}%"></div></div><span class="ts-nums ${pO ? "over" : "ok"}">${fmtHours(tS) || "—"} ${pO ? "⚠️" : ""}</span></div>`
+                : '<span style="color:#97a0af;font-size:11px;">— بدون داده زمانی</span>';
+            const openChips = data.open
+              .map((t) => {
+                const a = isAct(t.status);
+                return `<span class="chip ${a ? "chip-active" : "chip-todo"}">${escHtml(t.summary.substring(0, 35))}${t.summary.length > 35 ? "…" : ""} ${a ? "🔴" : "⬜"}</span>`;
+              })
+              .join("");
+
+            const tr = document.createElement("tr");
+            tr.className = "team-row-clickable";
+            tr.dataset.personName = name;
+            tr.title = `کلیک کنید تا فقط استوری‌های "${name}" نمایش داده شود`;
+            tr.onclick = () => toggleFilter(name);
+            tr.innerHTML = `
+      <td>
+        <div class="person-cell">
+          <div class="avatar" style="background:${color}">${escHtml(init)}</div>
+          <div>
+            <div class="person-name">${escHtml(name)}</div>
+            <div class="filter-hint">کلیک = فیلتر</div>
+          </div>
+        </div>
+      </td>
+      <td class="cnt-cell">${toPersian(data.stories.size)}</td>
+      <td class="time-summary-cell">${timeHtml}</td>
+      <td><div class="chips">
+        ${data.done.length ? `<span class="chip chip-done">${toPersian(data.done.length)} انجام‌شده ✅</span>` : ""}
+        ${openChips || (!data.done.length ? '<span class="chip chip-todo">بدون تسک باز</span>' : "")}
+      </div></td>`;
+            tb.appendChild(tr);
+          });
+
+        // ── Filter Bar
+        document.getElementById("filterClearBtn").style.display = "none";
+        document.getElementById("filterInfo").innerHTML = "";
+        buildFilterBar(stories);
+
+        document.getElementById("footerNote").innerHTML =
+          `⚠️ <strong>نکته:</strong> اطلاعات زمانی از <code>timetracking</code> خوانده شده. 🔴 = Log بیشتر از Est. تاریخ: ${new Date().toLocaleDateString("fa-IR")} | برای ذخیره → دکمه «خروجی JSON».`;
+      }
+
+      function buildSubtaskHTML(subtasks) {
+        if (!subtasks.length)
+          return '<span style="color:#97a0af;font-size:11px;">—</span>';
+        return subtasks
+          .map((sub) => {
+            const name = sub.assignee === "Unassigned" ? "—" : sub.assignee;
+            return `<div class="team-item" data-assignee="${escHtml(name)}">
+      <div class="team-left">
+        <span class="team-name">${escHtml(name)}</span>
+        <span class="team-role">${escHtml(sub.summary.substring(0, 48))}${sub.summary.length > 48 ? "…" : ""}</span>
+        <div class="team-status-row">${taskIcon(sub.status)}</div>
+      </div>
+      ${timeBoxHTML(sub.originalEstimate, sub.timeSpent)}
+    </div>`;
+          })
+          .join("");
+      }
+
+      function buildTeamMap(stories) {
+        const map = {};
+        const ensure = (n) => {
+          if (!map[n])
+            map[n] = {
+              stories: new Set(),
+              done: [],
+              open: [],
+              totalOrigH: 0,
+              totalSpentH: 0,
+            };
+        };
+        stories.forEach((s) => {
+          s.subtasks.forEach((sub) => {
+            const name = sub.assignee;
+            if (!name || name === "Unassigned") return;
+            ensure(name);
+            map[name].stories.add(s.key);
+            const o = parseHours(sub.originalEstimate),
+              sp = parseHours(sub.timeSpent);
+            if (o !== null) map[name].totalOrigH += o;
+            if (sp !== null) map[name].totalSpentH += sp;
+            const st = (sub.status || "").toLowerCase();
+            if (st === "closed" || st === "done")
+              map[name].done.push(sub.summary);
+            else
+              map[name].open.push({ summary: sub.summary, status: sub.status });
+          });
+        });
+        return map;
+      }
+      function isAct(s) {
+        const n = (s || "").toLowerCase();
+        return n === "active" || n === "in progress" || n === "inprogress";
+      }
+      function backToSetup() {
+        document.getElementById("reportScreen").style.display = "none";
+        document.getElementById("setupScreen").style.display = "flex";
+        document.getElementById("btnGenerate").disabled = false;
+      }
+    </script>
+  </body>
+</html>
