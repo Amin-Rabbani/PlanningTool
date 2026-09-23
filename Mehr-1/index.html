@@ -1317,8 +1317,12 @@
                   <th>DOD</th>
                   <th>بک‌اند</th>
                   <th>زمان بک‌اند</th>
+                  <th>مرور کد بک‌اند</th>
+                  <th>زمان مرور بک‌اند</th>
                   <th>فرانت‌اند</th>
                   <th>زمان فرانت‌اند</th>
+                  <th>مرور کد فرانت‌اند</th>
+                  <th>زمان مرور فرانت‌اند</th>
                   <th>تستر</th>
                   <th>زمان تست</th>
                   <th>تحلیلگر</th>
@@ -1454,6 +1458,20 @@
         tester: "تستر",
         analyst: "تحلیلگر",
       };
+      const taskRoleLabels = {
+        ...roleLabels,
+        backendReview: "مرور کد بک‌اند",
+        frontendReview: "مرور کد فرانت‌اند",
+      };
+      const TASK_ROLE_KEYS = [
+        "backend",
+        "backendReview",
+        "frontend",
+        "frontendReview",
+        "tester",
+        "analyst",
+      ];
+      const CODE_REVIEW_ROLES = ["backendReview", "frontendReview"];
       const DOD_OPTIONS = ["", "Analyzed", "Implemented", "Merged"];
       const DOD_LABELS = {
         "": "—",
@@ -1572,6 +1590,8 @@
               key: String(r.key),
               summary: String(r.summary || ""),
               sprintName: String(r.sprintName || "").trim(),
+              subtaskKind:
+                r.subtaskKind === "codeReview" ? "codeReview" : "normal",
               createdAt: String(r.createdAt || ""),
             }));
           if (clean.length) out[memberId] = clean;
@@ -1633,7 +1653,9 @@
                 })(),
                 generalHours: Number(t.generalHours || 0),
                 backend: normalizeTaskRole(t.backend),
+                backendReview: normalizeTaskRole(t.backendReview),
                 frontend: normalizeTaskRole(t.frontend),
+                frontendReview: normalizeTaskRole(t.frontendReview),
                 tester: normalizeTaskRole(t.tester),
                 analyst: normalizeTaskRole(t.analyst),
                 subtaskRefs: normalizeSubtaskRefs(t.subtaskRefs),
@@ -1867,7 +1889,7 @@
       function removeMember(id) {
         state.members = state.members.filter((m) => m.id !== id);
         state.tasks = state.tasks.map((t) => {
-          ["backend", "frontend", "tester", "analyst"].forEach((r) => {
+          TASK_ROLE_KEYS.forEach((r) => {
             if (t[r] && t[r].memberId === id) t[r].memberId = "";
           });
           return t;
@@ -1969,7 +1991,9 @@
           dod: "",
           generalHours: 0,
           backend: { memberId: "", hours: 0 },
+          backendReview: { memberId: "", hours: 0 },
           frontend: { memberId: "", hours: 0 },
+          frontendReview: { memberId: "", hours: 0 },
           tester: { memberId: "", hours: 0 },
           analyst: { memberId: "", hours: 0 },
           subtaskRefs: {},
@@ -1986,7 +2010,9 @@
           dod: "",
           generalHours: 0,
           backend: { memberId: "", hours: 0 },
+          backendReview: { memberId: "", hours: 0 },
           frontend: { memberId: "", hours: 0 },
+          frontendReview: { memberId: "", hours: 0 },
           tester: { memberId: "", hours: 0 },
           analyst: { memberId: "", hours: 0 },
           subtaskRefs: {},
@@ -2041,6 +2067,8 @@
         analyst: { id: "12407", value: "تحلیل" },
         backend: { id: "12408", value: "پیاده سازی" },
         frontend: { id: "12408", value: "پیاده سازی" },
+        backendReview: { value: "مرور کد" },
+        frontendReview: { value: "مرور کد" },
         tester: { id: "12409", value: "تست" },
         general: { id: "12405", value: "مدیریت پروژه" },
       };
@@ -3066,10 +3094,12 @@
               memberId: suggestMemberFor("backend", c),
               hours: Number(c.est.backend || 0),
             },
+            backendReview: { memberId: "", hours: 0 },
             frontend: {
               memberId: suggestMemberFor("frontend", c),
               hours: Number(c.est.frontend || 0),
             },
+            frontendReview: { memberId: "", hours: 0 },
             tester: {
               memberId: suggestMemberFor("tester", c),
               hours: Number(c.est.tester || 0),
@@ -3315,7 +3345,7 @@
               (m) => (a[m.id] += Number(t.generalHours || 0)),
             );
           } else {
-            ["backend", "frontend", "tester", "analyst"].forEach((role) => {
+            TASK_ROLE_KEYS.forEach((role) => {
               const item = t[role];
               if (item.memberId && a[item.memberId] != null)
                 a[item.memberId] += Number(item.hours || 0);
@@ -3328,8 +3358,8 @@
         const m = state.members.find((x) => x.id === id);
         return m ? m.name : "";
       }
-      function memberSelectHtml(taskId, role, selectedId) {
-        const members = getMembersByRole(role);
+      function memberSelectHtml(taskId, role, selectedId, memberRole = role) {
+        const members = getMembersByRole(memberRole);
         return `<select class="task-select" onchange="updateTaskDirect('${taskId}','${role}','memberId',this.value)"><option value="">— انتخاب —</option>${members.map((m) => `<option value="${m.id}"${m.id === selectedId ? " selected" : ""}>${escapeHtml(m.name)}</option>`).join("")}</select>`;
       }
       function isValidUrl(v) {
@@ -3417,7 +3447,9 @@
             t.type === "general"
               ? Number(t.generalHours || 0)
               : Number(t.backend.hours || 0) +
+                Number(t.backendReview.hours || 0) +
                 Number(t.frontend.hours || 0) +
+                Number(t.frontendReview.hours || 0) +
                 Number(t.tester.hours || 0) +
                 Number(t.analyst.hours || 0);
           const tr = document.createElement("tr");
@@ -3428,8 +3460,12 @@
       <td>${dodSelectHtml(t.id, t.dod || "")}</td>
       <td>${t.type === "general" ? "—" : memberSelectHtml(t.id, "backend", t.backend.memberId)}</td>
       <td>${t.type === "general" ? "—" : `<input class="task-hours" type="number" min="0" step="0.5" value="${t.backend.hours}" onchange="updateTaskDirect('${t.id}','backend','hours',this.value)">`}</td>
+      <td>${t.type === "general" ? "—" : memberSelectHtml(t.id, "backendReview", t.backendReview.memberId, "backend")}</td>
+      <td>${t.type === "general" ? "—" : `<input class="task-hours" type="number" min="0" step="0.5" value="${t.backendReview.hours}" onchange="updateTaskDirect('${t.id}','backendReview','hours',this.value)">`}</td>
       <td>${t.type === "general" ? "—" : memberSelectHtml(t.id, "frontend", t.frontend.memberId)}</td>
       <td>${t.type === "general" ? "—" : `<input class="task-hours" type="number" min="0" step="0.5" value="${t.frontend.hours}" onchange="updateTaskDirect('${t.id}','frontend','hours',this.value)">`}</td>
+      <td>${t.type === "general" ? "—" : memberSelectHtml(t.id, "frontendReview", t.frontendReview.memberId, "frontend")}</td>
+      <td>${t.type === "general" ? "—" : `<input class="task-hours" type="number" min="0" step="0.5" value="${t.frontendReview.hours}" onchange="updateTaskDirect('${t.id}','frontendReview','hours',this.value)">`}</td>
       <td>${t.type === "general" ? "—" : memberSelectHtml(t.id, "tester", t.tester.memberId)}</td>
       <td>${t.type === "general" ? "—" : `<input class="task-hours" type="number" min="0" step="0.5" value="${t.tester.hours}" onchange="updateTaskDirect('${t.id}','tester','hours',this.value)">`}</td>
       <td>${t.type === "general" ? "—" : memberSelectHtml(t.id, "analyst", t.analyst.memberId)}</td>
@@ -3491,7 +3527,7 @@
               hours: Number(t.generalHours || 0),
             });
           } else {
-            ["backend", "frontend", "tester", "analyst"].forEach((role) => {
+            TASK_ROLE_KEYS.forEach((role) => {
               const item = t[role];
               if (item.memberId === memberId && Number(item.hours || 0) > 0) {
                 rows.push({
@@ -3501,7 +3537,7 @@
                   issueKey: extractIssueKey(t.taskInput || t.jiraUrl || ""),
                   dod: t.dod || "",
                   type: "معمولی",
-                  role: roleLabels[role] || role,
+                  role: taskRoleLabels[role] || role,
                   roleKey: role,
                   hours: Number(item.hours || 0),
                 });
@@ -3681,13 +3717,29 @@
           .trim()
           .toLowerCase();
       }
-      function findSubtaskRef(task, memberId, sprintName) {
+      function subtaskKindForRole(roleKey) {
+        return CODE_REVIEW_ROLES.includes(roleKey) ? "codeReview" : "normal";
+      }
+      function findSubtaskRef(task, memberId, sprintName, roleKey = "general") {
         const list = task?.subtaskRefs?.[memberId];
         if (!Array.isArray(list)) return null;
         const want = sprintRefKey(sprintName);
-        return list.find((r) => sprintRefKey(r.sprintName) === want) || null;
+        const kind = subtaskKindForRole(roleKey);
+        return (
+          list.find(
+            (r) =>
+              sprintRefKey(r.sprintName) === want &&
+              (r.subtaskKind || "normal") === kind,
+          ) || null
+        );
       }
-      function saveSubtaskRef(taskIds, memberId, sprintName, ref) {
+      function saveSubtaskRef(
+        taskIds,
+        memberId,
+        sprintName,
+        ref,
+        subtaskKind = "normal",
+      ) {
         (taskIds || []).forEach((taskId) => {
           const task = state.tasks.find((t) => t.id === taskId);
           if (!task) return;
@@ -3701,11 +3753,14 @@
             key: String(ref.key || ""),
             summary: String(ref.summary || ""),
             sprintName: String(sprintName || "").trim(),
+            subtaskKind: subtaskKind === "codeReview" ? "codeReview" : "normal",
             createdAt: ref.createdAt || new Date().toISOString(),
           };
           if (!entry.key) return;
           const idx = list.findIndex(
-            (r) => sprintRefKey(r.sprintName) === sprintRefKey(sprintName),
+            (r) =>
+              sprintRefKey(r.sprintName) === sprintRefKey(sprintName) &&
+              (r.subtaskKind || "normal") === entry.subtaskKind,
           );
           if (idx >= 0) list[idx] = entry;
           else list.push(entry);
@@ -3716,17 +3771,20 @@
         const rows = getMemberTaskReport(member.id).filter((r) => r.issueKey);
         const byParent = new Map();
         rows.forEach((r) => {
-          const prev = byParent.get(r.issueKey);
+          const subtaskKind = subtaskKindForRole(r.roleKey);
+          const candidateKey = `${r.issueKey}:${subtaskKind}`;
+          const prev = byParent.get(candidateKey);
           if (!prev) {
             const task = state.tasks.find((t) => t.id === r.taskId);
-            byParent.set(r.issueKey, {
+            byParent.set(candidateKey, {
               parentKey: r.issueKey,
               localTitle: r.title,
               roleKey: r.roleKey,
+              subtaskKind,
               hours: r.hours,
               taskIds: r.taskId ? [r.taskId] : [],
               existingRef: task
-                ? findSubtaskRef(task, member.id, sprintName)
+                ? findSubtaskRef(task, member.id, sprintName, r.roleKey)
                 : null,
             });
           } else {
@@ -3744,6 +3802,7 @@
                     task,
                     member.id,
                     sprintName,
+                    r.roleKey,
                   );
                 }
               }
@@ -3769,7 +3828,9 @@
           parent: { key: parentKey },
           summary,
           issuetype: { id: "10003" },
-          customfield_11900: { id: typeMeta.id },
+          customfield_11900: typeMeta.id
+            ? { id: typeMeta.id }
+            : { value: typeMeta.value },
         };
         if (assigneeUsername) {
           baseFields.assignee = { name: assigneeUsername };
@@ -3929,16 +3990,25 @@
               c.parentKey,
               sprintName,
             );
-            const summary = `${sprintInfo.parentSummary} - ${member.name} - ${sprintName}`;
+            const summary =
+              c.subtaskKind === "codeReview"
+                ? `مرور کد - ${sprintInfo.parentSummary} - ${member.name} - ${sprintName}`
+                : `${sprintInfo.parentSummary} - ${member.name} - ${sprintName}`;
             const remote = (sprintInfo.existingSubtasks || []).find(
               (st) => (st.fields?.summary || "") === summary,
             );
             if (remote) {
               // subtask exists in Jira but wasn't marked locally yet
-              saveSubtaskRef(c.taskIds, member.id, sprintName, {
-                key: remote.key,
-                summary,
-              });
+              saveSubtaskRef(
+                c.taskIds,
+                member.id,
+                sprintName,
+                {
+                  key: remote.key,
+                  summary,
+                },
+                c.subtaskKind,
+              );
               refsChanged = true;
             }
             preview.push({
@@ -3987,10 +4057,16 @@
             try {
               const created = await createOneJiraSubtask(item);
               createdKeys.push(created.key);
-              saveSubtaskRef(item.taskIds, member.id, sprintName, {
-                key: created.key,
-                summary: item.summary,
-              });
+              saveSubtaskRef(
+                item.taskIds,
+                member.id,
+                sprintName,
+                {
+                  key: created.key,
+                  summary: item.summary,
+                },
+                item.subtaskKind,
+              );
               saveState();
             } catch (e) {
               errors.push(`${item.parentKey}: ${e.message}`);
@@ -4032,9 +4108,15 @@
           return;
         }
         const member = state.members.find((m) => m.id === memberId);
-        const targets = state.tasks.filter((t) =>
-          findSubtaskRef(t, memberId, sprintName),
-        );
+        const targets = state.tasks.filter((t) => {
+          const refs = t?.subtaskRefs?.[memberId];
+          return (
+            Array.isArray(refs) &&
+            refs.some(
+              (r) => sprintRefKey(r.sprintName) === sprintRefKey(sprintName),
+            )
+          );
+        });
         if (!targets.length) {
           setReportSubtaskStatus(
             '<span style="color:var(--muted)">موردی برای بازنشانی وجود ندارد.</span>',
@@ -4066,7 +4148,9 @@
           return `<span style="color:var(--muted)">نام اسپرینت خالی است</span>`;
         }
         const task = state.tasks.find((t) => t.id === row.taskId);
-        const ref = task ? findSubtaskRef(task, memberId, sprintName) : null;
+        const ref = task
+          ? findSubtaskRef(task, memberId, sprintName, row.roleKey)
+          : null;
         if (!ref) {
           return `<span class="subtask-badge pending">ساخته نشده</span>`;
         }
@@ -4111,9 +4195,10 @@
               : `<span style="color:var(--muted)">—</span>`;
           if (r.issueKey && sprintName) {
             const task = state.tasks.find((t) => t.id === r.taskId);
-            if (task && findSubtaskRef(task, memberId, sprintName))
-              createdKeys.add(r.issueKey);
-            else pendingKeys.add(r.issueKey);
+            const statusKey = `${r.issueKey}:${subtaskKindForRole(r.roleKey)}`;
+            if (task && findSubtaskRef(task, memberId, sprintName, r.roleKey))
+              createdKeys.add(statusKey);
+            else pendingKeys.add(statusKey);
           }
           tr.innerHTML = `<td>${escapeHtml(r.title)}</td><td>${linkCell}</td><td>${dodBadgeHtml(r.dod)}</td><td>${escapeHtml(r.type)}</td><td>${escapeHtml(r.role)}</td><td style="text-align:center;font-weight:700">${fmt(r.hours)}</td><td style="text-align:center">${subtaskStatusCellHtml(r, memberId, sprintName)}</td>`;
           tb.appendChild(tr);
@@ -4241,8 +4326,12 @@
             general_hours: t.generalHours || 0,
             backend_member: memberNameById(t.backend.memberId),
             backend_hours: t.backend.hours,
+            backend_review_member: memberNameById(t.backendReview.memberId),
+            backend_review_hours: t.backendReview.hours,
             frontend_member: memberNameById(t.frontend.memberId),
             frontend_hours: t.frontend.hours,
+            frontend_review_member: memberNameById(t.frontendReview.memberId),
+            frontend_review_hours: t.frontendReview.hours,
             tester_member: memberNameById(t.tester.memberId),
             tester_hours: t.tester.hours,
             analyst_member: memberNameById(t.analyst.memberId),
@@ -4423,10 +4512,21 @@
                         map[String(r.backend_member || "").trim()] || "",
                       hours: Number(r.backend_hours || 0),
                     },
+                    backendReview: {
+                      memberId:
+                        map[String(r.backend_review_member || "").trim()] || "",
+                      hours: Number(r.backend_review_hours || 0),
+                    },
                     frontend: {
                       memberId:
                         map[String(r.frontend_member || "").trim()] || "",
                       hours: Number(r.frontend_hours || 0),
+                    },
+                    frontendReview: {
+                      memberId:
+                        map[String(r.frontend_review_member || "").trim()] ||
+                        "",
+                      hours: Number(r.frontend_review_hours || 0),
                     },
                     tester: {
                       memberId: map[String(r.tester_member || "").trim()] || "",

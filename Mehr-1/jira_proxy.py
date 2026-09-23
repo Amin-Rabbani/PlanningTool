@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Local static server + Jira/OpenRouter CORS proxy for planning.html."""
+"""Local static server + Jira/OpenRouter CORS proxy for index.html."""
 
 from __future__ import annotations
 
@@ -120,7 +120,7 @@ class Handler(SimpleHTTPRequestHandler):
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Serve planning.html with Jira + OpenRouter CORS proxy"
+        description="Serve index.html with Jira + OpenRouter CORS proxy"
     )
     parser.add_argument("--host", default="127.0.0.1")
     parser.add_argument("--port", type=int, default=8765)
@@ -136,7 +136,7 @@ def main():
         return Handler(*a, jira_base=jira, **kw)
 
     server = ThreadingHTTPServer((args.host, args.port), factory)
-    print(f"Planning app:  http://{args.host}:{args.port}/planning.html")
+    print(f"Planning app:  http://{args.host}:{args.port}/index.html")
     print(f"Jira proxy:    http://{args.host}:{args.port}{PROXY_PREFIX}/ → {jira}/")
     print(
         f"OpenRouter:    http://{args.host}:{args.port}{OPENROUTER_PREFIX}/ → {OPENROUTER_BASE}/"
