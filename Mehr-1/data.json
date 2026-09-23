@@ -1,0 +1,2104 @@
+{
+  "theme": "light",
+  "plan": {
+    "sprintName": "PRC-05-07",
+    "startDate": "1405/07/01",
+    "endDate": "1405/07/30",
+    "planDays": 30,
+    "workingDays": 21,
+    "hoursPerDay": 8
+  },
+  "jiraConfig": {
+    "baseUrl": "https://mars-jira.systemgroup.net",
+    "release": "R7"
+  },
+  "aiConfig": {
+    "baseUrl": "http://api.hooshyar.systemgroup.net/open-router-reverse/v1",
+    "model": "openai/gpt-5.6-luna",
+    "releaseUrl": "https://mars-jira.systemgroup.net/issues/?jql=project%20%3D%20Procurement%20AND%20(type%20%3D%20Story%20OR%20type%20%3D%20%22Technical%20%20story%22)%20AND%20fixVersion%20%3D%20PRC-05-R7%20AND%20status%20!%3D%20Merged%20%20ORDER%20BY%20status%20DESC%2C%20key%20ASC%2C%20summary%20DESC%2C%20labels%20ASC",
+    "maxIssues": 50,
+    "notes": "Priority: implemented stories for testing, Active stories for continue development and then Designed, Analyzed states. Also tell me witch story better to start testing first in sprint. ",
+    "onlyStories": true,
+    "excludeDone": true
+  },
+  "members": [
+    {
+      "id": "njh9dwbe",
+      "name": "امین",
+      "username": "mohammadaminr",
+      "roles": [
+        "backend",
+        "frontend"
+      ],
+      "leaveDays": 2,
+      "capacity": 152
+    },
+    {
+      "id": "ws7v4002",
+      "name": "حسین",
+      "username": "hosseinbo",
+      "roles": [
+        "backend"
+      ],
+      "leaveDays": 1,
+      "capacity": 160
+    },
+    {
+      "id": "96ibr2u0",
+      "name": "رضا",
+      "username": "rezaya",
+      "roles": [
+        "backend",
+        "frontend"
+      ],
+      "leaveDays": 0,
+      "capacity": 168
+    },
+    {
+      "id": "m8dox9bt",
+      "name": "متین",
+      "username": "matinam",
+      "roles": [
+        "backend",
+        "frontend"
+      ],
+      "leaveDays": 3,
+      "capacity": 144
+    },
+    {
+      "id": "efvtyj41",
+      "name": "الهه",
+      "username": "elaheht",
+      "roles": [
+        "backend",
+        "frontend"
+      ],
+      "leaveDays": 2,
+      "capacity": 152
+    },
+    {
+      "id": "l4t0ghgd",
+      "name": "شیرین",
+      "username": "shirinsh",
+      "roles": [
+        "analyst"
+      ],
+      "leaveDays": 2,
+      "capacity": 152
+    },
+    {
+      "id": "cg6nknt4",
+      "name": "پرنیا",
+      "username": "parniab",
+      "roles": [
+        "tester",
+        "analyst"
+      ],
+      "leaveDays": 1,
+      "capacity": 160
+    },
+    {
+      "id": "k2e17elv",
+      "name": "فهیمه",
+      "username": "fahimen",
+      "roles": [
+        "tester",
+        "analyst"
+      ],
+      "leaveDays": 2,
+      "capacity": 152
+    }
+  ],
+  "tasks": [
+    {
+      "id": "r8xaecq8",
+      "type": "normal",
+      "taskInput": "مرور تدارکات چندشرکتی | https://mars-jira.systemgroup.net/browse/PRC-2302",
+      "title": "مرور تدارکات چندشرکتی",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-2302",
+      "dod": "Merged",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "96ibr2u0",
+        "hours": 40
+      },
+      "backendReview": {
+        "memberId": "ws7v4002",
+        "hours": 3
+      },
+      "frontend": {
+        "memberId": "96ibr2u0",
+        "hours": 10
+      },
+      "frontendReview": {
+        "memberId": "m8dox9bt",
+        "hours": 2
+      },
+      "tester": {
+        "memberId": "k2e17elv",
+        "hours": 30
+      },
+      "analyst": {
+        "memberId": "l4t0ghgd",
+        "hours": 4
+      },
+      "subtaskRefs": {
+        "ws7v4002": [
+          {
+            "key": "PRC-5426",
+            "summary": "مرور کد - مرور تدارکات چندشرکتی - حسین - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "codeReview",
+            "createdAt": "2026-09-23T11:00:29.360Z"
+          }
+        ],
+        "96ibr2u0": [
+          {
+            "key": "PRC-5445",
+            "summary": "مرور تدارکات چندشرکتی - رضا - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "normal",
+            "createdAt": "2026-09-23T11:01:03.925Z"
+          }
+        ],
+        "m8dox9bt": [
+          {
+            "key": "PRC-5458",
+            "summary": "مرور کد - مرور تدارکات چندشرکتی - متین - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "codeReview",
+            "createdAt": "2026-09-23T11:01:29.632Z"
+          }
+        ],
+        "l4t0ghgd": [
+          {
+            "key": "PRC-5481",
+            "summary": "مرور تدارکات چندشرکتی - شیرین - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "normal",
+            "createdAt": "2026-09-23T11:02:07.617Z"
+          }
+        ],
+        "k2e17elv": [
+          {
+            "key": "PRC-5504",
+            "summary": "مرور تدارکات چندشرکتی - فهیمه - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "normal",
+            "createdAt": "2026-09-23T11:04:38.632Z"
+          }
+        ]
+      }
+    },
+    {
+      "id": "zauwfc78",
+      "type": "normal",
+      "taskInput": "تفصیل سایر - تدارکات | https://mars-jira.systemgroup.net/browse/PRC-4689",
+      "title": "تفصیل سایر - تدارکات",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-4689",
+      "dod": "Merged",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "ws7v4002",
+        "hours": 35
+      },
+      "backendReview": {
+        "memberId": "96ibr2u0",
+        "hours": 3
+      },
+      "frontend": {
+        "memberId": "m8dox9bt",
+        "hours": 10
+      },
+      "frontendReview": {
+        "memberId": "njh9dwbe",
+        "hours": 3
+      },
+      "tester": {
+        "memberId": "cg6nknt4",
+        "hours": 20
+      },
+      "analyst": {
+        "memberId": "l4t0ghgd",
+        "hours": 2
+      },
+      "subtaskRefs": {
+        "njh9dwbe": [
+          {
+            "key": "PRC-5417",
+            "summary": "مرور کد - تفصیل سایر - تدارکات - امین - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "codeReview",
+            "createdAt": "2026-09-23T10:58:13.150Z"
+          }
+        ],
+        "ws7v4002": [
+          {
+            "key": "PRC-5427",
+            "summary": "تفصیل سایر - تدارکات - حسین - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "normal",
+            "createdAt": "2026-09-23T11:00:30.495Z"
+          }
+        ],
+        "96ibr2u0": [
+          {
+            "key": "PRC-5446",
+            "summary": "مرور کد - تفصیل سایر - تدارکات - رضا - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "codeReview",
+            "createdAt": "2026-09-23T11:01:04.519Z"
+          }
+        ],
+        "m8dox9bt": [
+          {
+            "key": "PRC-5459",
+            "summary": "تفصیل سایر - تدارکات - متین - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "normal",
+            "createdAt": "2026-09-23T11:01:30.165Z"
+          }
+        ],
+        "l4t0ghgd": [
+          {
+            "key": "PRC-5482",
+            "summary": "تفصیل سایر - تدارکات - شیرین - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "normal",
+            "createdAt": "2026-09-23T11:02:08.216Z"
+          }
+        ],
+        "cg6nknt4": [
+          {
+            "key": "PRC-5491",
+            "summary": "تفصیل سایر - تدارکات - پرنیا - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "normal",
+            "createdAt": "2026-09-23T11:02:29.453Z"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ivjqgvsp",
+      "type": "normal",
+      "taskInput": "نمایش اطلاعات پرداخت شده برای فاکتور خرید در صورتی که سفارش خرید پیش پرداخت پرداخت شده دارد | https://mars-jira.systemgroup.net/browse/PRC-4797",
+      "title": "نمایش اطلاعات پرداخت شده برای فاکتور خرید در صورتی که سفارش خرید پیش پرداخت پرداخت شده دارد",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-4797",
+      "dod": "Merged",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "efvtyj41",
+        "hours": 20
+      },
+      "backendReview": {
+        "memberId": "ws7v4002",
+        "hours": 3
+      },
+      "frontend": {
+        "memberId": "efvtyj41",
+        "hours": 20
+      },
+      "frontendReview": {
+        "memberId": "m8dox9bt",
+        "hours": 2
+      },
+      "tester": {
+        "memberId": "k2e17elv",
+        "hours": 20
+      },
+      "analyst": {
+        "memberId": "cg6nknt4",
+        "hours": 2
+      },
+      "subtaskRefs": {
+        "ws7v4002": [
+          {
+            "key": "PRC-5428",
+            "summary": "مرور کد - نمایش اطلاعات پرداخت شده برای فاکتور خرید در صورتی که سفارش خرید پیش پرداخت پرداخت شده دارد - حسین - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "codeReview",
+            "createdAt": "2026-09-23T11:00:31.501Z"
+          }
+        ],
+        "m8dox9bt": [
+          {
+            "key": "PRC-5460",
+            "summary": "مرور کد - نمایش اطلاعات پرداخت شده برای فاکتور خرید در صورتی که سفارش خرید پیش پرداخت پرداخت شده دارد - متین - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "codeReview",
+            "createdAt": "2026-09-23T11:01:30.843Z"
+          }
+        ],
+        "efvtyj41": [
+          {
+            "key": "PRC-5477",
+            "summary": "نمایش اطلاعات پرداخت شده برای فاکتور خرید در صورتی که سفارش خرید پیش پرداخت پرداخت شده دارد - الهه - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "normal",
+            "createdAt": "2026-09-23T11:01:52.337Z"
+          }
+        ],
+        "cg6nknt4": [
+          {
+            "key": "PRC-5492",
+            "summary": "نمایش اطلاعات پرداخت شده برای فاکتور خرید در صورتی که سفارش خرید پیش پرداخت پرداخت شده دارد - پرنیا - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "normal",
+            "createdAt": "2026-09-23T11:02:29.970Z"
+          }
+        ],
+        "k2e17elv": [
+          {
+            "key": "PRC-5505",
+            "summary": "نمایش اطلاعات پرداخت شده برای فاکتور خرید در صورتی که سفارش خرید پیش پرداخت پرداخت شده دارد - فهیمه - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "normal",
+            "createdAt": "2026-09-23T11:04:39.250Z"
+          }
+        ]
+      }
+    },
+    {
+      "id": "meruilmo",
+      "type": "normal",
+      "taskInput": "Agent صدور دستور کار خرید و سفارش خرید | https://mars-jira.systemgroup.net/browse/PRC-5227",
+      "title": "Agent صدور دستور کار خرید و سفارش خرید",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-5227",
+      "dod": "Merged",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "ws7v4002",
+        "hours": 31
+      },
+      "backendReview": {
+        "memberId": "96ibr2u0",
+        "hours": 2
+      },
+      "frontend": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "tester": {
+        "memberId": "",
+        "hours": 0
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 0
+      },
+      "subtaskRefs": {
+        "ws7v4002": [
+          {
+            "key": "PRC-5429",
+            "summary": "Agent صدور دستور کار خرید و سفارش خرید - حسین - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "normal",
+            "createdAt": "2026-09-23T11:00:32.251Z"
+          }
+        ],
+        "96ibr2u0": [
+          {
+            "key": "PRC-5447",
+            "summary": "مرور کد - Agent صدور دستور کار خرید و سفارش خرید - رضا - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "codeReview",
+            "createdAt": "2026-09-23T11:01:05.127Z"
+          }
+        ]
+      }
+    },
+    {
+      "id": "vaxjp4li",
+      "type": "normal",
+      "taskInput": "نمایش اسناد مرتبط درخواست خرید و دستور کار خرید | https://mars-jira.systemgroup.net/browse/PRC-200",
+      "title": "نمایش اسناد مرتبط درخواست خرید و دستور کار خرید",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-200",
+      "dod": "Implemented",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "",
+        "hours": 12
+      },
+      "backendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontend": {
+        "memberId": "",
+        "hours": 4
+      },
+      "frontendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "tester": {
+        "memberId": "",
+        "hours": 8
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 0
+      },
+      "subtaskRefs": {}
+    },
+    {
+      "id": "xuzqhoee",
+      "type": "normal",
+      "taskInput": "فاکتور برگشتی | https://mars-jira.systemgroup.net/browse/PRC-211",
+      "title": "فاکتور برگشتی",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-211",
+      "dod": "Merged",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "ws7v4002",
+        "hours": 12
+      },
+      "backendReview": {
+        "memberId": "96ibr2u0",
+        "hours": 4
+      },
+      "frontend": {
+        "memberId": "njh9dwbe",
+        "hours": 8
+      },
+      "frontendReview": {
+        "memberId": "m8dox9bt",
+        "hours": 4
+      },
+      "tester": {
+        "memberId": "k2e17elv",
+        "hours": 20
+      },
+      "analyst": {
+        "memberId": "l4t0ghgd",
+        "hours": 2
+      },
+      "subtaskRefs": {
+        "njh9dwbe": [
+          {
+            "key": "PRC-5418",
+            "summary": "فاکتور برگشتی - امین - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "normal",
+            "createdAt": "2026-09-23T10:58:14.115Z"
+          }
+        ],
+        "ws7v4002": [
+          {
+            "key": "PRC-5430",
+            "summary": "فاکتور برگشتی - حسین - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "normal",
+            "createdAt": "2026-09-23T11:00:33.173Z"
+          }
+        ],
+        "96ibr2u0": [
+          {
+            "key": "PRC-5448",
+            "summary": "مرور کد - فاکتور برگشتی - رضا - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "codeReview",
+            "createdAt": "2026-09-23T11:01:05.758Z"
+          }
+        ],
+        "m8dox9bt": [
+          {
+            "key": "PRC-5461",
+            "summary": "مرور کد - فاکتور برگشتی - متین - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "codeReview",
+            "createdAt": "2026-09-23T11:01:31.439Z"
+          }
+        ],
+        "l4t0ghgd": [
+          {
+            "key": "PRC-5483",
+            "summary": "فاکتور برگشتی - شیرین - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "normal",
+            "createdAt": "2026-09-23T11:02:08.817Z"
+          }
+        ],
+        "k2e17elv": [
+          {
+            "key": "PRC-5506",
+            "summary": "فاکتور برگشتی - فهیمه - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "normal",
+            "createdAt": "2026-09-23T11:04:39.819Z"
+          }
+        ]
+      }
+    },
+    {
+      "id": "9yt038el",
+      "type": "normal",
+      "taskInput": "پارامتر شرکت های عضو گروه در استقرار حساب | https://mars-jira.systemgroup.net/browse/PRC-2301",
+      "title": "پارامتر شرکت های عضو گروه در استقرار حساب ",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-2301",
+      "dod": "Merged",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "m8dox9bt",
+        "hours": 2
+      },
+      "backendReview": {
+        "memberId": "ws7v4002",
+        "hours": 1
+      },
+      "frontend": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "tester": {
+        "memberId": "cg6nknt4",
+        "hours": 14
+      },
+      "analyst": {
+        "memberId": "k2e17elv",
+        "hours": 1
+      },
+      "subtaskRefs": {
+        "ws7v4002": [
+          {
+            "key": "PRC-5431",
+            "summary": "مرور کد - پارامتر شرکت های عضو گروه در استقرار حساب  - حسین - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "codeReview",
+            "createdAt": "2026-09-23T11:00:36.051Z"
+          }
+        ],
+        "m8dox9bt": [
+          {
+            "key": "PRC-5462",
+            "summary": "پارامتر شرکت های عضو گروه در استقرار حساب  - متین - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "normal",
+            "createdAt": "2026-09-23T11:01:32.047Z"
+          }
+        ],
+        "cg6nknt4": [
+          {
+            "key": "PRC-5493",
+            "summary": "پارامتر شرکت های عضو گروه در استقرار حساب  - پرنیا - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "normal",
+            "createdAt": "2026-09-23T11:02:30.551Z"
+          }
+        ],
+        "k2e17elv": [
+          {
+            "key": "PRC-5507",
+            "summary": "پارامتر شرکت های عضو گروه در استقرار حساب  - فهیمه - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "normal",
+            "createdAt": "2026-09-23T11:04:40.566Z"
+          }
+        ]
+      }
+    },
+    {
+      "id": "02m1924m",
+      "type": "normal",
+      "taskInput": "تغییر وضعیت سایر پیش فاکتور های یک دستور کار خرید با صدور سفارش برای یک پیش فاکتور | https://mars-jira.systemgroup.net/browse/PRC-2322",
+      "title": "تغییر وضعیت سایر پیش فاکتور های یک دستور کار خرید با صدور سفارش برای یک پیش فاکتور ",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-2322",
+      "dod": "Merged",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "efvtyj41",
+        "hours": 16
+      },
+      "backendReview": {
+        "memberId": "96ibr2u0",
+        "hours": 2
+      },
+      "frontend": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "tester": {
+        "memberId": "k2e17elv",
+        "hours": 6
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 12
+      },
+      "subtaskRefs": {
+        "96ibr2u0": [
+          {
+            "key": "PRC-5449",
+            "summary": "مرور کد - تغییر وضعیت سایر پیش فاکتور های یک دستور کار خرید با صدور سفارش برای یک پیش فاکتور  - رضا - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "codeReview",
+            "createdAt": "2026-09-23T11:01:06.860Z"
+          }
+        ],
+        "efvtyj41": [
+          {
+            "key": "PRC-5478",
+            "summary": "تغییر وضعیت سایر پیش فاکتور های یک دستور کار خرید با صدور سفارش برای یک پیش فاکتور  - الهه - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "normal",
+            "createdAt": "2026-09-23T11:01:52.962Z"
+          }
+        ],
+        "k2e17elv": [
+          {
+            "key": "PRC-5508",
+            "summary": "تغییر وضعیت سایر پیش فاکتور های یک دستور کار خرید با صدور سفارش برای یک پیش فاکتور  - فهیمه - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "normal",
+            "createdAt": "2026-09-23T11:04:41.332Z"
+          }
+        ]
+      }
+    },
+    {
+      "id": "nwjavzun",
+      "type": "normal",
+      "taskInput": "نمایش وضعیت ثبت حسابداری شده در فهرست رسید تحویل مستقیم | https://mars-jira.systemgroup.net/browse/PRC-3317",
+      "title": "نمایش وضعیت ثبت حسابداری شده در فهرست رسید تحویل مستقیم",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-3317",
+      "dod": "Merged",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "m8dox9bt",
+        "hours": 1
+      },
+      "backendReview": {
+        "memberId": "ws7v4002",
+        "hours": 1
+      },
+      "frontend": {
+        "memberId": "m8dox9bt",
+        "hours": 0
+      },
+      "frontendReview": {
+        "memberId": "m8dox9bt",
+        "hours": 1
+      },
+      "tester": {
+        "memberId": "cg6nknt4",
+        "hours": 6
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 4
+      },
+      "subtaskRefs": {
+        "ws7v4002": [
+          {
+            "key": "PRC-5432",
+            "summary": "مرور کد - نمایش وضعیت ثبت حسابداری شده در فهرست رسید تحویل مستقیم - حسین - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "codeReview",
+            "createdAt": "2026-09-23T11:00:37.170Z"
+          }
+        ],
+        "m8dox9bt": [
+          {
+            "key": "PRC-5463",
+            "summary": "نمایش وضعیت ثبت حسابداری شده در فهرست رسید تحویل مستقیم - متین - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "normal",
+            "createdAt": "2026-09-23T11:01:32.590Z"
+          },
+          {
+            "key": "PRC-5464",
+            "summary": "مرور کد - نمایش وضعیت ثبت حسابداری شده در فهرست رسید تحویل مستقیم - متین - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "codeReview",
+            "createdAt": "2026-09-23T11:01:33.093Z"
+          }
+        ],
+        "cg6nknt4": [
+          {
+            "key": "PRC-5494",
+            "summary": "نمایش وضعیت ثبت حسابداری شده در فهرست رسید تحویل مستقیم - پرنیا - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "normal",
+            "createdAt": "2026-09-23T11:02:31.235Z"
+          }
+        ]
+      }
+    },
+    {
+      "id": "aw29y6zd",
+      "type": "normal",
+      "taskInput": "نمایش پیام مرتبط در ایجاد تحویل مجدد در فرم سفارش | https://mars-jira.systemgroup.net/browse/PRC-3341",
+      "title": "نمایش پیام مرتبط در ایجاد تحویل مجدد در فرم سفارش",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-3341",
+      "dod": "Implemented",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "",
+        "hours": 8
+      },
+      "backendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontend": {
+        "memberId": "",
+        "hours": 8
+      },
+      "frontendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "tester": {
+        "memberId": "",
+        "hours": 3
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 0
+      },
+      "subtaskRefs": {}
+    },
+    {
+      "id": "o1pby5og",
+      "type": "normal",
+      "taskInput": "بهبود تجربه کاربری تدارکات - میزکار مدیریت اسناد تدارکات | https://mars-jira.systemgroup.net/browse/PRC-3991",
+      "title": "بهبود تجربه کاربری تدارکات - میزکار مدیریت اسناد تدارکات",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-3991",
+      "dod": "Merged",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "njh9dwbe",
+        "hours": 4
+      },
+      "backendReview": {
+        "memberId": "ws7v4002",
+        "hours": 2
+      },
+      "frontend": {
+        "memberId": "njh9dwbe",
+        "hours": 4
+      },
+      "frontendReview": {
+        "memberId": "m8dox9bt",
+        "hours": 2
+      },
+      "tester": {
+        "memberId": "cg6nknt4",
+        "hours": 20
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 16
+      },
+      "subtaskRefs": {
+        "njh9dwbe": [
+          {
+            "key": "PRC-5419",
+            "summary": "بهبود تجربه کاربری تدارکات - میزکار مدیریت اسناد تدارکات - امین - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "normal",
+            "createdAt": "2026-09-23T10:58:14.948Z"
+          }
+        ],
+        "ws7v4002": [
+          {
+            "key": "PRC-5433",
+            "summary": "مرور کد - بهبود تجربه کاربری تدارکات - میزکار مدیریت اسناد تدارکات - حسین - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "codeReview",
+            "createdAt": "2026-09-23T11:00:37.993Z"
+          }
+        ],
+        "m8dox9bt": [
+          {
+            "key": "PRC-5465",
+            "summary": "مرور کد - بهبود تجربه کاربری تدارکات - میزکار مدیریت اسناد تدارکات - متین - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "codeReview",
+            "createdAt": "2026-09-23T11:01:33.607Z"
+          }
+        ],
+        "cg6nknt4": [
+          {
+            "key": "PRC-5495",
+            "summary": "بهبود تجربه کاربری تدارکات - میزکار مدیریت اسناد تدارکات - پرنیا - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "normal",
+            "createdAt": "2026-09-23T11:02:31.749Z"
+          }
+        ]
+      }
+    },
+    {
+      "id": "oas7mi6h",
+      "type": "normal",
+      "taskInput": "سفارش در راه اقلام خریدنی مبتنی بر برنامه ریزی تحویل | https://mars-jira.systemgroup.net/browse/PRC-4016",
+      "title": "سفارش در راه اقلام خریدنی مبتنی بر برنامه ریزی تحویل",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-4016",
+      "dod": "Merged",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "ws7v4002",
+        "hours": 6
+      },
+      "backendReview": {
+        "memberId": "96ibr2u0",
+        "hours": 2
+      },
+      "frontend": {
+        "memberId": "",
+        "hours": 10
+      },
+      "frontendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "tester": {
+        "memberId": "cg6nknt4",
+        "hours": 16
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 8
+      },
+      "subtaskRefs": {
+        "ws7v4002": [
+          {
+            "key": "PRC-5434",
+            "summary": "سفارش در راه اقلام خریدنی مبتنی بر برنامه ریزی تحویل - حسین - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "normal",
+            "createdAt": "2026-09-23T11:00:38.683Z"
+          }
+        ],
+        "96ibr2u0": [
+          {
+            "key": "PRC-5450",
+            "summary": "مرور کد - سفارش در راه اقلام خریدنی مبتنی بر برنامه ریزی تحویل - رضا - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "codeReview",
+            "createdAt": "2026-09-23T11:01:07.582Z"
+          }
+        ],
+        "cg6nknt4": [
+          {
+            "key": "PRC-5496",
+            "summary": "سفارش در راه اقلام خریدنی مبتنی بر برنامه ریزی تحویل - پرنیا - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "normal",
+            "createdAt": "2026-09-23T11:02:32.267Z"
+          }
+        ]
+      }
+    },
+    {
+      "id": "mi7bg51u",
+      "type": "normal",
+      "taskInput": "نمایش قلم خریدنی در مبنای سفارش خرید در فاکتور | https://mars-jira.systemgroup.net/browse/PRC-4651",
+      "title": "نمایش قلم خریدنی در مبنای سفارش خرید در فاکتور",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-4651",
+      "dod": "Merged",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "",
+        "hours": 10
+      },
+      "backendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontend": {
+        "memberId": "m8dox9bt",
+        "hours": 4
+      },
+      "frontendReview": {
+        "memberId": "njh9dwbe",
+        "hours": 2
+      },
+      "tester": {
+        "memberId": "k2e17elv",
+        "hours": 6
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 4
+      },
+      "subtaskRefs": {
+        "njh9dwbe": [
+          {
+            "key": "PRC-5420",
+            "summary": "مرور کد - نمایش قلم خریدنی در مبنای سفارش خرید در فاکتور - امین - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "codeReview",
+            "createdAt": "2026-09-23T10:58:15.960Z"
+          }
+        ],
+        "m8dox9bt": [
+          {
+            "key": "PRC-5466",
+            "summary": "نمایش قلم خریدنی در مبنای سفارش خرید در فاکتور - متین - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "normal",
+            "createdAt": "2026-09-23T11:01:34.425Z"
+          }
+        ],
+        "k2e17elv": [
+          {
+            "key": "PRC-5509",
+            "summary": "نمایش قلم خریدنی در مبنای سفارش خرید در فاکتور - فهیمه - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "normal",
+            "createdAt": "2026-09-23T11:04:41.831Z"
+          }
+        ]
+      }
+    },
+    {
+      "id": "k9t9pbbw",
+      "type": "normal",
+      "taskInput": "رکورد لول شرکت در درخواست تجمیعی | https://mars-jira.systemgroup.net/browse/PRC-4688",
+      "title": "رکورد لول شرکت در درخواست تجمیعی ",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-4688",
+      "dod": "Merged",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "m8dox9bt",
+        "hours": 1
+      },
+      "backendReview": {
+        "memberId": "ws7v4002",
+        "hours": 2
+      },
+      "frontend": {
+        "memberId": "",
+        "hours": 4
+      },
+      "frontendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "tester": {
+        "memberId": "cg6nknt4",
+        "hours": 6
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 4
+      },
+      "subtaskRefs": {
+        "ws7v4002": [
+          {
+            "key": "PRC-5435",
+            "summary": "مرور کد - رکورد لول شرکت در درخواست تجمیعی  - حسین - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "codeReview",
+            "createdAt": "2026-09-23T11:00:39.413Z"
+          }
+        ],
+        "m8dox9bt": [
+          {
+            "key": "PRC-5467",
+            "summary": "رکورد لول شرکت در درخواست تجمیعی  - متین - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "normal",
+            "createdAt": "2026-09-23T11:01:34.990Z"
+          }
+        ],
+        "cg6nknt4": [
+          {
+            "key": "PRC-5497",
+            "summary": "رکورد لول شرکت در درخواست تجمیعی  - پرنیا - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "normal",
+            "createdAt": "2026-09-23T11:02:32.835Z"
+          }
+        ]
+      }
+    },
+    {
+      "id": "p0we2c56",
+      "type": "normal",
+      "taskInput": "در سفارش در راه اسناد انبار ثبت دیده نمیشه ولی عملا دیگر در راه نیست - اصلاح محاسبه سفارش در راه | https://mars-jira.systemgroup.net/browse/PRC-4712",
+      "title": "در سفارش در راه اسناد انبار ثبت دیده نمیشه ولی عملا دیگر در راه نیست - اصلاح محاسبه سفارش در راه",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-4712",
+      "dod": "Merged",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "96ibr2u0",
+        "hours": 2
+      },
+      "backendReview": {
+        "memberId": "ws7v4002",
+        "hours": 2
+      },
+      "frontend": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "tester": {
+        "memberId": "cg6nknt4",
+        "hours": 8
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 2
+      },
+      "subtaskRefs": {
+        "ws7v4002": [
+          {
+            "key": "PRC-5436",
+            "summary": "مرور کد - در سفارش در راه اسناد انبار ثبت دیده نمیشه ولی عملا دیگر در راه نیست - اصلاح محاسبه سفارش در راه - حسین - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "codeReview",
+            "createdAt": "2026-09-23T11:00:40.747Z"
+          }
+        ],
+        "96ibr2u0": [
+          {
+            "key": "PRC-5451",
+            "summary": "در سفارش در راه اسناد انبار ثبت دیده نمیشه ولی عملا دیگر در راه نیست - اصلاح محاسبه سفارش در راه - رضا - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "normal",
+            "createdAt": "2026-09-23T11:01:08.207Z"
+          }
+        ],
+        "cg6nknt4": [
+          {
+            "key": "PRC-5498",
+            "summary": "در سفارش در راه اسناد انبار ثبت دیده نمیشه ولی عملا دیگر در راه نیست - اصلاح محاسبه سفارش در راه - پرنیا - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "normal",
+            "createdAt": "2026-09-23T11:02:33.711Z"
+          }
+        ]
+      }
+    },
+    {
+      "id": "fwqq54mv",
+      "type": "normal",
+      "taskInput": "ویرایش چاپ درخواست خرید | https://mars-jira.systemgroup.net/browse/PRC-4842",
+      "title": "ویرایش چاپ درخواست خرید ",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-4842",
+      "dod": "Merged",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "96ibr2u0",
+        "hours": 2
+      },
+      "backendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontend": {
+        "memberId": "",
+        "hours": 20
+      },
+      "frontendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "tester": {
+        "memberId": "k2e17elv",
+        "hours": 6
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 6
+      },
+      "subtaskRefs": {
+        "96ibr2u0": [
+          {
+            "key": "PRC-5452",
+            "summary": "ویرایش چاپ درخواست خرید  - رضا - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "normal",
+            "createdAt": "2026-09-23T11:01:08.814Z"
+          }
+        ],
+        "k2e17elv": [
+          {
+            "key": "PRC-5510",
+            "summary": "ویرایش چاپ درخواست خرید  - فهیمه - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "normal",
+            "createdAt": "2026-09-23T11:04:42.549Z"
+          }
+        ]
+      }
+    },
+    {
+      "id": "s85gingc",
+      "type": "normal",
+      "taskInput": "ایجاد پارامتر برای صدور سند حسابداری مصرف رسید تحویل مستقیم | https://mars-jira.systemgroup.net/browse/PRC-5020",
+      "title": "ایجاد پارامتر برای صدور سند حسابداری مصرف رسید تحویل مستقیم ",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-5020",
+      "dod": "Merged",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "m8dox9bt",
+        "hours": 2
+      },
+      "backendReview": {
+        "memberId": "ws7v4002",
+        "hours": 1
+      },
+      "frontend": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "tester": {
+        "memberId": "k2e17elv",
+        "hours": 6
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 2
+      },
+      "subtaskRefs": {
+        "ws7v4002": [
+          {
+            "key": "PRC-5437",
+            "summary": "مرور کد - ایجاد پارامتر برای صدور سند حسابداری مصرف رسید تحویل مستقیم  - حسین - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "codeReview",
+            "createdAt": "2026-09-23T11:00:41.969Z"
+          }
+        ],
+        "m8dox9bt": [
+          {
+            "key": "PRC-5468",
+            "summary": "ایجاد پارامتر برای صدور سند حسابداری مصرف رسید تحویل مستقیم  - متین - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "normal",
+            "createdAt": "2026-09-23T11:01:35.646Z"
+          }
+        ],
+        "k2e17elv": [
+          {
+            "key": "PRC-5511",
+            "summary": "ایجاد پارامتر برای صدور سند حسابداری مصرف رسید تحویل مستقیم  - فهیمه - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "normal",
+            "createdAt": "2026-09-23T11:04:43.393Z"
+          }
+        ]
+      }
+    },
+    {
+      "id": "35uz17ov",
+      "type": "normal",
+      "taskInput": "تفصیل سفارش خرید | https://mars-jira.systemgroup.net/browse/PRC-912",
+      "title": "تفصیل سفارش خرید",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-912",
+      "dod": "Implemented",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "m8dox9bt",
+        "hours": 30
+      },
+      "backendReview": {
+        "memberId": "ws7v4002",
+        "hours": 4
+      },
+      "frontend": {
+        "memberId": "m8dox9bt",
+        "hours": 10
+      },
+      "frontendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "tester": {
+        "memberId": "",
+        "hours": 24
+      },
+      "analyst": {
+        "memberId": "k2e17elv",
+        "hours": 10
+      },
+      "subtaskRefs": {
+        "ws7v4002": [
+          {
+            "key": "PRC-5438",
+            "summary": "مرور کد - تفصیل سفارش خرید - حسین - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "codeReview",
+            "createdAt": "2026-09-23T11:00:42.601Z"
+          }
+        ],
+        "m8dox9bt": [
+          {
+            "key": "PRC-5469",
+            "summary": "تفصیل سفارش خرید - متین - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "normal",
+            "createdAt": "2026-09-23T11:01:36.362Z"
+          }
+        ],
+        "k2e17elv": [
+          {
+            "key": "PRC-5512",
+            "summary": "تفصیل سفارش خرید - فهیمه - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "normal",
+            "createdAt": "2026-09-23T11:04:44.023Z"
+          }
+        ]
+      }
+    },
+    {
+      "id": "gqmhdugz",
+      "type": "normal",
+      "taskInput": "دسترسی بر اساس واحد تامین  و نقش ها در تدارکات | https://mars-jira.systemgroup.net/browse/PRC-1334",
+      "title": "دسترسی بر اساس واحد تامین  و نقش ها در تدارکات",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-1334",
+      "dod": "Merged",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "efvtyj41",
+        "hours": 70
+      },
+      "backendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontend": {
+        "memberId": "",
+        "hours": 10
+      },
+      "frontendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "tester": {
+        "memberId": "cg6nknt4",
+        "hours": 32
+      },
+      "analyst": {
+        "memberId": "l4t0ghgd",
+        "hours": 32
+      },
+      "subtaskRefs": {
+        "efvtyj41": [
+          {
+            "key": "PRC-5479",
+            "summary": "دسترسی بر اساس واحد تامین  و نقش ها در تدارکات - الهه - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "normal",
+            "createdAt": "2026-09-23T11:01:53.661Z"
+          }
+        ],
+        "l4t0ghgd": [
+          {
+            "key": "PRC-5484",
+            "summary": "دسترسی بر اساس واحد تامین  و نقش ها در تدارکات - شیرین - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "normal",
+            "createdAt": "2026-09-23T11:02:09.567Z"
+          }
+        ],
+        "cg6nknt4": [
+          {
+            "key": "PRC-5499",
+            "summary": "دسترسی بر اساس واحد تامین  و نقش ها در تدارکات - پرنیا - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "normal",
+            "createdAt": "2026-09-23T11:02:34.422Z"
+          }
+        ]
+      }
+    },
+    {
+      "id": "dm99f83y",
+      "type": "normal",
+      "taskInput": "اصلاح UI فرم های تحویل و برنامه تحویل تدارکات | https://mars-jira.systemgroup.net/browse/PRC-3733",
+      "title": "اصلاح UI فرم های تحویل و برنامه تحویل تدارکات ",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-3733",
+      "dod": "Implemented",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "96ibr2u0",
+        "hours": 20
+      },
+      "backendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontend": {
+        "memberId": "m8dox9bt",
+        "hours": 20
+      },
+      "frontendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "tester": {
+        "memberId": "",
+        "hours": 12
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 8
+      },
+      "subtaskRefs": {
+        "96ibr2u0": [
+          {
+            "key": "PRC-5453",
+            "summary": "اصلاح UI فرم های تحویل و برنامه تحویل تدارکات  - رضا - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "normal",
+            "createdAt": "2026-09-23T11:01:09.540Z"
+          }
+        ],
+        "m8dox9bt": [
+          {
+            "key": "PRC-5470",
+            "summary": "اصلاح UI فرم های تحویل و برنامه تحویل تدارکات  - متین - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "normal",
+            "createdAt": "2026-09-23T11:01:37.076Z"
+          }
+        ]
+      }
+    },
+    {
+      "id": "3xcejo31",
+      "type": "normal",
+      "taskInput": "Agent صدور درخواست خرید | https://mars-jira.systemgroup.net/browse/PRC-3969",
+      "title": "Agent صدور درخواست خرید",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-3969",
+      "dod": "Merged",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "ws7v4002",
+        "hours": 30
+      },
+      "backendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontend": {
+        "memberId": "",
+        "hours": 30
+      },
+      "frontendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "tester": {
+        "memberId": "",
+        "hours": 24
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 24
+      },
+      "subtaskRefs": {
+        "ws7v4002": [
+          {
+            "key": "PRC-5439",
+            "summary": "Agent صدور درخواست خرید - حسین - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "normal",
+            "createdAt": "2026-09-23T11:00:43.324Z"
+          }
+        ]
+      }
+    },
+    {
+      "id": "qmdh7rkt",
+      "type": "normal",
+      "taskInput": "فرایند برگشتی - ارتباط با انبار | https://mars-jira.systemgroup.net/browse/PRC-3971",
+      "title": "فرایند برگشتی - ارتباط با انبار ",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-3971",
+      "dod": "Merged",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "ws7v4002",
+        "hours": 8
+      },
+      "backendReview": {
+        "memberId": "96ibr2u0",
+        "hours": 2
+      },
+      "frontend": {
+        "memberId": "",
+        "hours": 5
+      },
+      "frontendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "tester": {
+        "memberId": "",
+        "hours": 30
+      },
+      "analyst": {
+        "memberId": "l4t0ghgd",
+        "hours": 4
+      },
+      "subtaskRefs": {
+        "ws7v4002": [
+          {
+            "key": "PRC-5440",
+            "summary": "فرایند برگشتی - ارتباط با انبار  - حسین - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "normal",
+            "createdAt": "2026-09-23T11:00:44.055Z"
+          }
+        ],
+        "96ibr2u0": [
+          {
+            "key": "PRC-5454",
+            "summary": "مرور کد - فرایند برگشتی - ارتباط با انبار  - رضا - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "codeReview",
+            "createdAt": "2026-09-23T11:01:10.243Z"
+          }
+        ],
+        "l4t0ghgd": [
+          {
+            "key": "PRC-5485",
+            "summary": "فرایند برگشتی - ارتباط با انبار  - شیرین - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "normal",
+            "createdAt": "2026-09-23T11:02:10.255Z"
+          }
+        ]
+      }
+    },
+    {
+      "id": "w5a3lz5i",
+      "type": "normal",
+      "taskInput": "آپدیت لوگو فرم های شبکه آیند | https://mars-jira.systemgroup.net/browse/PRC-4467",
+      "title": "آپدیت لوگو فرم های شبکه آیند ",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-4467",
+      "dod": "Merged",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "",
+        "hours": 0
+      },
+      "backendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontend": {
+        "memberId": "m8dox9bt",
+        "hours": 2
+      },
+      "frontendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "tester": {
+        "memberId": "cg6nknt4",
+        "hours": 1
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 0
+      },
+      "subtaskRefs": {
+        "m8dox9bt": [
+          {
+            "key": "PRC-5471",
+            "summary": "آپدیت لوگو فرم های شبکه آیند  - متین - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "normal",
+            "createdAt": "2026-09-23T11:01:37.937Z"
+          }
+        ],
+        "cg6nknt4": [
+          {
+            "key": "PRC-5500",
+            "summary": "آپدیت لوگو فرم های شبکه آیند  - پرنیا - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "normal",
+            "createdAt": "2026-09-23T11:02:35.238Z"
+          }
+        ]
+      }
+    },
+    {
+      "id": "koe3mdu6",
+      "type": "normal",
+      "taskInput": "صدور درخواست خرید بر مبنای برنامه تامین - سمت تدارکات | https://mars-jira.systemgroup.net/browse/PRC-5313",
+      "title": "صدور درخواست خرید بر مبنای برنامه تامین - سمت تدارکات",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-5313",
+      "dod": "Merged",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "96ibr2u0",
+        "hours": 10
+      },
+      "backendReview": {
+        "memberId": "ws7v4002",
+        "hours": 2
+      },
+      "frontend": {
+        "memberId": "96ibr2u0",
+        "hours": 15
+      },
+      "frontendReview": {
+        "memberId": "njh9dwbe",
+        "hours": 2
+      },
+      "tester": {
+        "memberId": "k2e17elv",
+        "hours": 8
+      },
+      "analyst": {
+        "memberId": "l4t0ghgd",
+        "hours": 2
+      },
+      "subtaskRefs": {
+        "njh9dwbe": [
+          {
+            "key": "PRC-5421",
+            "summary": "مرور کد - صدور درخواست خرید بر مبنای برنامه تامین - سمت تدارکات - امین - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "codeReview",
+            "createdAt": "2026-09-23T10:58:17.042Z"
+          }
+        ],
+        "ws7v4002": [
+          {
+            "key": "PRC-5441",
+            "summary": "مرور کد - صدور درخواست خرید بر مبنای برنامه تامین - سمت تدارکات - حسین - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "codeReview",
+            "createdAt": "2026-09-23T11:00:44.776Z"
+          }
+        ],
+        "96ibr2u0": [
+          {
+            "key": "PRC-5455",
+            "summary": "صدور درخواست خرید بر مبنای برنامه تامین - سمت تدارکات - رضا - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "normal",
+            "createdAt": "2026-09-23T11:01:10.960Z"
+          }
+        ],
+        "l4t0ghgd": [
+          {
+            "key": "PRC-5486",
+            "summary": "صدور درخواست خرید بر مبنای برنامه تامین - سمت تدارکات - شیرین - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "normal",
+            "createdAt": "2026-09-23T11:02:11.057Z"
+          }
+        ],
+        "k2e17elv": [
+          {
+            "key": "PRC-5513",
+            "summary": "صدور درخواست خرید بر مبنای برنامه تامین - سمت تدارکات - فهیمه - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "normal",
+            "createdAt": "2026-09-23T11:04:44.746Z"
+          }
+        ]
+      }
+    },
+    {
+      "id": "h3715y3d",
+      "type": "normal",
+      "taskInput": "عوامل کاهنده و افزاینده - ایجاد فرم سیاست و جدول شرط | https://mars-jira.systemgroup.net/browse/PRC-5332",
+      "title": "عوامل کاهنده و افزاینده - ایجاد فرم سیاست و جدول شرط",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-5332",
+      "dod": "Implemented",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "96ibr2u0",
+        "hours": 20
+      },
+      "backendReview": {
+        "memberId": "m8dox9bt",
+        "hours": 24
+      },
+      "frontend": {
+        "memberId": "",
+        "hours": 30
+      },
+      "frontendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "tester": {
+        "memberId": "",
+        "hours": 16
+      },
+      "analyst": {
+        "memberId": "l4t0ghgd",
+        "hours": 16
+      },
+      "subtaskRefs": {
+        "96ibr2u0": [
+          {
+            "key": "PRC-5456",
+            "summary": "عوامل کاهنده و افزاینده - ایجاد فرم سیاست و جدول شرط - رضا - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "normal",
+            "createdAt": "2026-09-23T11:01:11.606Z"
+          }
+        ],
+        "m8dox9bt": [
+          {
+            "key": "PRC-5472",
+            "summary": "مرور کد - عوامل کاهنده و افزاینده - ایجاد فرم سیاست و جدول شرط - متین - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "codeReview",
+            "createdAt": "2026-09-23T11:01:38.860Z"
+          }
+        ],
+        "l4t0ghgd": [
+          {
+            "key": "PRC-5487",
+            "summary": "عوامل کاهنده و افزاینده - ایجاد فرم سیاست و جدول شرط - شیرین - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "normal",
+            "createdAt": "2026-09-23T11:02:12.409Z"
+          }
+        ]
+      }
+    },
+    {
+      "id": "7te3jggm",
+      "type": "normal",
+      "taskInput": "ایجاد اکشن صدور سفارش خرید از روی فهرست و فرم دستور کار | https://mars-jira.systemgroup.net/browse/PRC-5365",
+      "title": "ایجاد اکشن صدور سفارش خرید از روی فهرست و فرم دستور کار ",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-5365",
+      "dod": "Merged",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "njh9dwbe",
+        "hours": 2
+      },
+      "backendReview": {
+        "memberId": "ws7v4002",
+        "hours": 2
+      },
+      "frontend": {
+        "memberId": "njh9dwbe",
+        "hours": 2
+      },
+      "frontendReview": {
+        "memberId": "m8dox9bt",
+        "hours": 1
+      },
+      "tester": {
+        "memberId": "cg6nknt4",
+        "hours": 5
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 2
+      },
+      "subtaskRefs": {
+        "njh9dwbe": [
+          {
+            "key": "PRC-5422",
+            "summary": "ایجاد اکشن صدور سفارش خرید از روی فهرست و فرم دستور کار  - امین - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "normal",
+            "createdAt": "2026-09-23T10:58:17.786Z"
+          }
+        ],
+        "ws7v4002": [
+          {
+            "key": "PRC-5442",
+            "summary": "مرور کد - ایجاد اکشن صدور سفارش خرید از روی فهرست و فرم دستور کار  - حسین - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "codeReview",
+            "createdAt": "2026-09-23T11:00:45.454Z"
+          }
+        ],
+        "m8dox9bt": [
+          {
+            "key": "PRC-5473",
+            "summary": "مرور کد - ایجاد اکشن صدور سفارش خرید از روی فهرست و فرم دستور کار  - متین - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "codeReview",
+            "createdAt": "2026-09-23T11:01:39.486Z"
+          }
+        ],
+        "cg6nknt4": [
+          {
+            "key": "PRC-5501",
+            "summary": "ایجاد اکشن صدور سفارش خرید از روی فهرست و فرم دستور کار  - پرنیا - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "normal",
+            "createdAt": "2026-09-23T11:02:35.954Z"
+          }
+        ]
+      }
+    },
+    {
+      "id": "67ibkkhu",
+      "type": "normal",
+      "taskInput": "حذف 4 صفر | https://mars-jira.systemgroup.net/browse/PRC-978",
+      "title": " حذف 4 صفر",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-978",
+      "dod": "Implemented",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "njh9dwbe",
+        "hours": 70
+      },
+      "backendReview": {
+        "memberId": "ws7v4002",
+        "hours": 5
+      },
+      "frontend": {
+        "memberId": "njh9dwbe",
+        "hours": 30
+      },
+      "frontendReview": {
+        "memberId": "m8dox9bt",
+        "hours": 2
+      },
+      "tester": {
+        "memberId": "k2e17elv",
+        "hours": 20
+      },
+      "analyst": {
+        "memberId": "l4t0ghgd",
+        "hours": 8
+      },
+      "subtaskRefs": {
+        "njh9dwbe": [
+          {
+            "key": "PRC-5423",
+            "summary": " حذف 4 صفر - امین - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "normal",
+            "createdAt": "2026-09-23T10:58:18.634Z"
+          }
+        ],
+        "ws7v4002": [
+          {
+            "key": "PRC-5443",
+            "summary": "مرور کد -  حذف 4 صفر - حسین - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "codeReview",
+            "createdAt": "2026-09-23T11:00:46.178Z"
+          }
+        ],
+        "m8dox9bt": [
+          {
+            "key": "PRC-5474",
+            "summary": "مرور کد -  حذف 4 صفر - متین - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "codeReview",
+            "createdAt": "2026-09-23T11:01:40.079Z"
+          }
+        ],
+        "l4t0ghgd": [
+          {
+            "key": "PRC-5488",
+            "summary": " حذف 4 صفر - شیرین - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "normal",
+            "createdAt": "2026-09-23T11:02:13.438Z"
+          }
+        ],
+        "k2e17elv": [
+          {
+            "key": "PRC-5514",
+            "summary": " حذف 4 صفر - فهیمه - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "normal",
+            "createdAt": "2026-09-23T11:04:45.768Z"
+          }
+        ]
+      }
+    },
+    {
+      "id": "0fd3tbcz",
+      "type": "normal",
+      "taskInput": "تحلیل هوشمند ( تامین کننده، قلم خریدنی کارشناس خرید) | https://mars-jira.systemgroup.net/browse/PRC-3968",
+      "title": "تحلیل هوشمند ( تامین کننده، قلم خریدنی کارشناس خرید)  ",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-3968",
+      "dod": "Merged",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "",
+        "hours": 30
+      },
+      "backendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontend": {
+        "memberId": "njh9dwbe",
+        "hours": 6
+      },
+      "frontendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "tester": {
+        "memberId": "cg6nknt4",
+        "hours": 20
+      },
+      "analyst": {
+        "memberId": "l4t0ghgd",
+        "hours": 2
+      },
+      "subtaskRefs": {
+        "njh9dwbe": [
+          {
+            "key": "PRC-5424",
+            "summary": "تحلیل هوشمند ( تامین کننده، قلم خریدنی کارشناس خرید)   - امین - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "normal",
+            "createdAt": "2026-09-23T10:58:19.649Z"
+          }
+        ],
+        "l4t0ghgd": [
+          {
+            "key": "PRC-5489",
+            "summary": "تحلیل هوشمند ( تامین کننده، قلم خریدنی کارشناس خرید)   - شیرین - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "normal",
+            "createdAt": "2026-09-23T11:02:14.033Z"
+          }
+        ],
+        "cg6nknt4": [
+          {
+            "key": "PRC-5502",
+            "summary": "تحلیل هوشمند ( تامین کننده، قلم خریدنی کارشناس خرید)   - پرنیا - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "normal",
+            "createdAt": "2026-09-23T11:02:36.777Z"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ir8zjiz8",
+      "type": "normal",
+      "taskInput": "بازنویسی فرم فاکتور خرید با زیرساخت FC | https://mars-jira.systemgroup.net/browse/PRC-4177",
+      "title": "بازنویسی فرم فاکتور خرید با زیرساخت FC",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-4177",
+      "dod": "Implemented",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "",
+        "hours": 0
+      },
+      "backendReview": {
+        "memberId": "m8dox9bt",
+        "hours": 14
+      },
+      "frontend": {
+        "memberId": "",
+        "hours": 60
+      },
+      "frontendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "tester": {
+        "memberId": "",
+        "hours": 25
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 0
+      },
+      "subtaskRefs": {
+        "m8dox9bt": [
+          {
+            "key": "PRC-5475",
+            "summary": "مرور کد - بازنویسی فرم فاکتور خرید با زیرساخت FC - متین - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "codeReview",
+            "createdAt": "2026-09-23T11:01:40.653Z"
+          }
+        ]
+      }
+    },
+    {
+      "id": "rnax1ysg",
+      "type": "normal",
+      "taskInput": "آلفا | PRC-1017",
+      "title": "آلفا | PRC-1017",
+      "jiraUrl": "",
+      "dod": "",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "",
+        "hours": 0
+      },
+      "backendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontend": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "tester": {
+        "memberId": "k2e17elv",
+        "hours": 9
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 0
+      },
+      "subtaskRefs": {
+        "k2e17elv": [
+          {
+            "key": "PRC-5515",
+            "summary": "آلفا - فهیمه - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "normal",
+            "createdAt": "2026-09-23T11:04:46.727Z"
+          }
+        ]
+      }
+    },
+    {
+      "id": "33emb47r",
+      "type": "general",
+      "taskInput": "جلسات اسکرام | PRC-1707",
+      "title": "جلسات اسکرام | PRC-1707",
+      "jiraUrl": "",
+      "dod": "",
+      "generalHours": 10,
+      "backend": {
+        "memberId": "",
+        "hours": 0
+      },
+      "backendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontend": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "tester": {
+        "memberId": "",
+        "hours": 0
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 0
+      },
+      "subtaskRefs": {
+        "njh9dwbe": [
+          {
+            "key": "PRC-5425",
+            "summary": "رویداد های اسکرام - امین - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "normal",
+            "createdAt": "2026-09-23T10:58:20.394Z"
+          }
+        ],
+        "ws7v4002": [
+          {
+            "key": "PRC-5444",
+            "summary": "رویداد های اسکرام - حسین - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "normal",
+            "createdAt": "2026-09-23T11:00:47.413Z"
+          }
+        ],
+        "96ibr2u0": [
+          {
+            "key": "PRC-5457",
+            "summary": "رویداد های اسکرام - رضا - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "normal",
+            "createdAt": "2026-09-23T11:01:12.185Z"
+          }
+        ],
+        "m8dox9bt": [
+          {
+            "key": "PRC-5476",
+            "summary": "رویداد های اسکرام - متین - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "normal",
+            "createdAt": "2026-09-23T11:01:41.160Z"
+          }
+        ],
+        "efvtyj41": [
+          {
+            "key": "PRC-5480",
+            "summary": "رویداد های اسکرام - الهه - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "normal",
+            "createdAt": "2026-09-23T11:01:54.277Z"
+          }
+        ],
+        "l4t0ghgd": [
+          {
+            "key": "PRC-5490",
+            "summary": "رویداد های اسکرام - شیرین - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "normal",
+            "createdAt": "2026-09-23T11:02:14.814Z"
+          }
+        ],
+        "cg6nknt4": [
+          {
+            "key": "PRC-5503",
+            "summary": "رویداد های اسکرام - پرنیا - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "normal",
+            "createdAt": "2026-09-23T11:02:37.697Z"
+          }
+        ],
+        "k2e17elv": [
+          {
+            "key": "PRC-5516",
+            "summary": "رویداد های اسکرام - فهیمه - PRC-05-07",
+            "sprintName": "PRC-05-07",
+            "subtaskKind": "normal",
+            "createdAt": "2026-09-23T11:04:47.856Z"
+          }
+        ]
+      }
+    }
+  ],
+  "panels": {
+    "panel-ai": true,
+    "panel-plan": false,
+    "panel-team": false,
+    "panel-tasks": false,
+    "panel-summary": false,
+    "panel-report": false,
+    "panel-backup": true
+  }
+}
