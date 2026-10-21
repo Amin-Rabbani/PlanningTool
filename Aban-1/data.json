@@ -1,0 +1,1259 @@
+{
+  "theme": "light",
+  "plan": {
+    "sprintName": "PRC-05-8.1",
+    "startDate": "1405/08/01",
+    "endDate": "1405/08/15",
+    "planDays": 15,
+    "workingDays": 10,
+    "hoursPerDay": 8
+  },
+  "jiraConfig": {
+    "baseUrl": "https://mars-jira.systemgroup.net",
+    "release": "R7"
+  },
+  "aiConfig": {
+    "baseUrl": "http://api.hooshyar.systemgroup.net/open-router-reverse/v1",
+    "model": "openai/gpt-6-luna",
+    "releaseUrl": "https://mars-jira.systemgroup.net/issues/?jql=project%20%3D%20Procurement%20AND%20(type%20%3D%20Story%20OR%20type%20%3D%20%22Technical%20%20story%22)%20AND%20fixVersion%20%3D%20PRC-05-R7%20And%20status%20!%3D%20TestPassed%20AND%20fixVersion%20!%3D%20PRC-05-R8%20%20%20%20ORDER%20BY%20status%20DESC%2C%20assignee%20DESC%2C%20key%20ASC%2C%20summary%20DESC%2C%20labels%20ASC",
+    "maxIssues": 50,
+    "notes": "تمام استوری ها باید تا پایان اسپرینت تمام شوند. اولویت با آیتم های Active برای پیاده سازی و implemented برای تست. ",
+    "onlyStories": true,
+    "excludeDone": true
+  },
+  "members": [
+    {
+      "id": "njh9dwbe",
+      "name": "امین",
+      "username": "mohammadaminr",
+      "roles": [
+        "backend",
+        "frontend"
+      ],
+      "leaveDays": 1,
+      "capacity": 72
+    },
+    {
+      "id": "ws7v4002",
+      "name": "حسین",
+      "username": "hosseinbo",
+      "roles": [
+        "backend"
+      ],
+      "leaveDays": 0,
+      "capacity": 80
+    },
+    {
+      "id": "96ibr2u0",
+      "name": "رضا",
+      "username": "rezaya",
+      "roles": [
+        "backend",
+        "frontend"
+      ],
+      "leaveDays": 0,
+      "capacity": 80
+    },
+    {
+      "id": "m8dox9bt",
+      "name": "متین",
+      "username": "matinam",
+      "roles": [
+        "backend",
+        "frontend"
+      ],
+      "leaveDays": 1,
+      "capacity": 72
+    },
+    {
+      "id": "efvtyj41",
+      "name": "الهه",
+      "username": "elaheht",
+      "roles": [
+        "backend",
+        "frontend"
+      ],
+      "leaveDays": 1,
+      "capacity": 72
+    },
+    {
+      "id": "l4t0ghgd",
+      "name": "شیرین",
+      "username": "shirinsh",
+      "roles": [
+        "analyst",
+        "tester"
+      ],
+      "leaveDays": 1,
+      "capacity": 72
+    },
+    {
+      "id": "cg6nknt4",
+      "name": "پرنیا",
+      "username": "parniab",
+      "roles": [
+        "tester",
+        "analyst"
+      ],
+      "leaveDays": 0,
+      "capacity": 80
+    },
+    {
+      "id": "k2e17elv",
+      "name": "فهیمه",
+      "username": "fahimen",
+      "roles": [
+        "tester",
+        "analyst"
+      ],
+      "leaveDays": 0,
+      "capacity": 80
+    }
+  ],
+  "tasks": [
+    {
+      "id": "2ecxuc5p",
+      "type": "general",
+      "taskInput": "جلسات اسکرام | https://mars-jira.systemgroup.net/browse/PRC-1707",
+      "title": "جلسات اسکرام",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-1707",
+      "dod": "",
+      "generalHours": 5,
+      "backend": {
+        "memberId": "",
+        "hours": 0
+      },
+      "backendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontend": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "tester": {
+        "memberId": "",
+        "hours": 0
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 0
+      },
+      "subtaskRefs": {
+        "k2e17elv": [
+          {
+            "key": "PRC-6021",
+            "summary": "رویداد های اسکرام - فهیمه - PRC-05-8.1",
+            "sprintName": "PRC-05-8.1",
+            "subtaskKind": "normal",
+            "createdAt": "2026-10-21T11:38:37.979Z"
+          }
+        ],
+        "cg6nknt4": [
+          {
+            "key": "PRC-6028",
+            "summary": "رویداد های اسکرام - پرنیا - PRC-05-8.1",
+            "sprintName": "PRC-05-8.1",
+            "subtaskKind": "normal",
+            "createdAt": "2026-10-21T11:44:08.736Z"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ozfdoys1",
+      "type": "normal",
+      "taskInput": "رویداد باهم",
+      "title": "رویداد باهم",
+      "jiraUrl": "",
+      "dod": "",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "",
+        "hours": 0
+      },
+      "backendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontend": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "tester": {
+        "memberId": "",
+        "hours": 0
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 0
+      },
+      "subtaskRefs": {}
+    },
+    {
+      "id": "o9wbsn92",
+      "type": "normal",
+      "taskInput": "اضافه کردن کلید گردش کار در لایسنس های تدارکات | https://mars-jira.systemgroup.net/browse/PRC-5961",
+      "title": "اضافه کردن کلید گردش کار در لایسنس های تدارکات ",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-5961",
+      "dod": "Merged",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "",
+        "hours": 0
+      },
+      "backendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontend": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "tester": {
+        "memberId": "",
+        "hours": 0
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 0
+      },
+      "subtaskRefs": {}
+    },
+    {
+      "id": "umjb1ngc",
+      "type": "normal",
+      "taskInput": "نمایش اسناد مرتبط درخواست خرید و دستور کار خرید | https://mars-jira.systemgroup.net/browse/PRC-200",
+      "title": "نمایش اسناد مرتبط درخواست خرید و دستور کار خرید",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-200",
+      "dod": "Merged",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "",
+        "hours": 12
+      },
+      "backendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontend": {
+        "memberId": "",
+        "hours": 4
+      },
+      "frontendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "tester": {
+        "memberId": "",
+        "hours": 8
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 0
+      },
+      "subtaskRefs": {}
+    },
+    {
+      "id": "526o1bop",
+      "type": "normal",
+      "taskInput": "نمایش پیام مرتبط در ایجاد تحویل مجدد در فرم سفارش | https://mars-jira.systemgroup.net/browse/PRC-3341",
+      "title": "نمایش پیام مرتبط در ایجاد تحویل مجدد در فرم سفارش",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-3341",
+      "dod": "Merged",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "",
+        "hours": 8
+      },
+      "backendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontend": {
+        "memberId": "",
+        "hours": 8
+      },
+      "frontendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "tester": {
+        "memberId": "cg6nknt4",
+        "hours": 4
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 0
+      },
+      "subtaskRefs": {
+        "cg6nknt4": [
+          {
+            "key": "PRC-6029",
+            "summary": "نمایش پیام مرتبط در ایجاد تحویل مجدد در فرم سفارش - پرنیا - PRC-05-8.1",
+            "sprintName": "PRC-05-8.1",
+            "subtaskKind": "normal",
+            "createdAt": "2026-10-21T11:44:09.716Z"
+          }
+        ]
+      }
+    },
+    {
+      "id": "lck05p7u",
+      "type": "normal",
+      "taskInput": "سفارش در راه اقلام خریدنی مبتنی بر برنامه ریزی تحویل | https://mars-jira.systemgroup.net/browse/PRC-4016",
+      "title": "سفارش در راه اقلام خریدنی مبتنی بر برنامه ریزی تحویل",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-4016",
+      "dod": "Merged",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "",
+        "hours": 35
+      },
+      "backendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontend": {
+        "memberId": "",
+        "hours": 10
+      },
+      "frontendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "tester": {
+        "memberId": "cg6nknt4",
+        "hours": 10
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 8
+      },
+      "subtaskRefs": {
+        "cg6nknt4": [
+          {
+            "key": "PRC-6030",
+            "summary": "سفارش در راه اقلام خریدنی مبتنی بر برنامه ریزی تحویل - پرنیا - PRC-05-8.1",
+            "sprintName": "PRC-05-8.1",
+            "subtaskKind": "normal",
+            "createdAt": "2026-10-21T11:44:10.881Z"
+          }
+        ]
+      }
+    },
+    {
+      "id": "3ph90pbo",
+      "type": "normal",
+      "taskInput": "بازنویسی فرم فاکتور خرید با زیرساخت FC | https://mars-jira.systemgroup.net/browse/PRC-4177",
+      "title": "بازنویسی فرم فاکتور خرید با زیرساخت FC",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-4177",
+      "dod": "Merged",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "",
+        "hours": 0
+      },
+      "backendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontend": {
+        "memberId": "",
+        "hours": 60
+      },
+      "frontendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "tester": {
+        "memberId": "l4t0ghgd",
+        "hours": 16
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 0
+      },
+      "subtaskRefs": {}
+    },
+    {
+      "id": "2nnp0eb7",
+      "type": "normal",
+      "taskInput": "ویرایش چاپ درخواست خرید | https://mars-jira.systemgroup.net/browse/PRC-4842",
+      "title": "ویرایش چاپ درخواست خرید ",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-4842",
+      "dod": "Merged",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "",
+        "hours": 20
+      },
+      "backendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontend": {
+        "memberId": "96ibr2u0",
+        "hours": 2
+      },
+      "frontendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "tester": {
+        "memberId": "k2e17elv",
+        "hours": 5
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 6
+      },
+      "subtaskRefs": {
+        "k2e17elv": [
+          {
+            "key": "PRC-6022",
+            "summary": "ویرایش چاپ درخواست خرید  - فهیمه - PRC-05-8.1",
+            "sprintName": "PRC-05-8.1",
+            "subtaskKind": "normal",
+            "createdAt": "2026-10-21T11:38:38.733Z"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ih5fqi1l",
+      "type": "normal",
+      "taskInput": "نمایش اسناد مرتبط تحویل برگشتی | https://mars-jira.systemgroup.net/browse/PRC-5623",
+      "title": " نمایش اسناد مرتبط تحویل برگشتی",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-5623",
+      "dod": "Merged",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "",
+        "hours": 12
+      },
+      "backendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontend": {
+        "memberId": "",
+        "hours": 4
+      },
+      "frontendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "tester": {
+        "memberId": "",
+        "hours": 8
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 0
+      },
+      "subtaskRefs": {}
+    },
+    {
+      "id": "ha5050r2",
+      "type": "normal",
+      "taskInput": "پیاده سازی تب درون برنامه ای - تدارکات | https://mars-jira.systemgroup.net/browse/PRC-5624",
+      "title": "پیاده سازی تب درون برنامه ای - تدارکات",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-5624",
+      "dod": "Merged",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "",
+        "hours": 0
+      },
+      "backendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontend": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "tester": {
+        "memberId": "",
+        "hours": 0
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 0
+      },
+      "subtaskRefs": {}
+    },
+    {
+      "id": "ltvbazfv",
+      "type": "normal",
+      "taskInput": "امکان ثبت مبلغ منفی در خالص پرداختنی فاکتور | https://mars-jira.systemgroup.net/browse/PRC-3279",
+      "title": "امکان ثبت مبلغ منفی در خالص پرداختنی فاکتور",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-3279",
+      "dod": "Merged",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "njh9dwbe",
+        "hours": 4
+      },
+      "backendReview": {
+        "memberId": "ws7v4002",
+        "hours": 2
+      },
+      "frontend": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "tester": {
+        "memberId": "k2e17elv",
+        "hours": 10
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 0
+      },
+      "subtaskRefs": {
+        "k2e17elv": [
+          {
+            "key": "PRC-6023",
+            "summary": "امکان ثبت مبلغ منفی در خالص پرداختنی فاکتور - فهیمه - PRC-05-8.1",
+            "sprintName": "PRC-05-8.1",
+            "subtaskKind": "normal",
+            "createdAt": "2026-10-21T11:38:39.484Z"
+          }
+        ]
+      }
+    },
+    {
+      "id": "w9q85e02",
+      "type": "normal",
+      "taskInput": "نمایش وضعیت ثبت حسابداری شده در فهرست رسید تحویل مستقیم | https://mars-jira.systemgroup.net/browse/PRC-3317",
+      "title": "نمایش وضعیت ثبت حسابداری شده در فهرست رسید تحویل مستقیم",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-3317",
+      "dod": "Merged",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "",
+        "hours": 8
+      },
+      "backendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontend": {
+        "memberId": "",
+        "hours": 4
+      },
+      "frontendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "tester": {
+        "memberId": "",
+        "hours": 3
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 4
+      },
+      "subtaskRefs": {}
+    },
+    {
+      "id": "5kenbfgw",
+      "type": "normal",
+      "taskInput": "عدم حذف کلید میانبر صدور تحویل در سفارش خرید در وضعیت معلق | https://mars-jira.systemgroup.net/browse/PRC-4652",
+      "title": "عدم حذف کلید میانبر صدور تحویل در سفارش خرید در وضعیت معلق ",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-4652",
+      "dod": "Merged",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "",
+        "hours": 0
+      },
+      "backendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontend": {
+        "memberId": "",
+        "hours": 2
+      },
+      "frontendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "tester": {
+        "memberId": "",
+        "hours": 0
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 0
+      },
+      "subtaskRefs": {}
+    },
+    {
+      "id": "fd1mwmyv",
+      "type": "normal",
+      "taskInput": "اضافه شدن مرکز درخواست به تنظیمات پیش فرض کاربر | https://mars-jira.systemgroup.net/browse/PRC-2940",
+      "title": "اضافه شدن مرکز درخواست به تنظیمات پیش فرض کاربر",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-2940",
+      "dod": "Merged",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "",
+        "hours": 8
+      },
+      "backendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontend": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "tester": {
+        "memberId": "",
+        "hours": 0
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 1
+      },
+      "subtaskRefs": {}
+    },
+    {
+      "id": "5h5mzgxp",
+      "type": "normal",
+      "taskInput": "رکورد لول شرکت در درخواست تجمیعی | https://mars-jira.systemgroup.net/browse/PRC-4688",
+      "title": "رکورد لول شرکت در درخواست تجمیعی ",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-4688",
+      "dod": "Merged",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "",
+        "hours": 8
+      },
+      "backendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontend": {
+        "memberId": "",
+        "hours": 4
+      },
+      "frontendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "tester": {
+        "memberId": "",
+        "hours": 3
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 4
+      },
+      "subtaskRefs": {}
+    },
+    {
+      "id": "9kmcj2nr",
+      "type": "normal",
+      "taskInput": "تفصیل سفارش خرید | https://mars-jira.systemgroup.net/browse/PRC-912",
+      "title": "تفصیل سفارش خرید",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-912",
+      "dod": "Merged",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "njh9dwbe",
+        "hours": 4
+      },
+      "backendReview": {
+        "memberId": "ws7v4002",
+        "hours": 2
+      },
+      "frontend": {
+        "memberId": "m8dox9bt",
+        "hours": 4
+      },
+      "frontendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "tester": {
+        "memberId": "cg6nknt4",
+        "hours": 12
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 12
+      },
+      "subtaskRefs": {
+        "cg6nknt4": [
+          {
+            "key": "PRC-6031",
+            "summary": "تفصیل سفارش خرید - پرنیا - PRC-05-8.1",
+            "sprintName": "PRC-05-8.1",
+            "subtaskKind": "normal",
+            "createdAt": "2026-10-21T11:44:12.400Z"
+          }
+        ]
+      }
+    },
+    {
+      "id": "3mvf0iy0",
+      "type": "normal",
+      "taskInput": "پارامتر شرکت های عضو گروه در استقرار حساب | https://mars-jira.systemgroup.net/browse/PRC-2301",
+      "title": "پارامتر شرکت های عضو گروه در استقرار حساب ",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-2301",
+      "dod": "Merged",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "",
+        "hours": 30
+      },
+      "backendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontend": {
+        "memberId": "",
+        "hours": 10
+      },
+      "frontendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "tester": {
+        "memberId": "cg6nknt4",
+        "hours": 2
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 10
+      },
+      "subtaskRefs": {
+        "cg6nknt4": [
+          {
+            "key": "PRC-6032",
+            "summary": "پارامتر شرکت های عضو گروه در استقرار حساب  - پرنیا - PRC-05-8.1",
+            "sprintName": "PRC-05-8.1",
+            "subtaskKind": "normal",
+            "createdAt": "2026-10-21T11:44:13.239Z"
+          }
+        ]
+      }
+    },
+    {
+      "id": "thta1unk",
+      "type": "normal",
+      "taskInput": "اصلاح UI فرم های تحویل و برنامه تحویل تدارکات | https://mars-jira.systemgroup.net/browse/PRC-3733",
+      "title": "اصلاح UI فرم های تحویل و برنامه تحویل تدارکات ",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-3733",
+      "dod": "Merged",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "",
+        "hours": 20
+      },
+      "backendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontend": {
+        "memberId": "njh9dwbe",
+        "hours": 4
+      },
+      "frontendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "tester": {
+        "memberId": "",
+        "hours": 2
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 8
+      },
+      "subtaskRefs": {}
+    },
+    {
+      "id": "dzphgmto",
+      "type": "normal",
+      "taskInput": "آپدیت لوگو فرم های شبکه آیند | https://mars-jira.systemgroup.net/browse/PRC-4467",
+      "title": "آپدیت لوگو فرم های شبکه آیند ",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-4467",
+      "dod": "Merged",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "",
+        "hours": 0
+      },
+      "backendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontend": {
+        "memberId": "m8dox9bt",
+        "hours": 4
+      },
+      "frontendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "tester": {
+        "memberId": "cg6nknt4",
+        "hours": 1
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 0
+      },
+      "subtaskRefs": {
+        "cg6nknt4": [
+          {
+            "key": "PRC-6033",
+            "summary": "آپدیت لوگو فرم های شبکه آیند  - پرنیا - PRC-05-8.1",
+            "sprintName": "PRC-05-8.1",
+            "subtaskKind": "normal",
+            "createdAt": "2026-10-21T11:44:14.322Z"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hkl8ztwk",
+      "type": "normal",
+      "taskInput": "حذف 4 صفر | https://mars-jira.systemgroup.net/browse/PRC-978",
+      "title": " حذف 4 صفر",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-978",
+      "dod": "Merged",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "njh9dwbe",
+        "hours": 20
+      },
+      "backendReview": {
+        "memberId": "ws7v4002",
+        "hours": 5
+      },
+      "frontend": {
+        "memberId": "",
+        "hours": 20
+      },
+      "frontendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "tester": {
+        "memberId": "k2e17elv",
+        "hours": 40
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 20
+      },
+      "subtaskRefs": {
+        "k2e17elv": [
+          {
+            "key": "PRC-6024",
+            "summary": " حذف 4 صفر - فهیمه - PRC-05-8.1",
+            "sprintName": "PRC-05-8.1",
+            "subtaskKind": "normal",
+            "createdAt": "2026-10-21T11:38:40.533Z"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ztmy487w",
+      "type": "normal",
+      "taskInput": "مرور تدارکات چندشرکتی | https://mars-jira.systemgroup.net/browse/PRC-2302",
+      "title": "مرور تدارکات چندشرکتی",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-2302",
+      "dod": "Merged",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "",
+        "hours": 60
+      },
+      "backendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontend": {
+        "memberId": "",
+        "hours": 20
+      },
+      "frontendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "tester": {
+        "memberId": "",
+        "hours": 20
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 16
+      },
+      "subtaskRefs": {}
+    },
+    {
+      "id": "3qcfhga8",
+      "type": "normal",
+      "taskInput": "Agent صدور درخواست خرید | https://mars-jira.systemgroup.net/browse/PRC-3969",
+      "title": "Agent صدور درخواست خرید",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-3969",
+      "dod": "Merged",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "",
+        "hours": 60
+      },
+      "backendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontend": {
+        "memberId": "",
+        "hours": 30
+      },
+      "frontendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "tester": {
+        "memberId": "",
+        "hours": 24
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 24
+      },
+      "subtaskRefs": {}
+    },
+    {
+      "id": "828vknsz",
+      "type": "normal",
+      "taskInput": "فرایند برگشتی - ارتباط با انبار | https://mars-jira.systemgroup.net/browse/PRC-3971",
+      "title": "فرایند برگشتی - ارتباط با انبار ",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-3971",
+      "dod": "Merged",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "",
+        "hours": 30
+      },
+      "backendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontend": {
+        "memberId": "",
+        "hours": 5
+      },
+      "frontendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "tester": {
+        "memberId": "k2e17elv",
+        "hours": 8
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 16
+      },
+      "subtaskRefs": {
+        "k2e17elv": [
+          {
+            "key": "PRC-6025",
+            "summary": "فرایند برگشتی - ارتباط با انبار  - فهیمه - PRC-05-8.1",
+            "sprintName": "PRC-05-8.1",
+            "subtaskKind": "normal",
+            "createdAt": "2026-10-21T11:38:41.445Z"
+          }
+        ]
+      }
+    },
+    {
+      "id": "nu4f80d6",
+      "type": "normal",
+      "taskInput": "Agent صدور دستور کار خرید و سفارش خرید | https://mars-jira.systemgroup.net/browse/PRC-5227",
+      "title": "Agent صدور دستور کار خرید و سفارش خرید",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-5227",
+      "dod": "Merged",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "",
+        "hours": 33
+      },
+      "backendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontend": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "tester": {
+        "memberId": "",
+        "hours": 0
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 0
+      },
+      "subtaskRefs": {}
+    },
+    {
+      "id": "ynr1w5b6",
+      "type": "normal",
+      "taskInput": "صدور درخواست خرید بر مبنای برنامه تامین - سمت تدارکات | https://mars-jira.systemgroup.net/browse/PRC-5313",
+      "title": "صدور درخواست خرید بر مبنای برنامه تامین - سمت تدارکات",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-5313",
+      "dod": "Merged",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "",
+        "hours": 10
+      },
+      "backendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontend": {
+        "memberId": "",
+        "hours": 10
+      },
+      "frontendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "tester": {
+        "memberId": "k2e17elv",
+        "hours": 2
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 2
+      },
+      "subtaskRefs": {
+        "k2e17elv": [
+          {
+            "key": "PRC-6026",
+            "summary": "صدور درخواست خرید بر مبنای برنامه تامین - سمت تدارکات - فهیمه - PRC-05-8.1",
+            "sprintName": "PRC-05-8.1",
+            "subtaskKind": "normal",
+            "createdAt": "2026-10-21T11:38:42.130Z"
+          }
+        ]
+      }
+    },
+    {
+      "id": "xnnaguba",
+      "type": "normal",
+      "taskInput": "دسترسی بر اساس واحد تامین  و نقش ها در تدارکات | https://mars-jira.systemgroup.net/browse/PRC-1334",
+      "title": "دسترسی بر اساس واحد تامین  و نقش ها در تدارکات",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-1334",
+      "dod": "Merged",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "efvtyj41",
+        "hours": 30
+      },
+      "backendReview": {
+        "memberId": "ws7v4002",
+        "hours": 4
+      },
+      "frontend": {
+        "memberId": "",
+        "hours": 10
+      },
+      "frontendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "tester": {
+        "memberId": "cg6nknt4",
+        "hours": 30
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 40
+      },
+      "subtaskRefs": {
+        "cg6nknt4": [
+          {
+            "key": "PRC-6034",
+            "summary": "دسترسی بر اساس واحد تامین  و نقش ها در تدارکات - پرنیا - PRC-05-8.1",
+            "sprintName": "PRC-05-8.1",
+            "subtaskKind": "normal",
+            "createdAt": "2026-10-21T11:44:15.160Z"
+          }
+        ]
+      }
+    },
+    {
+      "id": "vuhr6r0a",
+      "type": "normal",
+      "taskInput": "تفصیل سایر - تدارکات | https://mars-jira.systemgroup.net/browse/PRC-4689",
+      "title": "تفصیل سایر - تدارکات",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-4689",
+      "dod": "Merged",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "ws7v4002",
+        "hours": 25
+      },
+      "backendReview": {
+        "memberId": "96ibr2u0",
+        "hours": 5
+      },
+      "frontend": {
+        "memberId": "m8dox9bt",
+        "hours": 20
+      },
+      "frontendReview": {
+        "memberId": "njh9dwbe",
+        "hours": 4
+      },
+      "tester": {
+        "memberId": "cg6nknt4",
+        "hours": 16
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 12
+      },
+      "subtaskRefs": {
+        "cg6nknt4": [
+          {
+            "key": "PRC-6035",
+            "summary": "تفصیل سایر - تدارکات - پرنیا - PRC-05-8.1",
+            "sprintName": "PRC-05-8.1",
+            "subtaskKind": "normal",
+            "createdAt": "2026-10-21T11:44:15.990Z"
+          }
+        ]
+      }
+    },
+    {
+      "id": "d1r7oe7b",
+      "type": "normal",
+      "taskInput": "در سفارش در راه اسناد انبار ثبت دیده نمیشه ولی عملا دیگر در راه نیست - اصلاح محاسبه سفارش در راه | https://mars-jira.systemgroup.net/browse/PRC-4712",
+      "title": "در سفارش در راه اسناد انبار ثبت دیده نمیشه ولی عملا دیگر در راه نیست - اصلاح محاسبه سفارش در راه",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-4712",
+      "dod": "",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "",
+        "hours": 8
+      },
+      "backendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontend": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "tester": {
+        "memberId": "",
+        "hours": 3
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 2
+      },
+      "subtaskRefs": {}
+    },
+    {
+      "id": "u7f8rjx2",
+      "type": "normal",
+      "taskInput": "آلفا | https://mars-jira.systemgroup.net/browse/PRC-1017",
+      "title": "آلفا",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-1017",
+      "dod": "",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "",
+        "hours": 0
+      },
+      "backendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontend": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "tester": {
+        "memberId": "k2e17elv",
+        "hours": 10
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 0
+      },
+      "subtaskRefs": {
+        "k2e17elv": [
+          {
+            "key": "PRC-6027",
+            "summary": "آلفا - فهیمه - PRC-05-8.1",
+            "sprintName": "PRC-05-8.1",
+            "subtaskKind": "normal",
+            "createdAt": "2026-10-21T11:38:42.704Z"
+          }
+        ]
+      }
+    }
+  ],
+  "panels": {
+    "panel-ai": true,
+    "panel-plan": false,
+    "panel-team": true,
+    "panel-tasks": true,
+    "panel-summary": false,
+    "panel-report": false,
+    "panel-backup": true
+  }
+}
