@@ -899,8 +899,8 @@
       "dod": "Merged",
       "generalHours": 0,
       "backend": {
-        "memberId": "",
-        "hours": 60
+        "memberId": "96ibr2u0",
+        "hours": 30
       },
       "backendReview": {
         "memberId": "",
@@ -1245,13 +1245,353 @@
           }
         ]
       }
+    },
+    {
+      "id": "gbc1ci1i",
+      "type": "normal",
+      "taskInput": "الزامی نشدن شماره فاکتور و تاریخ فاکتور در ثبت فاکتور و فاکتور هزینه تکمیلی  | https://mars-jira.systemgroup.net/browse/PRC-2195",
+      "title": "الزامی نشدن شماره فاکتور و تاریخ فاکتور در ثبت فاکتور و فاکتور هزینه تکمیلی",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-2195",
+      "dod": "Implemented",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "njh9dwbe",
+        "hours": 0
+      },
+      "backendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontend": {
+        "memberId": "njh9dwbe",
+        "hours": 0
+      },
+      "frontendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "tester": {
+        "memberId": "",
+        "hours": 0
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 0
+      },
+      "subtaskRefs": {}
+    },
+    {
+      "id": "k7ec65qb",
+      "type": "normal",
+      "taskInput": "تغییر نحوه­ی نمایش اطلاعات داشبورد - تدارکات | https://mars-jira.systemgroup.net/browse/PRC-5410",
+      "title": "تغییر نحوه­ی نمایش اطلاعات داشبورد - تدارکات",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-5410",
+      "dod": "Implemented",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "m8dox9bt",
+        "hours": 0
+      },
+      "backendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontend": {
+        "memberId": "m8dox9bt",
+        "hours": 0
+      },
+      "frontendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "tester": {
+        "memberId": "",
+        "hours": 0
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 0
+      },
+      "subtaskRefs": {}
+    },
+    {
+      "id": "qdv0o9fr",
+      "type": "normal",
+      "taskInput": "امکان صدور دستور کار جزئی در سطح قلم در فرم درخواست خرید و میز کار |‌ https://mars-jira.systemgroup.net/browse/PRC-5553",
+      "title": "امکان صدور دستور کار جزئی در سطح قلم در فرم درخواست خرید و میز کار ‌",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-5553",
+      "dod": "Implemented",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "efvtyj41",
+        "hours": 0
+      },
+      "backendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontend": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "tester": {
+        "memberId": "",
+        "hours": 0
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 0
+      },
+      "subtaskRefs": {}
+    },
+    {
+      "id": "m2biysdg",
+      "type": "normal",
+      "taskInput": "سرچ در جستجوی سیستم با نام مفرد صفحات - تدارکات  | https://mars-jira.systemgroup.net/browse/PRC-5657",
+      "title": "سرچ در جستجوی سیستم با نام مفرد صفحات - تدارکات",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-5657",
+      "dod": "Implemented",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "efvtyj41",
+        "hours": 0
+      },
+      "backendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontend": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "tester": {
+        "memberId": "",
+        "hours": 0
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 0
+      },
+      "subtaskRefs": {}
+    },
+    {
+      "id": "wztuqrzi",
+      "type": "normal",
+      "taskInput": "لی‌اوتی کردن صفحات - تدارکات |‌ https://mars-jira.systemgroup.net/browse/PRC-5686",
+      "title": "لی‌اوتی کردن صفحات - تدارکات ‌",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-5686",
+      "dod": "",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "m8dox9bt",
+        "hours": 0
+      },
+      "backendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontend": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "tester": {
+        "memberId": "",
+        "hours": 0
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 0
+      },
+      "subtaskRefs": {}
+    },
+    {
+      "id": "zmx5967v",
+      "type": "normal",
+      "taskInput": "کنترل حذف تفصیلی های سایر-تدارکات | https://mars-jira.systemgroup.net/browse/PRC-5687",
+      "title": "کنترل حذف تفصیلی های سایر-تدارکات",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-5687",
+      "dod": "Implemented",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "96ibr2u0",
+        "hours": 6
+      },
+      "backendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontend": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "tester": {
+        "memberId": "",
+        "hours": 0
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 0
+      },
+      "subtaskRefs": {}
+    },
+    {
+      "id": "r35t0a42",
+      "type": "normal",
+      "taskInput": "کنترل حذف تفصیلی های سایر-تدارکات |‌ https://mars-jira.systemgroup.net/browse/PRC-5688\\",
+      "title": "کنترل حذف تفصیلی های سایر-تدارکات ‌",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-5688\\",
+      "dod": "Implemented",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "",
+        "hours": 6
+      },
+      "backendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontend": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "tester": {
+        "memberId": "",
+        "hours": 0
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 0
+      },
+      "subtaskRefs": {}
+    },
+    {
+      "id": "vzi3vnam",
+      "type": "normal",
+      "taskInput": "عدم وجود اکشن های حذف و تغییر وضعیت در نمایش روابط | https://mars-jira.systemgroup.net/browse/PRC-5709",
+      "title": "عدم وجود اکشن های حذف و تغییر وضعیت در نمایش روابط",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-5709",
+      "dod": "Implemented",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "",
+        "hours": 0
+      },
+      "backendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontend": {
+        "memberId": "njh9dwbe",
+        "hours": 20
+      },
+      "frontendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "tester": {
+        "memberId": "",
+        "hours": 0
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 0
+      },
+      "subtaskRefs": {}
+    },
+    {
+      "id": "6zpd1baa",
+      "type": "normal",
+      "taskInput": "جست و جوی مناطق جغرافیایی - تدارکات | https://mars-jira.systemgroup.net/browse/PRC-5739",
+      "title": "جست و جوی مناطق جغرافیایی - تدارکات",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-5739",
+      "dod": "Implemented",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "efvtyj41",
+        "hours": 6
+      },
+      "backendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontend": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "tester": {
+        "memberId": "",
+        "hours": 0
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 0
+      },
+      "subtaskRefs": {}
+    },
+    {
+      "id": "u4a0tusy",
+      "type": "normal",
+      "taskInput": "تغییر مدل پردازش هوشمند فاکتور خرید -TabulAI |https://mars-jira.systemgroup.net/browse/PRC-5759",
+      "title": "تغییر مدل پردازش هوشمند فاکتور خرید -TabulAI",
+      "jiraUrl": "https://mars-jira.systemgroup.net/browse/PRC-5759",
+      "dod": "Implemented",
+      "generalHours": 0,
+      "backend": {
+        "memberId": "ws7v4002",
+        "hours": 16
+      },
+      "backendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontend": {
+        "memberId": "",
+        "hours": 0
+      },
+      "frontendReview": {
+        "memberId": "",
+        "hours": 0
+      },
+      "tester": {
+        "memberId": "",
+        "hours": 0
+      },
+      "analyst": {
+        "memberId": "",
+        "hours": 0
+      },
+      "subtaskRefs": {}
     }
   ],
   "panels": {
     "panel-ai": true,
     "panel-plan": false,
     "panel-team": true,
-    "panel-tasks": true,
+    "panel-tasks": false,
     "panel-summary": false,
     "panel-report": false,
     "panel-backup": true
