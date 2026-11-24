@@ -1,0 +1,137 @@
+{
+  "theme": "light",
+  "plan": {
+    "sprintName": "Sprint31312312",
+    "startDate": "",
+    "endDate": "",
+    "planDays": 0,
+    "workingDays": 0,
+    "hoursPerDay": 8
+  },
+  "jiraConfig": {
+    "baseUrl": "http://mars-jira.systemgroup.net",
+    "release": "R6"
+  },
+  "aiConfig": {
+    "baseUrl": "http://api.hooshyar.systemgroup.net/open-router-reverse/v1",
+    "model": "openai/gpt-4o-mini",
+    "releaseUrl": "",
+    "maxIssues": 60,
+    "notes": "",
+    "onlyStories": true,
+    "excludeDone": true
+  },
+  "members": [
+    {
+      "id": "axav95wf",
+      "name": "امین",
+      "username": "",
+      "roles": [
+        "backend",
+        "frontend"
+      ],
+      "leaveDays": 0,
+      "capacity": 0
+    },
+    {
+      "id": "6yi5ul4r",
+      "name": "علی",
+      "username": "",
+      "roles": [
+        "backend",
+        "frontend"
+      ],
+      "leaveDays": 0,
+      "capacity": 0
+    },
+    {
+      "id": "ly7xuvr2",
+      "name": "متین",
+      "username": "",
+      "roles": [
+        "backend",
+        "frontend"
+      ],
+      "leaveDays": 0,
+      "capacity": 0
+    },
+    {
+      "id": "02g5hwmo",
+      "name": "رضا",
+      "username": "",
+      "roles": [
+        "backend",
+        "frontend"
+      ],
+      "leaveDays": 0,
+      "capacity": 0
+    },
+    {
+      "id": "ihs0eq6j",
+      "name": "الهه",
+      "username": "",
+      "roles": [
+        "backend",
+        "frontend"
+      ],
+      "leaveDays": 0,
+      "capacity": 0
+    },
+    {
+      "id": "zb81hbk5",
+      "name": "حسین",
+      "username": "",
+      "roles": [
+        "backend"
+      ],
+      "leaveDays": 0,
+      "capacity": 0
+    },
+    {
+      "id": "jlo1utdq",
+      "name": "فهیمه",
+      "username": "",
+      "roles": [
+        "tester"
+      ],
+      "leaveDays": 0,
+      "capacity": 0
+    },
+    {
+      "id": "5esolvz4",
+      "name": "پرنیا",
+      "username": "",
+      "roles": [
+        "tester"
+      ],
+      "leaveDays": 0,
+      "capacity": 0
+    },
+    {
+      "id": "emwz67e5",
+      "name": "شیرین",
+      "username": "",
+      "roles": [
+        "analyst"
+      ],
+      "leaveDays": 0,
+      "capacity": 0
+    }
+  ],
+  "tasks": [],
+  "panels": {
+    "panel-ai": false,
+    "panel-plan": false,
+    "panel-team": false,
+    "panel-tasks": false,
+    "panel-summary": true,
+    "panel-report": false,
+    "panel-backup": true
+  },
+  "_meta": {
+    "title": "آذر",
+    "slug": "آذر",
+    "createdAt": "2026-11-24T05:24:56+00:00",
+    "updatedAt": "2026-11-24T05:26:47+00:00"
+  }
+}

@@ -1,18 +1,26 @@
 #!/usr/bin/env python3
-"""Local static server + Jira/OpenRouter CORS proxy for index.html."""
+"""Local Sprint Room static server, sprint-file API, and Jira/OpenRouter proxy."""
 
 from __future__ import annotations
 
 import argparse
 import http.client
+import json
+import re
 import ssl
+import threading
 import urllib.error
 import urllib.request
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
-from urllib.parse import urlparse
+from datetime import datetime, timezone
+from urllib.parse import unquote, urlparse
 
 ROOT = Path(__file__).resolve().parent
+WEB_ROOT = ROOT / "dist" / "browser" if (ROOT / "dist" / "browser").exists() else ROOT
+DATA_DIR = ROOT / "data"
+DATA_DIR.mkdir(exist_ok=True)
+DATA_LOCK = threading.Lock()
 DEFAULT_JIRA = "https://mars-jira.systemgroup.net"
 PROXY_PREFIX = "/jira-proxy"
 OPENROUTER_PREFIX = "/openrouter-proxy"
@@ -20,14 +28,46 @@ OPENROUTER_BASE = "https://openrouter.ai"
 FORWARD_HEADERS = ("Authorization", "Accept", "Content-Type", "X-Title", "HTTP-Referer")
 
 
+def _legacy_slugify(title):
+    title = re.sub(r"[\\/]+", " ", str(title or "").strip())
+    title = re.sub(r"\s+", "-", title)
+    title = re.sub(r"[^\w\-\.\u0600-\u06ff]", "", title, flags=re.UNICODE)
+    return title.strip("-_.")[:100]
+
+
+def migrate_legacy_sprints():
+    """Bring older folder-based planner exports into the new data library once."""
+    for source in ROOT.glob("*/*.json"):
+        if source.parent == DATA_DIR or source.parent == ROOT:
+            continue
+        try:
+            record = json.loads(source.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            continue
+        title = str((record.get("plan") or {}).get("sprintName") or "").strip()
+        slug = _legacy_slugify(title)
+        if not slug:
+            continue
+        target = DATA_DIR / f"{slug}.json"
+        if target.exists():
+            continue
+        try:
+            stamp = datetime.fromtimestamp(source.stat().st_mtime, timezone.utc).isoformat(timespec="seconds")
+            record["_meta"] = {"title": title, "slug": slug, "createdAt": stamp, "updatedAt": stamp}
+            target.write_text(json.dumps(record, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        except OSError:
+            continue
+
+
 class Handler(SimpleHTTPRequestHandler):
     def __init__(self, *args, jira_base: str, **kwargs):
         self.jira_base = jira_base.rstrip("/")
-        super().__init__(*args, directory=str(ROOT), **kwargs)
+        super().__init__(*args, directory=str(WEB_ROOT), **kwargs)
 
     def end_headers(self):
         self.send_header("Access-Control-Allow-Origin", "*")
         self.send_header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
+        self.send_header("Cache-Control", "no-store")
         self.send_header(
             "Access-Control-Allow-Headers",
             "Authorization, Content-Type, Accept, X-Requested-With, X-Title, X-Upstream-Base",
@@ -52,19 +92,25 @@ class Handler(SimpleHTTPRequestHandler):
         return None
 
     def do_GET(self):
-        if self._route():
+        if self.path == "/api/sprints" or self.path.startswith("/api/sprints/"):
+            self._handle_sprint_api()
+        elif self._route():
             self._proxy()
         else:
             super().do_GET()
 
     def do_POST(self):
-        if self._route():
+        if self.path == "/api/sprints":
+            self._handle_sprint_api()
+        elif self._route():
             self._proxy()
         else:
             self.send_error(405)
 
     def do_PUT(self):
-        if self._route():
+        if self.path.startswith("/api/sprints/"):
+            self._handle_sprint_api()
+        elif self._route():
             self._proxy()
         else:
             self.send_error(405)
@@ -74,6 +120,138 @@ class Handler(SimpleHTTPRequestHandler):
             self._proxy()
         else:
             self.send_error(405)
+
+    def _json_response(self, payload, status=200):
+        data = json.dumps(payload, ensure_ascii=False, indent=2).encode("utf-8")
+        self.send_response(status)
+        self.send_header("Content-Type", "application/json; charset=utf-8")
+        self.send_header("Content-Length", str(len(data)))
+        self.end_headers()
+        self.wfile.write(data)
+
+    def _request_json(self):
+        length = int(self.headers.get("Content-Length", 0) or 0)
+        if length > 12 * 1024 * 1024:
+            raise ValueError("payload is too large")
+        raw = self.rfile.read(length) if length else b"{}"
+        return json.loads(raw.decode("utf-8"))
+
+    @staticmethod
+    def _slugify(title):
+        title = re.sub(r"[\\/]+", " ", str(title or "").strip())
+        title = re.sub(r"\s+", "-", title)
+        title = re.sub(r"[^\w\-\.\u0600-\u06ff]", "", title, flags=re.UNICODE)
+        return title.strip("-_.")[:100]
+
+    @staticmethod
+    def _now():
+        return datetime.now(timezone.utc).isoformat(timespec="seconds")
+
+    def _sprint_path(self, slug):
+        clean = self._slugify(unquote(slug).removesuffix(".json"))
+        if not clean or ".." in clean or clean != unquote(slug).removesuffix(".json"):
+            return None
+        return DATA_DIR / f"{clean}.json"
+
+    @staticmethod
+    def _summary(path, data):
+        plan = data.get("plan") or {}
+        members = data.get("members") or []
+        tasks = data.get("tasks") or []
+        completed = sum(1 for task in tasks if task.get("dod") in {"Analyzed", "Implemented", "Merged"})
+        allocated = 0.0
+        for task in tasks:
+            for role in ("backend", "backendReview", "frontend", "frontendReview", "tester", "analyst"):
+                allocated += float((task.get(role) or {}).get("hours") or 0)
+            allocated += float(task.get("generalHours") or 0)
+        capacity = sum(float(member.get("capacity") or 0) for member in members)
+        meta = data.get("_meta") or {}
+        title = str(meta.get("title") or plan.get("sprintName") or path.stem)
+        return {
+            "slug": path.stem,
+            "title": title,
+            "fileName": path.name,
+            "createdAt": meta.get("createdAt") or "",
+            "updatedAt": meta.get("updatedAt") or "",
+            "startDate": str(plan.get("startDate") or ""),
+            "endDate": str(plan.get("endDate") or ""),
+            "members": len(members),
+            "tasks": len(tasks),
+            "completedTasks": completed,
+            "allocatedHours": round(allocated, 1),
+            "capacityHours": round(capacity, 1),
+        }
+
+    def _handle_sprint_api(self):
+        try:
+            if self.command == "GET" and self.path == "/api/sprints":
+                rows = []
+                with DATA_LOCK:
+                    for path in sorted(DATA_DIR.glob("*.json"), key=lambda item: item.stat().st_mtime, reverse=True):
+                        try:
+                            rows.append(self._summary(path, json.loads(path.read_text(encoding="utf-8"))))
+                        except (OSError, ValueError, TypeError):
+                            continue
+                return self._json_response({"sprints": rows})
+
+            if self.command == "POST" and self.path == "/api/sprints":
+                payload = self._request_json()
+                title = str(payload.get("title") or "").strip() if isinstance(payload, dict) else ""
+                slug = self._slugify(title)
+                if not title or not slug:
+                    return self._json_response({"error": "عنوان اسپرینت الزامی است"}, 400)
+                path = DATA_DIR / f"{slug}.json"
+                if path.exists():
+                    return self._json_response({"error": "اسپرینتی با این نام وجود دارد"}, 409)
+                template = {}
+                template_path = ROOT / "general_data.json"
+                if template_path.exists():
+                    template = json.loads(template_path.read_text(encoding="utf-8"))
+                template.setdefault("plan", {})["sprintName"] = title
+                template.setdefault("jiraConfig", {})
+                template.setdefault("aiConfig", {})
+                template.setdefault("members", [])
+                template.setdefault("tasks", [])
+                now = self._now()
+                template["_meta"] = {"title": title, "slug": slug, "createdAt": now, "updatedAt": now}
+                path.write_text(json.dumps(template, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+                return self._json_response(self._summary(path, template), 201)
+
+            prefix = "/api/sprints/"
+            raw_slug = self.path[len(prefix):].split("?", 1)[0] if self.path.startswith(prefix) else ""
+            path = self._sprint_path(raw_slug)
+            if path is None:
+                return self._json_response({"error": "invalid sprint name"}, 400)
+            if self.command == "GET":
+                if not path.exists():
+                    return self._json_response({"error": "sprint not found"}, 404)
+                return self._json_response(json.loads(path.read_text(encoding="utf-8")))
+            if self.command == "PUT":
+                if not path.exists():
+                    return self._json_response({"error": "sprint not found"}, 404)
+                payload = self._request_json()
+                if not isinstance(payload, dict):
+                    return self._json_response({"error": "invalid JSON object"}, 400)
+                existing = json.loads(path.read_text(encoding="utf-8"))
+                meta = existing.get("_meta") or {}
+                payload["_meta"] = {
+                    "title": meta.get("title") or (payload.get("plan") or {}).get("sprintName") or path.stem,
+                    "slug": path.stem,
+                    "createdAt": meta.get("createdAt") or self._now(),
+                    "updatedAt": self._now(),
+                }
+                with DATA_LOCK:
+                    path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+                return self._json_response(self._summary(path, payload))
+            if self.command == "POST":
+                return self._json_response({"error": "invalid route"}, 400)
+            return self._json_response({"error": "method not allowed"}, 405)
+        except json.JSONDecodeError:
+            return self._json_response({"error": "invalid JSON"}, 400)
+        except ValueError as error:
+            return self._json_response({"error": str(error)}, 400)
+        except OSError as error:
+            return self._json_response({"error": f"storage error: {error}"}, 500)
 
     def _proxy(self):
         base, suffix, timeout = self._route()
@@ -126,6 +304,8 @@ def main():
     parser.add_argument("--port", type=int, default=8765)
     parser.add_argument("--jira", default=DEFAULT_JIRA, help="Jira base URL")
     args = parser.parse_args()
+
+    migrate_legacy_sprints()
 
     jira = args.jira.rstrip("/")
     parsed = urlparse(jira)

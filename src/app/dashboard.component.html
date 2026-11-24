@@ -1,0 +1,109 @@
+<main class="page-shell">
+  <header class="topbar">
+    <a class="brand" href="#/" aria-label="صفحه اصلی">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 32 32"><path d="M7 8.5h18M7 16h11M7 23.5h15"/><circle cx="24" cy="16" r="3"/></svg>
+      </span>
+      <span><strong>SPRINT ROOM</strong><small>مرکز برنامه‌ریزی چابک</small></span>
+    </a>
+    <div class="top-actions">
+      <span class="offline-badge"><i></i> آماده به‌کار آفلاین</span>
+      <button class="primary small" type="button" (click)="openCreate()">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+        اسپرینت جدید
+      </button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-copy">
+      <span class="eyebrow">PLANNING WORKSPACE</span>
+      <h1>همه اسپرینت‌ها،<br /><em>یک نمای روشن.</em></h1>
+      <p>ظرفیت تیم، تسک‌ها و تصمیم‌های پلنینگ را در یک فضای متمرکز مدیریت کنید.</p>
+      <button class="primary hero-button" type="button" (click)="openCreate()">
+        شروع یک اسپرینت تازه
+      </button>
+    </div>
+    <div class="hero-visual" aria-hidden="true">
+      <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
+      <div class="visual-card card-main">
+        <span>ظرفیت این دوره</span><strong>۸۴٪</strong>
+        <div class="mini-bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      </div>
+      <div class="visual-card card-float"><span>همگام با تیم</span><b>+۱۲ تسک</b></div>
+      <div class="visual-dot dot-one"></div><div class="visual-dot dot-two"></div>
+    </div>
+  </section>
+
+  @if (sprints$ | async; as sprints) {
+    <section class="metrics" aria-label="خلاصه همه اسپرینت‌ها">
+      <article><span class="metric-icon cyan"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="3"/><path d="M8 3v4M16 3v4M4 10h16"/></svg></span><div><strong>{{ sprints.length | number }}</strong><span>اسپرینت ذخیره‌شده</span></div></article>
+      <article><span class="metric-icon violet"><svg viewBox="0 0 24 24"><path d="M8 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM16.5 12a3 3 0 1 0 0-6M2 21v-2a6 6 0 0 1 12 0v2M14 15a5 5 0 0 1 8 4v2"/></svg></span><div><strong>{{ total(sprints, 'members') | number }}</strong><span>عضو در برنامه‌ها</span></div></article>
+      <article><span class="metric-icon green"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4zM8 9l2 2 5-5M8 16h8"/></svg></span><div><strong>{{ total(sprints, 'tasks') | number }}</strong><span>تسک برنامه‌ریزی‌شده</span></div></article>
+      <article><span class="metric-icon amber"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><div><strong>{{ total(sprints, 'allocatedHours') | number:'1.0-1' }}</strong><span>ساعت تخصیص‌یافته</span></div></article>
+    </section>
+
+    <section class="library">
+      <div class="section-heading">
+        <div><span class="eyebrow">SPRINT LIBRARY</span><h2>اسپرینت‌های شما</h2></div>
+        <span class="count">{{ sprints.length }} مورد</span>
+      </div>
+
+      @if (loadError) { <div class="message error">{{ loadError }}</div> }
+
+      @if (sprints.length) {
+        <div class="sprint-grid">
+          @for (sprint of sprints; track trackSprint($index, sprint)) {
+            <article class="sprint-card" tabindex="0" (click)="openSprint(sprint)" (keydown.enter)="openSprint(sprint)">
+              <div class="card-top">
+                <span class="sprint-symbol"><svg viewBox="0 0 24 24"><path d="M5 4h14v16H5zM9 8h6M9 12h6M9 16h4"/></svg></span>
+                <span class="live"><i></i> ذخیره‌شده</span>
+              </div>
+              <h3>{{ sprint.title }}</h3>
+              <p class="date-range">
+                @if (sprint.startDate || sprint.endDate) { {{ sprint.startDate || '—' }} تا {{ sprint.endDate || '—' }} }
+                @else { تاریخ اسپرینت هنوز تنظیم نشده }
+              </p>
+              <div class="card-stats"><span><b>{{ sprint.tasks }}</b> تسک</span><span><b>{{ sprint.members }}</b> نفر</span><span><b>{{ sprint.allocatedHours | number:'1.0-1' }}</b> ساعت</span></div>
+              <div class="progress-row"><span>پیشرفت DOD</span><b>{{ progress(sprint) }}٪</b></div>
+              <div class="progress"><i [style.width.%]="progress(sprint)"></i></div>
+              <div class="capacity-row"><span>مصرف ظرفیت</span><span>{{ sprint.allocatedHours | number:'1.0-1' }} / {{ sprint.capacityHours | number:'1.0-1' }} h</span></div>
+              <div class="progress subtle"><i [style.width.%]="capacityProgress(sprint)"></i></div>
+              <footer><span>آخرین تغییر: {{ sprint.updatedAt | date:'yyyy/MM/dd، HH:mm' }}</span><button type="button" aria-label="باز کردن اسپرینت">باز کردن</button></footer>
+            </article>
+          }
+          <button class="new-card" type="button" (click)="openCreate()">
+            <span><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span>
+            <strong>اسپرینت جدید</strong><small>یک فضای برنامه‌ریزی تازه بسازید</small>
+          </button>
+        </div>
+      } @else if (!loadError) {
+        <div class="empty-state">
+          <span><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4zM8 9h8M8 13h5"/></svg></span>
+          <h3>اولین اسپرینت را بسازید</h3><p>عنوان دوره را وارد کنید؛ فایل JSON آن به‌صورت خودکار ایجاد می‌شود.</p>
+          <button class="primary" type="button" (click)="openCreate()">ساخت اسپرینت</button>
+        </div>
+      }
+    </section>
+  }
+
+  <footer class="page-footer"><span>Sprint Room · ذخیره محلی و امن</span><span>بدون وابستگی به اینترنت</span></footer>
+</main>
+
+@if (dialogOpen) {
+  <div class="dialog-backdrop" (click)="closeCreate()">
+    <section class="dialog" role="dialog" aria-modal="true" aria-labelledby="dialog-title" (click)="$event.stopPropagation()">
+      <button class="dialog-close" type="button" aria-label="بستن" (click)="closeCreate()">×</button>
+      <span class="dialog-icon"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span>
+      <span class="eyebrow">NEW SPRINT</span><h2 id="dialog-title">ساخت اسپرینت تازه</h2>
+      <p>یک عنوان کوتاه و مشخص انتخاب کنید. همین عنوان برای نام فایل داده نیز استفاده می‌شود.</p>
+      <form (ngSubmit)="createSprint()">
+        <label for="sprint-title">عنوان اسپرینت</label>
+        <input id="sprint-title" type="text" [formControl]="title" maxlength="80" placeholder="مثلاً آذر — دوره اول" autocomplete="off" />
+        @if (title.touched && title.invalid) { <small class="field-error">عنوان اسپرینت الزامی است.</small> }
+        @if (createError) { <div class="message error">{{ createError }}</div> }
+        <div class="dialog-actions"><button class="ghost" type="button" (click)="closeCreate()">انصراف</button><button class="primary" type="submit" [disabled]="creating">{{ creating ? 'در حال ساخت…' : 'ساخت و ورود به پلنینگ' }}</button></div>
+      </form>
+    </section>
+  </div>
+}

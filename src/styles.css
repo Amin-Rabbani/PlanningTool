@@ -1,0 +1,5 @@
+:root { --ink:#e5f2f1; --muted:#76919b; --line:#1d3945; --display:'Trebuchet MS','Segoe UI',Tahoma,sans-serif; --body:'Segoe UI',Tahoma,Arial,sans-serif; }
+* { box-sizing:border-box; }
+html,body { min-height:100%; margin:0; background:#07131f; }
+body { color:var(--ink); font-family:var(--body); direction:rtl; background:radial-gradient(circle at 86% -8%,#1a3d4a99 0,transparent 30%),radial-gradient(circle at 3% 35%,#19305166 0,transparent 32%),#07131f; }
+button,input { font:inherit; }
