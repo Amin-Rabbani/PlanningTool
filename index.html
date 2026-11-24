@@ -957,8 +957,10 @@
                   id="jiraRelease"
                   onchange="updateJiraConfig('release', this.value)"
                 >
-                  <option value="R6">R6</option>
+                  <option value="R9">R9</option>
+                  <option value="R8">R8</option>
                   <option value="R7">R7</option>
+                  <option value="R6">R6</option>
                   <option value="R5">R5</option>
                   <option value="R4">R4</option>
                 </select>
@@ -2128,10 +2130,44 @@
           el.innerHTML = `<span style="color:var(--danger)">❌ خطای شبکه: ${e.message}<br/>اگر CORS است، اپ را با <code>python3 jira_proxy.py</code> اجرا کنید.</span>`;
         }
       }
+      // Releases without a hardcoded entry in JIRA_FIELDS (e.g. R8, R9) are
+      // resolved from Jira's field list: take the field names of a known
+      // release (R7, else R6), swap the release name, and look up the IDs.
+      const _resolvedJiraFields = {};
+      async function resolveJiraFields(release) {
+        if (JIRA_FIELDS[release]) return JIRA_FIELDS[release];
+        if (_resolvedJiraFields[release]) return _resolvedJiraFields[release];
+        const all = await jiraJson("/rest/api/2/field");
+        const byId = new Map(all.map((f) => [f.id, f.name]));
+        const norm = (s) => String(s).toLowerCase().replace(/\s+/g, " ").trim();
+        const byName = new Map();
+        for (const f of all) {
+          if (!f.custom) continue;
+          const k = norm(f.name);
+          if (!byName.has(k)) byName.set(k, f.id);
+        }
+        for (const ref of ["R7", "R6"]) {
+          const refFields = JIRA_FIELDS[ref];
+          const resolved = {};
+          for (const [role, refId] of Object.entries(refFields)) {
+            const refName = byId.get(refId);
+            if (!refName) continue;
+            const target = refName.replace(new RegExp(ref, "gi"), release);
+            const id = byName.get(norm(target));
+            if (id) resolved[role] = id;
+          }
+          if (Object.keys(resolved).length === Object.keys(refFields).length) {
+            _resolvedJiraFields[release] = resolved;
+            return resolved;
+          }
+        }
+        throw new Error(
+          `فیلدهای جیرا برای ریلیز ${release} پیدا نشد؛ آن‌ها را به JIRA_FIELDS اضافه کنید`,
+        );
+      }
       async function fetchEstimatesForIssue(issueKey) {
         const release = state.jiraConfig?.release || "R6";
-        const fields = JIRA_FIELDS[release];
-        if (!fields) throw new Error("ریلیز نامعتبر");
+        const fields = await resolveJiraFields(release);
         const base = getJiraApiBase();
         const url = `${base}/rest/api/2/issue/${issueKey}?fields=summary,${Object.values(fields).join(",")}`;
         const resp = await fetch(url, { headers: getJiraHeaders() });
@@ -2665,15 +2701,15 @@
           return;
         }
         const release = state.jiraConfig?.release || "R6";
-        const roleFields = JIRA_FIELDS[release] || {};
-        const fields = [...AI_BASE_FIELDS, ...Object.values(roleFields)].join(
-          ",",
-        );
         const max = Number(state.aiConfig?.maxIssues || 60);
         setAiStatus(
           `<span style="color:var(--warning)">⏳ دریافت استوری‌ها از جیرا (${escapeHtml(q.source)})...</span>`,
         );
         try {
+          const roleFields = await resolveJiraFields(release);
+          const fields = [...AI_BASE_FIELDS, ...Object.values(roleFields)].join(
+            ",",
+          );
           const issues = [];
           let startAt = 0,
             total = null;
